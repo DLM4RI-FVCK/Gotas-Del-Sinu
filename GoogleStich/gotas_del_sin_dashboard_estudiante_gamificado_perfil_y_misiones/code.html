@@ -1,0 +1,309 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dashboard del Estudiante - Gotas del Sinú</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#004b72",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "inverse-primary": "#91cdff",
+            "surface-container-low": "#ecf4ff",
+            "secondary-container": "#aff763",
+            "surface-container-highest": "#cce5ff",
+            "on-background": "#001e31",
+            "on-secondary-container": "#417000",
+            "on-error-container": "#93000a",
+            "tertiary": "#795900",
+            "tertiary-fixed-dim": "#f9bd14",
+            "on-surface": "#001e31",
+            "tertiary-fixed": "#ffdf9e",
+            "surface-container": "#e2efff",
+            "primary": "#006496",
+            "secondary-fixed-dim": "#95d949",
+            "on-tertiary-container": "#3e2c00",
+            "primary-fixed": "#cce5ff",
+            "surface-variant": "#cce5ff",
+            "background": "#f7f9ff",
+            "outline": "#6f7882",
+            "surface-dim": "#bbdeff",
+            "surface-container-high": "#d7eaff",
+            "tertiary-container": "#bf8f00",
+            "on-secondary-fixed": "#0f2000",
+            "on-secondary-fixed-variant": "#2c5000",
+            "surface-bright": "#f7f9ff",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#3f4851",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#261a00",
+            "on-primary": "#ffffff",
+            "secondary": "#3d6a00",
+            "surface-tint": "#006496",
+            "inverse-on-surface": "#e7f2ff",
+            "outline-variant": "#bec7d2",
+            "on-primary-container": "#00324f",
+            "inverse-surface": "#003351",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#91cdff",
+            "secondary-fixed": "#aff763",
+            "surface": "#f7f9ff",
+            "on-primary-fixed": "#001e31",
+            "surface-container-lowest": "#ffffff",
+            "primary-container": "#129fea"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "margin": "2rem",
+            "gutter-sm": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin-sm": "1rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Space Grotesk"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "800" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-xl": ["44px", { "lineHeight": "52px", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* 3D Gamified button press styles */
+    .btn-3d-blue {
+      box-shadow: 0 4px 0 #004b72;
+      transition: all 0.1s ease-in-out;
+    }
+    .btn-3d-blue:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #004b72;
+    }
+    .btn-3d-green {
+      box-shadow: 0 4px 0 #2c5000;
+      transition: all 0.1s ease-in-out;
+    }
+    .btn-3d-green:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #2c5000;
+    }
+    .btn-3d-gold {
+      box-shadow: 0 4px 0 #5b4300;
+      transition: all 0.1s ease-in-out;
+    }
+    .btn-3d-gold:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #5b4300;
+    }
+    /* Ambient aquatic shadows */
+    .shadow-aquatic {
+      box-shadow: 0 8px 24px -4px rgba(0, 100, 150, 0.08), 0 2px 6px -1px rgba(0, 100, 150, 0.04);
+    }
+    .shadow-aquatic-hover:hover {
+      box-shadow: 0 14px 30px -4px rgba(18, 159, 234, 0.18), 0 4px 10px -2px rgba(0, 100, 150, 0.08);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased selection:bg-surface-variant min-h-screen flex flex-col">
+<!-- ================= TOP APP BAR ================= -->
+<header class="bg-surface-container-lowest sticky top-0 z-40 shadow-sm border-b border-outline-variant"><div class="flex justify-between items-center w-full px-space-lg max-w-7xl mx-auto h-20"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" href="#dashboard"><img alt="Gotas del Sinú Logomarca" class="w-12 h-12 object-contain group-hover:scale-105 transition-transform duration-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEl5YYPHcJSb-efzJqyPIIatF34QpvNNaCxW2YJP8e0fPCKwN7FFgHQJPOLAG5BGtuo9DFmPOWWyyAq70M91fRjdbFSe-WjeGkgrfSHhTzeh74dheIxATfRQ8TB29YEIeY1QyCDuB6iyItQpF48wIhLPUvwVSBAwcKvkUBG4IHVEg7SBGSyATQEdX0-4ocriEtwJSzFVAFRKu7G1B_P_n9aqD3hvq5MQdyaOoX3MkUR_Xohj6nu4VxmOe3Z_TWR0SsRxw"><div><span class="font-headline-md text-headline-md font-extrabold text-primary tracking-tight block leading-none">Gotas del Sinú</span></div></a></div><div class="flex items-center gap-space-sm sm:gap-space-md"><div class="hidden sm:flex items-center gap-1.5 px-space-sm py-1 bg-surface-container-high text-primary border border-surface-variant rounded-full font-label-md text-label-md"><span class="material-symbols-outlined text-base">science</span><span class="">Estudiante</span><span class="text-outline-variant font-normal">|</span><span class="text-on-primary-fixed-variant font-bold">Scientist Trainer</span></div><div class="flex items-center gap-1.5 px-3 py-1.5 bg-tertiary-fixed text-on-tertiary-container rounded-full border border-tertiary-fixed-dim/50 shadow-sm"><span class="text-base leading-none">🪙</span><span class="font-label-lg text-label-lg tracking-tight font-bold" id="student-pts">200 PTS</span></div></div></div></header>
+<!-- ================= MAIN CONTENT WRAPPER ================= -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-space-lg space-y-space-xl"><section class="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary via-primary-container to-surface-container-highest p-space-lg md:p-space-xl text-on-primary shadow-aquatic"><div class="relative z-10 flex flex-col md:flex-row items-center gap-space-lg"><div class="relative shrink-0 flex flex-col items-center group"><div class="w-32 h-32 md:w-36 md:h-36 rounded-2xl bg-surface-container-lowest/90 border-4 border-surface-container-lowest shadow-2xl overflow-hidden flex items-center justify-center relative"><img alt="Avatar del Estudiante" class="w-28 h-28 object-contain transition-transform group-hover:scale-105 duration-300" id="hero-avatar-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEl5YYPHcJSb-efzJqyPIIatF34QpvNNaCxW2YJP8e0fPCKwN7FFgHQJPOLAG5BGtuo9DFmPOWWyyAq70M91fRjdbFSe-WjeGkgrfSHhTzeh74dheIxATfRQ8TB29YEIeY1QyCDuB6iyItQpF48wIhLPUvwVSBAwcKvkUBG4IHVEg7SBGSyATQEdX0-4ocriEtwJSzFVAFRKu7G1B_P_n9aqD3hvq5MQdyaOoX3MkUR_Xohj6nu4VxmOe3Z_TWR0SsRxw"><div class="absolute -top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none"><span class="material-symbols-outlined text-3xl text-tertiary-fixed-dim drop-shadow">school</span></div></div><a class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest text-primary rounded-full font-label-sm text-xs font-bold shadow-md hover:bg-surface-container-high transition-colors" href="#customizer-section"><span class="material-symbols-outlined text-sm">edit</span><span class="">Editar Avatar</span></a></div><div class="flex-1 space-y-space-sm text-center md:text-left"><div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-lowest/20 backdrop-blur-md rounded-full text-surface-bright font-label-md text-label-md"><span class="material-symbols-outlined text-sm">waving_hand</span><span class="">Bienvenido de nuevo,</span></div><h1 class="font-headline-xl text-headline-xl font-extrabold tracking-tight text-surface-bright leading-tight" id="hero-student-name">Carlos</h1><div class="inline-flex items-center gap-2 px-3 py-1.5 bg-tertiary-fixed text-on-tertiary-container rounded-lg font-label-md text-sm font-bold shadow-sm"><span class="material-symbols-outlined text-base">verified</span><span class="">Nivel Científico: Scientist Trainer (Rango I)</span></div><p class="font-body-md text-body-md text-primary-fixed max-w-2xl">Tu expedición en la cuenca del Río Sinú continúa activa. Desarrolla tus modelos informáticos y pedagógicos para ascender en la jerarquía científica.</p><div class="pt-2 flex flex-wrap gap-space-sm items-center justify-center md:justify-start"><div class="flex items-center gap-2 bg-inverse-surface/40 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-surface-variant/30 text-surface-bright font-label-md text-label-md"><span class="material-symbols-outlined text-tertiary-fixed text-base">monetization_on</span><span class="">Puntos Disponibles: <strong>350 Gotas de Oro</strong></span></div><div class="flex items-center gap-2 bg-inverse-surface/40 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-surface-variant/30 text-surface-bright font-label-md text-label-md"><span class="material-symbols-outlined text-secondary-container text-base">task_alt</span><span class="">Misiones completadas: <strong>1/3 del rango</strong></span></div></div></div></div></section><div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg items-start"><section class="bg-surface-container-lowest rounded-xl p-space-lg border border-outline-variant shadow-aquatic shadow-aquatic-hover transition-all flex flex-col h-full"><div class="flex items-center justify-between pb-space-md border-b border-surface-container"><div class="flex items-center gap-space-sm"><span class="text-2xl">🗺️</span><div><h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Misiones de la Cuenca</h2><p class="font-body-sm text-body-sm text-on-surface-variant">Ruta ecológica pedagógica</p></div></div><span class="px-2.5 py-1 bg-surface-container-high text-primary rounded-full font-label-sm text-label-sm font-bold">Rango I</span></div><div class="mt-space-md space-y-space-md flex-1"><div class="p-space-md rounded-xl bg-surface-container-low border border-secondary-fixed/50 flex items-start gap-space-md relative overflow-hidden"><div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-xl">check</span></div><div class="flex-1"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Completada (+100 PTS)</span><span class="text-xs text-on-surface-variant">Nodo 1</span></div><h3 class="font-headline-sm text-sm font-bold text-on-surface">Misión 01: La Primera Pregunta de Nuestro Árbol</h3><p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Topologías de red fluvial y sensores hídricos básicos implementados con éxito.</p></div></div><div class="p-space-md rounded-xl bg-surface-container border-2 border-primary flex flex-col gap-space-sm relative"><div class="flex items-start gap-space-md"><div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 animate-bounce"><span class="material-symbols-outlined text-xl">play_arrow</span></div><div class="flex-1"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">En Curso (+150 PTS)</span><span class="font-label-sm text-label-sm text-tertiary font-bold">Activa</span></div><h3 class="font-headline-sm text-sm font-bold text-on-surface">Misión 02: Cálculo de Entropía y Reducción del Caos</h3><p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Calcula la incertidumbre informacional en la cuenca baja con modelos del API.</p></div></div><button class="w-full mt-2 py-2 px-4 bg-primary text-on-primary font-label-lg text-label-lg rounded-xl btn-3d-blue flex items-center justify-center gap-2"><span class="material-symbols-outlined text-base">play_circle</span><span class="">Iniciar Misión / Continuar</span></button></div><div class="p-space-md rounded-xl bg-surface-container-low/50 border border-outline-variant/60 flex items-start gap-space-md opacity-75"><div class="w-10 h-10 rounded-full bg-outline-variant text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-xl">lock</span></div><div class="flex-1"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-outline font-bold uppercase tracking-wider">Bloqueada</span><span class="text-xs text-outline">Requiere Misión 02</span></div><h3 class="font-headline-sm text-sm font-bold text-on-surface-variant">Misión 03: Desafío Territorial en Lorica</h3><p class="font-body-sm text-body-sm text-outline mt-0.5">Modelado estocástico del embalse y preservación de especies nativas de peces.</p></div></div></div></section><section class="bg-surface-container-lowest rounded-xl p-space-lg border border-outline-variant shadow-aquatic shadow-aquatic-hover transition-all flex flex-col h-full"><div class="flex items-center justify-between pb-space-md border-b border-surface-container"><div class="flex items-center gap-space-sm"><span class="text-2xl">🏪</span><div><h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Gotas Store</h2><p class="font-body-sm text-body-sm text-on-surface-variant">Tienda de Canje</p></div></div><div class="px-2.5 py-1 bg-tertiary-fixed text-on-tertiary-container rounded-full font-label-sm text-label-sm font-bold flex items-center gap-1"><span class="">Saldo: 350 Gotas</span></div></div><div class="p-2.5 rounded-lg bg-surface-container-low border border-tertiary-fixed-dim/50 mt-space-md flex items-center gap-2 text-on-surface font-label-sm text-xs font-bold"><span class="text-base">🪙</span><span class="">Saldo Disponible: 350 Gotas de Oro</span></div><div class="mt-space-sm grid grid-cols-1 gap-space-sm flex-1"><div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between gap-2 hover:border-primary transition-colors"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0"><span class="material-symbols-outlined text-xl">psychology</span></div><div><h4 class="font-label-md text-label-md text-on-surface font-bold leading-tight">Micro-pista del API Pedagógico</h4><p class="font-body-sm text-xs text-on-surface-variant">Guía dialéctica para un reto</p></div></div><button class="px-3 py-1.5 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md btn-3d-green shrink-0" onclick="redeemItem(50, 'Micro-pista del API Pedagógico')">50 PTS</button></div><div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between gap-2 hover:border-primary transition-colors"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-tertiary shrink-0"><span class="material-symbols-outlined text-xl">bolt</span></div><div><h4 class="font-label-md text-label-md text-on-surface font-bold leading-tight">Multiplicador de Gotas de Oro</h4><p class="font-body-sm text-xs text-on-surface-variant">Doble ganancia por 24 horas</p></div></div><button class="px-3 py-1.5 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md btn-3d-green shrink-0" onclick="redeemItem(100, 'Multiplicador de Gotas de Oro')">100 PTS</button></div><div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between gap-2 hover:border-primary transition-colors"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0"><span class="material-symbols-outlined text-xl">kayaking</span></div><div><h4 class="font-label-md text-label-md text-on-surface font-bold leading-tight">Pase a Simulación Avanzada Urrá</h4><p class="font-body-sm text-xs text-on-surface-variant">Pase anticipado a simulación</p></div></div><button class="px-3 py-1.5 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md btn-3d-green shrink-0" onclick="redeemItem(250, 'Pase a Simulación Avanzada Urrá')">250 PTS</button></div></div></section><section class="bg-surface-container-lowest rounded-xl p-space-lg border border-outline-variant shadow-aquatic shadow-aquatic-hover transition-all flex flex-col h-full"><div class="flex items-center justify-between pb-space-md border-b border-surface-container"><div class="flex items-center gap-space-sm"><span class="text-2xl">📝</span><div><h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Examen de Ascenso Científico</h2><p class="font-body-sm text-body-sm text-on-surface-variant">Evaluación Bloom</p></div></div><span class="px-2.5 py-1 bg-surface-container text-primary rounded-full font-label-sm text-label-sm font-bold">Trainer → Junior</span></div><div class="mt-space-md space-y-space-md flex-1 flex flex-col justify-between"><div class="p-space-md rounded-xl bg-gradient-to-br from-surface-container-low to-surface-container border border-surface-variant text-center space-y-space-sm"><div class="w-16 h-16 mx-auto rounded-full bg-surface-container-lowest border-2 border-primary flex items-center justify-center text-primary shadow-sm"><span class="material-symbols-outlined text-3xl">military_tech</span></div><h3 class="font-headline-md text-lg font-bold text-on-surface">Ascenso a Scientist Junior</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Al completar las 3 misiones de la cuenca (3/3), presentarás la evaluación socrática Bloom ante el API Tutor para ascender a Científico Junior.</p><div class="text-left space-y-2 pt-2"><div class="flex items-center justify-between text-xs font-label-md"><span class="text-on-surface-variant">Requisito de misiones:</span><span class="text-primary font-bold">1 de 3 completadas</span></div><div class="w-full bg-surface-container-high rounded-full h-2"><div class="bg-primary h-2 rounded-full w-[33%]"></div></div><div class="flex items-center justify-between text-xs font-label-md pt-1"><span class="text-on-surface-variant">Puntaje mínimo IA:</span><span class="text-secondary font-bold">&gt; 75% Taxonomía Bloom</span></div></div></div><div class="pt-2"><div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface-variant text-xs mb-3"><span class="material-symbols-outlined text-outline text-base">lock</span><span class=""><strong>Examen Bloqueado:</strong> Completa las misiones 02 y 03 para habilitar la sesión evaluativa.</span></div><button class="w-full py-2.5 px-4 bg-outline-variant text-on-surface-variant font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-2 cursor-not-allowed opacity-75" disabled=""><span class="material-symbols-outlined text-base">lock</span><span class="">Presentar Examen de Ascenso</span></button></div></div></section></div><section class="bg-surface-container-lowest rounded-xl p-space-lg md:p-space-xl border border-outline-variant shadow-aquatic" id="customizer-section"><div class="flex flex-col md:flex-row md:items-center justify-between pb-space-lg border-b border-surface-container gap-space-sm"><div><div class="flex items-center gap-space-sm"><span class="text-3xl">🎨</span><h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Personalización de Identidad &amp; Avatar</h2></div><p class="font-body-md text-body-md text-on-surface-variant mt-1">Configura tu nombre de expedición y equipa accesorios a tu Guardián del Río Sinú.</p></div><div class="flex items-center gap-2"><span class="px-3 py-1 bg-surface-container-high text-primary rounded-full font-label-md text-label-md">Equipamiento Desbloqueado: 4/8</span></div></div><div class="mt-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center"><div class="lg:col-span-5 flex flex-col items-center"><div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-2xl bg-gradient-to-b from-surface-container-low via-surface-container to-surface-container-highest border-2 border-primary-fixed-dim flex items-center justify-center p-4 shadow-inner overflow-hidden" id="avatar-canvas"><div class="relative w-48 h-48 flex items-center justify-center"><img alt="Avatar de Gota del Sinú" class="w-44 h-44 object-contain filter drop-shadow-lg transition-all duration-300" id="avatar-base-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEl5YYPHcJSb-efzJqyPIIatF34QpvNNaCxW2YJP8e0fPCKwN7FFgHQJPOLAG5BGtuo9DFmPOWWyyAq70M91fRjdbFSe-WjeGkgrfSHhTzeh74dheIxATfRQ8TB29YEIeY1QyCDuB6iyItQpF48wIhLPUvwVSBAwcKvkUBG4IHVEg7SBGSyATQEdX0-4ocriEtwJSzFVAFRKu7G1B_P_n9aqD3hvq5MQdyaOoX3MkUR_Xohj6nu4VxmOe3Z_TWR0SsRxw"><div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-200" id="avatar-hat-slot"><span class="material-symbols-outlined text-5xl text-tertiary-fixed-dim drop-shadow-md">school</span></div><div class="absolute top-16 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-200" id="avatar-glasses-slot"><span class="material-symbols-outlined text-4xl text-on-surface drop-shadow-md">visibility</span></div></div><div class="absolute bottom-3 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1 rounded-full border border-primary text-primary font-label-md text-label-md flex items-center gap-1.5 shadow-sm"><span class="material-symbols-outlined text-base">verified</span><span id="current-gear-tag" class="">Gorra Explorador + Gafas Datos</span></div></div><p class="font-label-sm text-label-sm text-on-surface-variant mt-2">Previsualización en tiempo real del motor lúdico</p></div><div class="lg:col-span-7 space-y-space-md"><div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant"><label class="font-headline-sm text-sm font-bold text-on-surface flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-primary text-base">badge</span><span class="">Nombre de Expedición del Estudiante</span></label><div class="flex gap-2"><input class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-xl px-3 py-2 text-sm font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-student-name" type="text" value="Camilo Andrés Vergara"><button class="px-4 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-xl btn-3d-blue flex items-center gap-1.5 shrink-0" onclick="document.getElementById('hero-student-name').textContent = document.getElementById('input-student-name').value; alert('Nombre actualizado correctamente');"><span class="material-symbols-outlined text-base">save</span><span class="">Actualizar</span></button></div></div><div><label class="font-headline-sm text-sm font-bold text-on-surface flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-primary text-base">psychology_alt</span><span class="">1. Protección de Cabeza &amp; Sombreros</span></label><div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm"><button class="gear-btn active p-3 rounded-xl border-2 border-primary bg-surface-container-low flex flex-col items-center gap-1 text-center transition-all" onclick="setAvatarHat('school', 'Gorra explorador')"><span class="material-symbols-outlined text-2xl text-primary">school</span><span class="font-label-sm text-xs font-bold text-on-surface">Gorra explorador</span></button><button class="gear-btn p-3 rounded-xl border border-outline-variant bg-surface-container-lowest flex flex-col items-center gap-1 text-center hover:border-primary transition-all" onclick="setAvatarHat('construction', 'Casco hidro')"><span class="material-symbols-outlined text-2xl text-tertiary">construction</span><span class="font-label-sm text-xs font-bold text-on-surface">Casco hidro</span></button><button class="gear-btn p-3 rounded-xl border border-outline-variant bg-surface-container-lowest flex flex-col items-center gap-1 text-center hover:border-primary transition-all" onclick="setAvatarHat('biotech', 'Capucha Lab')"><span class="material-symbols-outlined text-2xl text-secondary">biotech</span><span class="font-label-sm text-xs font-bold text-on-surface">Capucha Lab</span></button><button class="gear-btn p-3 rounded-xl border border-outline-variant bg-surface-container-lowest flex flex-col items-center gap-1 text-center hover:border-primary transition-all" onclick="setAvatarHat('', 'Ninguno')"><span class="material-symbols-outlined text-2xl text-outline">close</span><span class="font-label-sm text-xs font-bold text-on-surface">Ninguno</span></button></div></div><div><label class="font-headline-sm text-sm font-bold text-on-surface flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-primary text-base">eyeglasses</span><span class="">2. Visores Científicos &amp; Gafas de Datos</span></label><div class="grid grid-cols-3 gap-space-sm"><button class="glasses-btn active p-3 rounded-xl border-2 border-primary bg-surface-container-low flex flex-col items-center gap-1 text-center transition-all" onclick="setAvatarGlasses('visibility', 'Gafas de datos')"><span class="material-symbols-outlined text-2xl text-primary">visibility</span><span class="font-label-sm text-xs font-bold text-on-surface">Gafas de datos</span></button><button class="glasses-btn p-3 rounded-xl border border-outline-variant bg-surface-container-lowest flex flex-col items-center gap-1 text-center hover:border-primary transition-all" onclick="setAvatarGlasses('scuba_diving', 'Visor Fluvial')"><span class="material-symbols-outlined text-2xl text-primary-container">scuba_diving</span><span class="font-label-sm text-xs font-bold text-on-surface">Visor Fluvial</span></button><button class="glasses-btn p-3 rounded-xl border border-outline-variant bg-surface-container-lowest flex flex-col items-center gap-1 text-center hover:border-primary transition-all" onclick="setAvatarGlasses('', 'Ninguno')"><span class="material-symbols-outlined text-2xl text-outline">close</span><span class="font-label-sm text-xs font-bold text-on-surface">Ninguno</span></button></div></div><div><label class="font-headline-sm text-sm font-bold text-on-surface flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-primary text-base">palette</span><span class="">3. Pureza del Río (Tonalidad Fluvial)</span></label><div class="flex items-center gap-3"><button class="w-10 h-10 rounded-full bg-primary-container border-2 border-primary shadow-sm hover:scale-110 transition-transform" onclick="setDropTone('hue-rotate-0', 'Azul Sinú Puro')" title="Azul Sinú Puro"></button><button class="w-10 h-10 rounded-full bg-secondary border-2 border-outline-variant shadow-sm hover:scale-110 transition-transform" onclick="setDropTone('hue-rotate-90', 'Verde Ciénaga Betancí')" title="Verde Ciénaga"></button><button class="w-10 h-10 rounded-full bg-tertiary-fixed-dim border-2 border-outline-variant shadow-sm hover:scale-110 transition-transform" onclick="setDropTone('hue-rotate-180', 'Aluvión Dorado')" title="Dorado Atardecer"></button></div></div><div class="pt-2 flex items-center gap-4"><button class="px-6 py-3 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-xl btn-3d-green flex items-center gap-2" onclick="saveAppearance()"><span class="material-symbols-outlined text-lg">check_circle</span><span class="">Guardar Apariencia</span></button><span class="text-xs font-bold text-secondary hidden" id="save-msg">¡Apariencia sincronizada con tu perfil!</span></div></div></div></section><section class="space-y-space-lg"><div><div class="flex items-center gap-2"><span class="text-2xl">📊</span><h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Estadísticas y Rendimiento</h2></div><p class="font-body-md text-body-md text-on-surface-variant">Métricas clave de lo que has alcanzado como Científico de la cuenca.</p></div><div class="grid grid-cols-2 md:grid-cols-4 gap-space-md"><div class="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between"><div class="flex items-center justify-between text-on-surface-variant"><span class="font-label-sm text-label-sm uppercase font-bold">Misiones Superadas</span><span class="material-symbols-outlined text-primary text-xl">flag</span></div><div class="my-2"><span class="font-headline-lg text-headline-lg font-extrabold text-on-surface leading-none">1/3</span></div><div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden"><div class="bg-primary h-1.5 rounded-full w-1/3"></div></div><span class="font-label-sm text-xs text-on-surface-variant mt-1.5 font-bold">33% del Rango Actual</span></div><div class="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between"><div class="flex items-center justify-between text-on-surface-variant"><span class="font-label-sm text-label-sm uppercase font-bold">Gotas de Oro Totales</span><span class="material-symbols-outlined text-tertiary-fixed-dim text-xl">workspace_premium</span></div><div class="my-2"><span class="font-headline-lg text-headline-lg font-extrabold text-tertiary leading-none">450</span><span class="font-label-sm text-label-sm text-on-surface-variant ml-0.5">PTS</span></div><div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden"><div class="bg-tertiary-fixed-dim h-1.5 rounded-full w-full"></div></div><span class="font-label-sm text-xs text-secondary font-bold mt-1.5">Acumuladas históricamente</span></div><div class="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between"><div class="flex items-center justify-between text-on-surface-variant"><span class="font-label-sm text-label-sm uppercase font-bold">Decisiones Acertadas</span><span class="material-symbols-outlined text-secondary text-xl">auto_graph</span></div><div class="my-2"><span class="font-headline-lg text-headline-lg font-extrabold text-secondary leading-none">92%</span></div><div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden"><div class="bg-secondary h-1.5 rounded-full w-[92%]"></div></div><span class="font-label-sm text-xs text-secondary font-bold mt-1.5">Rendimiento Socrático</span></div><div class="bg-surface-container-lowest p-space-md rounded-xl border border-primary/50 shadow-sm flex flex-col justify-between bg-gradient-to-b from-surface-container-lowest to-surface-container-low"><div class="flex items-center justify-between text-primary"><span class="font-label-sm text-label-sm uppercase font-bold">Protección Cuenca</span><span class="material-symbols-outlined text-primary text-xl">water_ec</span></div><div class="my-2"><span class="font-headline-lg text-headline-lg font-extrabold text-primary leading-none">82.4</span><span class="font-label-sm text-label-sm text-primary ml-0.5">IQA</span></div><div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden"><div class="bg-primary h-1.5 rounded-full w-[82%]"></div></div><span class="font-label-sm text-xs text-primary font-bold mt-1.5">Índice Biológico Favorable</span></div></div></section></main>
+<!-- ================= 6. FAB INFERIOR DERECHO PULSANTE (API AGENTE) ================= -->
+<div class="fixed bottom-6 right-6 z-50">
+
+</div>
+<!-- API Modal / Drawer -->
+<div class="fixed inset-0 bg-inverse-surface/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4 hidden" id="api-modal">
+<div class="bg-surface-container-lowest rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl border border-outline-variant animate-in fade-in zoom-in duration-200">
+<div class="p-4 bg-primary text-on-primary flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed">psychology</span>
+<div>
+<h3 class="font-headline-sm text-sm font-bold">Agente Pedagógico Inteligente (API)</h3>
+<p class="font-label-sm text-xs text-primary-fixed">Tutor dialéctico del Río Sinú</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full hover:bg-on-primary-fixed-variant flex items-center justify-center" onclick="document.getElementById('api-modal').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-4 space-y-3 max-h-80 overflow-y-auto bg-surface-container-low text-body-sm">
+<div class="p-3 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm">
+<p class="text-on-surface"><strong>API Tutor:</strong> ¡Saludos, Guardián! Veo que estás listo para calcular la Entropía en Lorica. ¿Qué dudas tienes sobre el flujo hídrico o la señal biológica de las hicoteas?</p>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest border-t border-surface-container flex gap-2">
+<input class="flex-1 bg-surface-container-low border border-outline-variant rounded-xl px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Formula una pregunta socrática..." type="text">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md btn-3d-blue">Enviar</button>
+</div>
+</div>
+</div>
+<!-- ================= 7. FOOTER ================= -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant mt-auto"><div class="w-full py-space-lg px-space-lg max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-md text-center md:text-left"><div><h4 class="font-headline-sm text-sm font-bold text-primary">Gotas del Sinú</h4><p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Versión 2.0 — © 2026 Gotas del Sinú • Licenciatura en Informática • Universidad de Córdoba</p></div><div class="flex flex-wrap items-center justify-center gap-space-md"><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#terminos">Términos de Aprendizaje</a><span class="text-outline-variant">•</span><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#cuenca">Conservación del Río Sinú</a></div></div></footer>
+<!-- ================= INLINE SCRIPT FOR GAMIFICATION INTERACTIONS ================= -->
+<script>
+    let currentPts = 350;
+
+    function updatePtsDisplay() {
+      document.getElementById('student-pts').textContent = currentPts + ' PTS';
+      document.getElementById('store-pts').textContent = currentPts;
+      document.getElementById('stats-current-pts').textContent = currentPts;
+    }
+
+    function redeemItem(cost, itemName) {
+      if (currentPts >= cost) {
+        currentPts -= cost;
+        updatePtsDisplay();
+
+        // Agregar fila al historial
+        const tbody = document.getElementById('transaction-table-body');
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-surface-container-low/50 transition-colors animate-in fade-in';
+        tr.innerHTML = `
+          <td class="py-3.5 px-space-md font-bold text-on-surface flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-error-container text-on-error-container flex items-center justify-center text-xs">
+              <span class="material-symbols-outlined text-sm">remove</span>
+            </span>
+            <span>Canje: ${itemName}</span>
+          </td>
+          <td class="py-3.5 px-space-md text-on-surface-variant">Gotas Store</td>
+          <td class="py-3.5 px-space-md text-on-surface-variant">Ahora mismo</td>
+          <td class="py-3.5 px-space-md text-right font-label-md text-error font-bold">-${cost} PTS</td>
+          <td class="py-3.5 px-space-md text-right">
+            <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-secondary-fixed text-on-secondary-fixed">Completado</span>
+          </td>
+        `;
+        tbody.prepend(tr);
+
+        alert(`¡Canje exitoso! Has obtenido "${itemName}". Se han descontado ${cost} PTS.`);
+      } else {
+        alert('Puntos insuficientes para completar este canje. ¡Completa más micro-misiones!');
+      }
+    }
+
+    function startBloomExam() {
+      alert('Iniciando Evaluación Evaluada por IA: Examen de Ascenso Bloom (Rango Junior). Responde con precisión socrática.');
+    }
+
+    // Avatar customizer logic
+    let currentHat = 'school';
+    let currentGlasses = 'visibility';
+
+    function setAvatarHat(iconName, label) {
+      const slot = document.getElementById('avatar-hat-slot');
+      if (!iconName) {
+        slot.innerHTML = '';
+      } else {
+        slot.innerHTML = `<span class="material-symbols-outlined text-5xl text-tertiary-fixed-dim drop-shadow-md">${iconName}</span>`;
+      }
+      currentHat = label;
+      updateGearTag();
+
+      // UI button active switch
+      document.querySelectorAll('.gear-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-primary', 'bg-surface-container-low');
+        btn.classList.add('border-outline-variant', 'bg-surface-container-lowest');
+      });
+      event.currentTarget.classList.add('border-2', 'border-primary', 'bg-surface-container-low');
+      event.currentTarget.classList.remove('border-outline-variant', 'bg-surface-container-lowest');
+    }
+
+    function setAvatarGlasses(iconName, label) {
+      const slot = document.getElementById('avatar-glasses-slot');
+      if (!iconName) {
+        slot.innerHTML = '';
+      } else {
+        slot.innerHTML = `<span class="material-symbols-outlined text-4xl text-on-surface drop-shadow-md">${iconName}</span>`;
+      }
+      currentGlasses = label;
+      updateGearTag();
+
+      document.querySelectorAll('.glasses-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-primary', 'bg-surface-container-low');
+        btn.classList.add('border-outline-variant', 'bg-surface-container-lowest');
+      });
+      event.currentTarget.classList.add('border-2', 'border-primary', 'bg-surface-container-low');
+      event.currentTarget.classList.remove('border-outline-variant', 'bg-surface-container-lowest');
+    }
+
+    function setDropTone(toneClass, label) {
+      const img = document.getElementById('avatar-base-img');
+      img.className = `w-44 h-44 object-contain filter drop-shadow-lg transition-all duration-300 ${toneClass}`;
+    }
+
+    function updateGearTag() {
+      document.getElementById('current-gear-tag').textContent = `${currentHat} + ${currentGlasses}`;
+    }
+
+    function saveAppearance() {
+      const msg = document.getElementById('save-msg');
+      msg.classList.remove('hidden');
+      setTimeout(() => {
+        msg.classList.add('hidden');
+      }, 3000);
+    }
+
+    function toggleApiChat() {
+      const modal = document.getElementById('api-modal');
+      modal.classList.toggle('hidden');
+    }
+  </script>
+
+
+</body></html>

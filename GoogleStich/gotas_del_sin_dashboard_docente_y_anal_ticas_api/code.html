@@ -1,0 +1,960 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dashboard Docente — Gotas del Sinú</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#004b72",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "inverse-primary": "#91cdff",
+            "surface-container-low": "#ecf4ff",
+            "secondary-container": "#aff763",
+            "surface-container-highest": "#cce5ff",
+            "on-background": "#001e31",
+            "on-secondary-container": "#417000",
+            "on-error-container": "#93000a",
+            "tertiary": "#795900",
+            "tertiary-fixed-dim": "#f9bd14",
+            "on-surface": "#001e31",
+            "tertiary-fixed": "#ffdf9e",
+            "surface-container": "#e2efff",
+            "primary": "#006496",
+            "secondary-fixed-dim": "#95d949",
+            "on-tertiary-container": "#3e2c00",
+            "primary-fixed": "#cce5ff",
+            "surface-variant": "#cce5ff",
+            "background": "#f7f9ff",
+            "outline": "#6f7882",
+            "surface-dim": "#bbdeff",
+            "surface-container-high": "#d7eaff",
+            "tertiary-container": "#bf8f00",
+            "on-secondary-fixed": "#0f2000",
+            "on-secondary-fixed-variant": "#2c5000",
+            "surface-bright": "#f7f9ff",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#3f4851",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#261a00",
+            "on-primary": "#ffffff",
+            "secondary": "#3d6a00",
+            "surface-tint": "#006496",
+            "inverse-on-surface": "#e7f2ff",
+            "outline-variant": "#bec7d2",
+            "on-primary-container": "#00324f",
+            "inverse-surface": "#003351",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#91cdff",
+            "secondary-fixed": "#aff763",
+            "surface": "#f7f9ff",
+            "on-primary-fixed": "#001e31",
+            "surface-container-lowest": "#ffffff",
+            "primary-container": "#129fea"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "margin": "2rem",
+            "gutter-sm": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin-sm": "1rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Space Grotesk"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "800" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-xl": ["44px", { "lineHeight": "52px", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .tactile-btn {
+      border-bottom: 3px solid rgba(0, 0, 0, 0.16);
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tactile-btn:active {
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #ecf4ff;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #bec7d2;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #129fea;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TOP APP BAR -->
+<header class="bg-surface-container-lowest sticky top-0 z-40 shadow-sm border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-space-lg max-w-7xl mx-auto h-16">
+<!-- Brand & Cohort Section -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2.5">
+<img alt="Gotas del Sinú Logo" class="w-10 h-10 object-contain drop-shadow-sm rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX3X6yQ1XgAMX_J7_L4z0gPkoqP4m9da85R3-mKkXroiT-6upaNPLgHnmkMkjFarVyntL16T2hG4Yh2H5R64T4cKhy_p9IEwej-5Dk3_eer96CsPDBm7kAj0Q1O_cFjz_cW4Q4LVCl4xB5-pqGLAOds6eeYFpOP1sYVkk_oM0W-TOmIPZsmHyGfKIdVsLScAGbIF7j5-w4s6Ad7SIvnwbSDyPF5_SyK_abfmIUCgi70NJRQHvA7X9FwSmLwQh6FARYDZI">
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm font-extrabold text-primary tracking-tight leading-none">Gotas del Sinú</span>
+
+</div>
+</div>
+<div class="hidden md:flex items-center gap-2 pl-4 border-l border-outline-variant">
+<span class="bg-surface-container text-primary font-label-md text-label-md px-3 py-1 rounded-full border border-primary/20 flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: &quot;FILL&quot; 1;">shield_person</span>
+            [Docente | Administrador Cuenca]
+          </span>
+<!-- Course Selector -->
+<div class="relative inline-flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-on-surface-variant text-[18px]">school</span>
+<select class="pl-8 pr-8 py-1 bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary appearance-none cursor-pointer">
+<option selected="">Lic. Informática - Semestre VI</option>
+<option>Lic. Informática - Semestre IV</option>
+<option>Semillero Cuenca Algorítmica (Urrá)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Action Items & Quick Triggers -->
+<div class="flex items-center gap-space-sm">
+<!-- Quick Alert -->
+
+<!-- Quick Report Action -->
+<button class="tactile-btn hidden sm:flex items-center gap-1.5 bg-primary-container text-on-primary-container font-label-lg text-label-lg px-4 py-2 rounded-xl shadow-sm hover:brightness-105 active:translate-y-0.5" id="btnQuickReport">
+<span class="material-symbols-outlined text-[18px]">summarize</span>
+<span class="">Reporte Rápido</span>
+</button>
+<!-- Profile Chip -->
+<div class="flex items-center gap-2 pl-2 border-l border-outline-variant">
+<div class="w-9 h-9 rounded-full bg-surface-container-high border-2 border-primary-container flex items-center justify-center font-label-lg text-primary text-sm shadow-inner">
+            PF
+          </div>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-space-md md:px-space-lg py-space-lg flex flex-col gap-space-lg">
+<!-- HERO HEADER & EXPORT TOOLBAR -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-2xl border border-outline-variant/60 shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-primary bg-surface-container-low px-2.5 py-0.5 rounded-full border border-primary/20">
+            Ciclo Académico 2026-I
+          </span>
+<span class="flex items-center gap-1 text-label-md font-label-md text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span> Sistema en tiempo real
+          </span>
+</div>
+<h1 class="text-headline-md font-headline-md font-bold text-on-surface tracking-tight">
+          Supervisión Algorítmica y Métricas de Cohorte
+        </h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant max-w-2xl">
+          Monitoreo predictivo de la unidad <em>Árboles de Decisión y Modelado Hidrológico del Río Sinú</em>. Detecte sesgos tempranos con la asistencia cognitiva integrada.
+        </p>
+</div>
+<!-- Export Buttons Cluster -->
+<div class="flex flex-wrap items-center gap-2">
+<div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mr-1 hidden lg:block">Exportar:</div>
+<button class="tactile-btn flex items-center gap-1.5 bg-surface-container-lowest hover:bg-surface-container-low text-primary border border-outline-variant/80 font-label-md text-label-md px-3 py-2 rounded-xl transition-all" onclick="triggerExport('CSV')">
+<span class="material-symbols-outlined text-[16px] text-primary">table_chart</span>
+<span class="">CSV</span>
+</button>
+<button class="tactile-btn flex items-center gap-1.5 bg-surface-container-lowest hover:bg-surface-container-low text-secondary border border-outline-variant/80 font-label-md text-label-md px-3 py-2 rounded-xl transition-all" onclick="triggerExport('Excel')">
+<span class="material-symbols-outlined text-[16px] text-secondary">sheets_rtl</span>
+<span class="">Excel</span>
+</button>
+<button class="tactile-btn flex items-center gap-1.5 bg-surface-container-lowest hover:bg-surface-container-low text-error border border-outline-variant/80 font-label-md text-label-md px-3 py-2 rounded-xl transition-all" onclick="triggerExport('PDF')">
+<span class="material-symbols-outlined text-[16px] text-error">picture_as_pdf</span>
+<span class="">PDF Oficial SIGA</span>
+</button>
+</div>
+</div>
+<!-- ROW OF KPIS AND METRICS -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- KPI 1: Estudiantes Activos -->
+<div class="bg-surface-container-lowest p-space-md rounded-2xl border border-outline-variant/60 shadow-sm flex flex-col justify-between hover:border-primary/50 transition-all">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant">Estudiantes Activos</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-headline-lg font-headline-lg font-extrabold text-primary">38</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">/ 40 total</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-outline-variant/40 flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-secondary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 95% participación
+          </span>
+<span class="text-on-surface-variant">2 inactivos (&gt;48h)</span>
+</div>
+</div>
+<!-- KPI 2: Acierto Evaluación Bloom -->
+<div class="bg-surface-container-lowest p-space-md rounded-2xl border border-outline-variant/60 shadow-sm flex flex-col justify-between hover:border-primary/50 transition-all">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant">Promedio Bloom</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-headline-lg font-headline-lg font-extrabold text-on-surface">78.4%</span>
+<span class="text-label-sm font-label-sm text-secondary bg-surface-container-low px-1.5 py-0.5 rounded">+3.2% vs ciclo ant.</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-outline-variant/40 flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Nivel taxonómico:</span>
+<span class="text-primary font-bold">Aplicación y Análisis</span>
+</div>
+</div>
+<!-- KPI 3: Rango Predominante -->
+<div class="bg-surface-container-lowest p-space-md rounded-2xl border border-outline-variant/60 shadow-sm flex flex-col justify-between hover:border-primary/50 transition-all">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant">Rango Predominante</span>
+<div class="flex items-baseline gap-1.5 mt-1">
+<span class="text-headline-sm font-headline-sm font-bold text-tertiary">Scientist Junior</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant mt-0.5">48% de la cohorte (18 alumnos)</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: &quot;FILL&quot; 1;">military_tech</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-outline-variant/40 flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">12 Junior a Senior</span>
+<span class="text-tertiary font-bold">780 XP para ascenso</span>
+</div>
+</div>
+<!-- KPI 4: Mayor Tasa de Error -->
+<div class="bg-surface-container-lowest p-space-md rounded-2xl border border-error/30 shadow-sm flex flex-col justify-between hover:border-error transition-all">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span> Concepto Crítico
+            </span>
+<div class="mt-1">
+<span class="text-body-md font-body-md font-bold text-on-surface line-clamp-1">Entropía Muestra Lluviosa</span>
+</div>
+<span class="text-label-sm font-label-sm text-error font-semibold mt-0.5">32% con error lógico de sesgo</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-error-container/40 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[24px]">troubleshoot</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-outline-variant/40 flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Intervención:</span>
+<span class="text-error font-bold">Micro-taller Shannon</span>
+</div>
+</div>
+</section>
+<!-- MAIN TWO-COLUMN SPLIT -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Tabla & Analítica Detallada (7 Cols) -->
+<section class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Cohort Distribution Card -->
+<div class="bg-surface-container-lowest p-space-md md:p-space-lg rounded-2xl border border-outline-variant/60 shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface">Distribución de Rangos en Cuenca</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Progreso escalonado en taxonomía de aprendizaje</p>
+</div>
+<span class="text-label-sm font-label-sm text-primary bg-surface-container-low px-2 py-1 rounded-lg border border-primary/20">
+              Escala Oficial Gotas del Sinú
+            </span>
+</div>
+<!-- Distribution Visual Bars -->
+<div class="space-y-3">
+<div>
+<div class="flex justify-between text-label-sm font-label-sm mb-1">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-outline"></span> Cuenca Trainer (Nivel 1 - 5)
+                </span>
+<span class="text-on-surface-variant">8 Estudiantes (21%)</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2.5 overflow-hidden">
+<div class="bg-outline h-2.5 rounded-full" style="width: 21%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm font-label-sm mb-1">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span> Scientist Junior (Nivel 6 - 12)
+                </span>
+<span class="text-primary font-bold">18 Estudiantes (48%)</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2.5 overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-primary-container h-2.5 rounded-full" style="width: 48%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm font-label-sm mb-1">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span> Master Guardián Senior (Nivel 13+)
+                </span>
+<span class="text-on-surface-variant">12 Estudiantes (31%)</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2.5 overflow-hidden">
+<div class="bg-secondary h-2.5 rounded-full" style="width: 31%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Student Analytics Table -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 shadow-sm overflow-hidden flex flex-col">
+<!-- Table Controls & Filters -->
+<div class="p-space-md border-b border-outline-variant/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-surface-container-lowest">
+<div>
+<h3 class="text-headline-sm font-headline-sm font-bold text-on-surface">Matriz Cognitiva de Estudiantes</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Detección heurística de conceptos y sesgos lógicos</p>
+</div>
+<!-- Quick Filter Chips -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar">
+<button class="filter-btn active text-label-sm font-label-sm px-2.5 py-1 rounded-lg bg-primary-container text-on-primary-container" onclick="filterTable('all')">Todos</button>
+<button class="filter-btn text-label-sm font-label-sm px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-primary" onclick="filterTable('Trainer')">Trainer</button>
+<button class="filter-btn text-label-sm font-label-sm px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-primary" onclick="filterTable('Junior')">Junior</button>
+<button class="filter-btn text-label-sm font-label-sm px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-primary" onclick="filterTable('Senior')">Senior</button>
+<button class="filter-btn text-label-sm font-label-sm px-2.5 py-1 rounded-lg bg-error-container/40 text-error hover:bg-error-container" onclick="filterTable('risk')">Riesgo Alto</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse" id="studentsTable">
+<thead>
+<tr class="bg-surface-container-low/60 text-on-surface-variant text-label-sm font-label-sm border-b border-outline-variant">
+<th class="py-3 px-4">Estudiante</th>
+<th class="py-3 px-3">Rango</th>
+<th class="py-3 px-3 text-right">Puntos / Misiones</th>
+<th class="py-3 px-4">Error Lógico Detectado (IA)</th>
+<th class="py-3 px-3 text-center">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/40 text-body-sm font-body-sm">
+<!-- Student 1 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors" data-rank="Junior" data-risk="high">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-primary font-bold text-xs flex items-center justify-center">
+                        AP
+                      </div>
+<div>
+<div class="font-semibold text-on-surface">Andrés Pérez Morales</div>
+<div class="text-label-sm font-label-sm text-outline">ID: 202110294 • Lic. Inf</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant border border-primary/30">
+                      Junior (Niv 8)
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="font-bold text-primary">1,420 XP</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">11 / 15 mis.</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-start gap-1.5 text-error">
+<span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0">error</span>
+<span class="text-body-sm font-body-sm leading-snug">Confunde log2 con ln al calcular ganancia de información</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<button class="tactile-btn text-label-sm font-label-sm bg-surface-container-lowest hover:bg-surface-container-low text-primary border border-outline-variant px-2.5 py-1.5 rounded-xl shadow-xs whitespace-nowrap" onclick="openStudentModal('Andrés Pérez Morales', 'Junior', '1,420 XP', 'Confunde logaritmo en base 2 con logaritmo natural en fórmula de Shannon.', 'Alto')">
+                      Ver Ficha
+                    </button>
+</td>
+</tr>
+<!-- Student 2 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors" data-rank="Junior" data-risk="high">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-primary font-bold text-xs flex items-center justify-center">
+                        LG
+                      </div>
+<div>
+<div class="font-semibold text-on-surface">Laura Gómez Berrocal</div>
+<div class="text-label-sm font-label-sm text-outline">ID: 202110183 • Lic. Inf</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant border border-primary/30">
+                      Junior (Niv 7)
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="font-bold text-primary">1,250 XP</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">9 / 15 mis.</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-start gap-1.5 text-error">
+<span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0">error</span>
+<span class="text-body-sm font-body-sm leading-snug">Confunde nodo hoja con nodo de decisión en rama de precipitación</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<button class="tactile-btn text-label-sm font-label-sm bg-surface-container-lowest hover:bg-surface-container-low text-primary border border-outline-variant px-2.5 py-1.5 rounded-xl shadow-xs whitespace-nowrap" onclick="openStudentModal('Laura Gómez Berrocal', 'Junior', '1,250 XP', 'Confunde nodo hoja terminal con nodo de decisión condicional.', 'Alto')">
+                      Ver Ficha
+                    </button>
+</td>
+</tr>
+<!-- Student 3 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors" data-rank="Senior" data-risk="low">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold text-xs flex items-center justify-center">
+                        CS
+                      </div>
+<div>
+<div class="font-semibold text-on-surface">Carlos Soto Montes</div>
+<div class="text-label-sm font-label-sm text-outline">ID: 202020110 • Lic. Inf</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed border border-secondary/30">
+                      Senior (Niv 14)
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="font-bold text-secondary">3,480 XP</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">15 / 15 mis.</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-start gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0">check_circle</span>
+<span class="text-body-sm font-body-sm leading-snug">Sin errores lógicos activos; optimizó podas de árbol ID3</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<button class="tactile-btn text-label-sm font-label-sm bg-surface-container-lowest hover:bg-surface-container-low text-primary border border-outline-variant px-2.5 py-1.5 rounded-xl shadow-xs whitespace-nowrap" onclick="openStudentModal('Carlos Soto Montes', 'Senior', '3,480 XP', 'Excelente desempeño conceptual; candidato a monitor de laboratorio.', 'Bajo')">
+                      Ver Ficha
+                    </button>
+</td>
+</tr>
+<!-- Student 4 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors" data-rank="Trainer" data-risk="high">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-outline font-bold text-xs flex items-center justify-center">
+                        MR
+                      </div>
+<div>
+<div class="font-semibold text-on-surface">Mariana Ramos Doria</div>
+<div class="text-label-sm font-label-sm text-outline">ID: 202210045 • Lic. Inf</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant">
+                      Trainer (Niv 4)
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="font-bold text-on-surface-variant">610 XP</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">4 / 15 mis.</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-start gap-1.5 text-tertiary">
+<span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0">help</span>
+<span class="text-body-sm font-body-sm leading-snug">Omite probabilidad previa P(S) en cómputo de partición climática</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<button class="tactile-btn text-label-sm font-label-sm bg-surface-container-lowest hover:bg-surface-container-low text-primary border border-outline-variant px-2.5 py-1.5 rounded-xl shadow-xs whitespace-nowrap" onclick="openStudentModal('Mariana Ramos Doria', 'Trainer', '610 XP', 'Rezago en la comprensión de probabilidad condicionada de Bayes.', 'Alto')">
+                      Ver Ficha
+                    </button>
+</td>
+</tr>
+<!-- Student 5 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors" data-rank="Senior" data-risk="low">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold text-xs flex items-center justify-center">
+                        JN
+                      </div>
+<div>
+<div class="font-semibold text-on-surface">Julián Negrete Polo</div>
+<div class="text-label-sm font-label-sm text-outline">ID: 202010882 • Lic. Inf</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed border border-secondary/30">
+                      Senior (Niv 13)
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="font-bold text-secondary">3,110 XP</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">14 / 15 mis.</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-start gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-primary">info</span>
+<span class="text-body-sm font-body-sm leading-snug">Ligera confusión de término de impureza Gini vs Entropía</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<button class="tactile-btn text-label-sm font-label-sm bg-surface-container-lowest hover:bg-surface-container-low text-primary border border-outline-variant px-2.5 py-1.5 rounded-xl shadow-xs whitespace-nowrap" onclick="openStudentModal('Julián Negrete Polo', 'Senior', '3,110 XP', 'Dominio sobresaliente del modelo hidrográfico.', 'Bajo')">
+                      Ver Ficha
+                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination / Footer Info -->
+<div class="p-space-sm md:px-space-md border-t border-outline-variant/60 bg-surface-container-lowest flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span class="">Mostrando 5 de 38 estudiantes evaluados</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded hover:bg-surface-container-low text-outline disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<span class="px-2 py-0.5 bg-surface-container text-primary font-bold rounded">1</span>
+<button class="p-1 rounded hover:bg-surface-container-low text-outline">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Mission Control Panel -->
+
+</section>
+<!-- RIGHT COLUMN: CHAT ANALÍTICO IA (GEMINI PEDAGÓGICO) (5 Cols) -->
+<section class="lg:col-span-5 flex flex-col gap-space-md sticky top-20">
+<div class="bg-surface-container-lowest rounded-2xl border border-primary/30 shadow-md flex flex-col h-[750px] overflow-hidden">
+<!-- Chat Header -->
+<div class="p-4 bg-gradient-to-r from-primary to-primary-container text-on-primary flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container-lowest/20 backdrop-blur-sm flex items-center justify-center border border-white/30 text-white shadow-inner">
+<span class="material-symbols-outlined text-[24px]">smart_toy</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm font-bold text-white leading-tight">API Pedagógico</h3>
+<span class="bg-secondary text-white text-[10px] font-label-sm px-1.5 py-0.2 rounded-full uppercase tracking-wider font-bold">Gemini Pro</span>
+</div>
+<p class="text-body-sm font-body-sm text-inverse-on-surface/90 text-xs">
+                  Analítica cognitiva en tiempo real del Río Sinú
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded-lg hover:bg-white/10 text-white/90 hover:text-white transition-colors" onclick="clearChat()" title="Limpiar conversación">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+</button>
+</div>
+</div>
+<!-- Suggested Quick Prompt Chips -->
+<div class="p-2.5 bg-surface-container-low border-b border-outline-variant/50">
+<div class="text-label-sm font-label-sm text-on-surface-variant mb-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">bolt</span> Consultas rápidas recomendadas:
+            </div>
+<div class="flex flex-wrap gap-1.5">
+<button class="text-left text-label-sm font-label-sm bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-container text-on-surface-variant px-2.5 py-1 rounded-lg border border-outline-variant/60 transition-all" onclick="sendQuickPrompt('¿Qué estudiantes están estancados en el cálculo de Entropía y qué concepto necesitan repasar?')">
+                🎯 ¿Quiénes están estancados en Entropía?
+              </button>
+<button class="text-left text-label-sm font-label-sm bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-container text-on-surface-variant px-2.5 py-1 rounded-lg border border-outline-variant/60 transition-all" onclick="sendQuickPrompt('Generar reporte de notas para SIGA')">
+                📊 Reporte para SIGA
+              </button>
+<button class="text-left text-label-sm font-label-sm bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-container text-on-surface-variant px-2.5 py-1 rounded-lg border border-outline-variant/60 transition-all" onclick="sendQuickPrompt('Alumnos en riesgo de reprobación')">
+                ⚠️ Alumnos en riesgo crítico
+              </button>
+<button class="text-left text-label-sm font-label-sm bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-container text-on-surface-variant px-2.5 py-1 rounded-lg border border-outline-variant/60 transition-all" onclick="sendQuickPrompt('Resumen de errores frecuentes en Urrá')">
+                🌊 Errores en simulación Urrá
+              </button>
+</div>
+</div>
+<!-- Chat Conversation Log Area -->
+<div class="flex-1 p-4 overflow-y-auto custom-scrollbar flex flex-col gap-3.5 bg-surface-bright text-body-sm font-body-sm" id="chatMessages">
+<!-- Bot Welcome Message -->
+<div class="flex gap-2.5 max-w-[90%]">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                🤖
+              </div>
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-2xl rounded-tl-sm p-3 text-on-surface shadow-xs">
+<p class="font-medium text-primary text-xs mb-1">Tutor IA Gotas del Sinú</p>
+                Hola, Profesor. He indexado las 128 interacciones algorítmicas de la sesión de hoy en el simulador hidrográfico. ¿Desea auditar sesgos lógicos, generar refuerzos o consultar casos específicos?
+              </div>
+</div>
+<!-- Preloaded Teacher Prompt -->
+<div class="flex gap-2.5 max-w-[85%] self-end flex-row-reverse">
+<div class="w-7 h-7 rounded-lg bg-primary text-white flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                PF
+              </div>
+<div class="bg-primary text-white rounded-2xl rounded-tr-sm p-3 shadow-xs">
+                ¿Qué estudiantes están estancados en el cálculo de Entropía y qué concepto necesitan repasar?
+              </div>
+</div>
+<!-- Preloaded Gemini Detailed Response -->
+<div class="flex gap-2.5 max-w-[95%]">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                🤖
+              </div>
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-2xl rounded-tl-sm p-3 text-on-surface shadow-xs space-y-2">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-1">
+<span class="font-bold text-primary text-xs">Diagnóstico Pedagógico Gemini</span>
+<span class="text-label-sm text-outline">Hace 2 min</span>
+</div>
+<p class="">
+<strong>3 estudiantes</strong> presentan estancamiento severo en el módulo de <em>Entropía y Ganancia ID3</em>:
+                </p>
+<ul class="list-disc list-inside space-y-1 text-xs text-on-surface-variant">
+<li class=""><strong class="text-on-surface">Andrés Pérez</strong> y <strong class="text-on-surface">Laura Gómez</strong> confunden consistentemente <code>log2</code> con <code>ln</code> al procesar la variable <em>Humedad Relativa del Sinú</em>.</li>
+<li class=""><strong class="text-on-surface">Mariana Ramos</strong> omite la probabilidad a priori en la suma ponderada.</li>
+</ul>
+<div class="p-2 bg-surface-container rounded-xl border border-primary/20 text-xs">
+<div class="font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">psychology</span> Recomendación Didáctica:
+                  </div>
+                  Recomiendo activar el <strong>Micro-taller Shannon Interactivo (15 min)</strong> antes de permitir el acceso al simulador del Embalse de Urrá.
+                </div>
+<div class="pt-1 flex gap-2">
+<button class="tactile-btn text-label-sm font-label-sm bg-primary text-white px-2.5 py-1 rounded-lg" onclick="generateRefuerzo()">
+                    Asignar Refuerzo Shannon Ahora
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Controls -->
+<div class="p-3 bg-surface-container-lowest border-t border-outline-variant/60">
+<form class="flex items-center gap-2" id="chatForm" onsubmit="handleChatSubmit(event)">
+<div class="relative flex-1">
+<input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-3.5 pr-10 py-2.5 rounded-xl border border-outline-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="chatInput" placeholder="Pregunte a la IA sobre notas, sesgos o estudiantes..." type="text">
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline text-[20px] pointer-events-none">search_insights</span>
+</div>
+<button class="tactile-btn bg-primary hover:bg-primary/95 text-white p-2.5 rounded-xl flex items-center justify-center shrink-0 shadow-sm" title="Enviar consulta" type="submit">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</form>
+<div class="flex items-center justify-between text-[11px] text-outline mt-1.5 px-1 font-label-sm">
+<span class="">Modelo de Lenguaje Educativo Cuenca v2.4</span>
+<span class="">Tokens disponibles: 14,800</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- STUDENT MODAL (Ficha Pedagógica) -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-xs hidden items-center justify-center p-4" id="studentModal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl border border-outline-variant shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+<div class="p-4 bg-primary text-on-primary flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">badge</span>
+<h3 class="font-headline-sm text-headline-sm font-bold" id="modalStudentName">Ficha Pedagógica</h3>
+</div>
+<button class="text-white/80 hover:text-white p-1 rounded-lg" onclick="closeStudentModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-4 text-body-sm font-body-sm">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl">
+<div>
+<div class="text-xs text-on-surface-variant font-label-sm uppercase">Rango Oficial</div>
+<div class="font-bold text-primary" id="modalStudentRank">Junior</div>
+</div>
+<div>
+<div class="text-xs text-on-surface-variant font-label-sm uppercase">Puntos Totales</div>
+<div class="font-bold text-secondary" id="modalStudentPoints">1,420 XP</div>
+</div>
+<div>
+<div class="text-xs text-on-surface-variant font-label-sm uppercase">Riesgo Deserción</div>
+<span class="px-2 py-0.5 rounded-full text-xs font-bold" id="modalStudentRisk">Alto</span>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">psychology_alt</span> Diagnóstico de Patrón Lógico
+          </h4>
+<p class="text-on-surface-variant bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/60" id="modalStudentNotes">
+            -
+          </p>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-1">Acciones Tutoriales Recomendadas</h4>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-2 text-xs text-on-surface">
+<input checked="" class="rounded text-primary focus:ring-primary" type="checkbox"> Enviar cápsula de video de 3 minutos sobre logaritmos binarios
+            </label>
+<label class="flex items-center gap-2 text-xs text-on-surface">
+<input checked="" class="rounded text-primary focus:ring-primary" type="checkbox"> Programar sesión de co-evaluación con estudiante de rango Senior
+            </label>
+<label class="flex items-center gap-2 text-xs text-on-surface">
+<input class="rounded text-primary focus:ring-primary" type="checkbox"> Habilitar intento ilimitado en cuestionario hidrológico sin penalización
+            </label>
+</div>
+</div>
+<div class="flex justify-end gap-2 pt-2 border-t border-outline-variant/40">
+<button class="px-4 py-2 text-label-md font-label-md text-on-surface-variant hover:bg-surface-container-low rounded-xl" onclick="closeStudentModal()">
+            Cerrar
+          </button>
+<button class="tactile-btn px-4 py-2 text-label-md font-label-md bg-primary text-white rounded-xl" onclick="saveIntervention()">
+            Registrar Intervención
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- INFORMATIVE FOOTER (SHARED COMPONENT IMPLEMENTATION) -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="w-full py-space-lg px-space-lg max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-space-md">
+<div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+<span class="text-headline-sm font-headline-sm font-bold text-primary">Gotas del Sinú</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">
+          Versión 1.0 — © 2026 Gotas del Sinú&nbsp;<br>Licenciatura en Informática • Universidad de Córdoba
+        </span>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-4 text-label-sm font-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors duration-150" href="#">Términos de Aprendizaje</a>
+<a class="hover:text-primary transition-colors duration-150" href="#">Protección de Datos</a>
+<a class="hover:text-primary transition-colors duration-150" href="#">Conservación del Río Sinú</a>
+<a class="text-primary font-bold underline transition-colors duration-150" href="#">Guía del Educador</a>
+</div>
+</div>
+</footer>
+<!-- SCRIPT FOR DYNAMIC DASHBOARD BEHAVIOR -->
+<script>
+    // Export Data Triggers
+    function triggerExport(format) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-6 right-6 bg-inverse-surface text-inverse-on-surface px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 z-50 animate-bounce text-body-sm font-body-sm';
+      toast.innerHTML = `<span class="material-symbols-outlined text-secondary-container">check_circle</span> Generando reporte cohorte en formato <strong>${format}</strong> con metadatos del Sinú...`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3200);
+    }
+
+    // Quick Report Action in Header
+    document.getElementById('btnQuickReport')?.addEventListener('click', () => {
+      triggerExport('PDF Consolidado Docente');
+    });
+
+    // Table Filters
+    function filterTable(criteria) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'active');
+        btn.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+      });
+      event.target.classList.add('bg-primary-container', 'text-on-primary-container', 'active');
+      event.target.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+
+      const rows = document.querySelectorAll('#studentsTable tbody tr');
+      rows.forEach(row => {
+        const rank = row.getAttribute('data-rank');
+        const risk = row.getAttribute('data-risk');
+        if (criteria === 'all') {
+          row.style.display = '';
+        } else if (criteria === 'risk') {
+          row.style.display = risk === 'high' ? '' : 'none';
+        } else {
+          row.style.display = rank === criteria ? '' : 'none';
+        }
+      });
+    }
+
+    // Modal Interaction
+    function openStudentModal(name, rank, points, notes, risk) {
+      document.getElementById('modalStudentName').textContent = name;
+      document.getElementById('modalStudentRank').textContent = rank;
+      document.getElementById('modalStudentPoints').textContent = points;
+      document.getElementById('modalStudentNotes').textContent = notes;
+      const riskEl = document.getElementById('modalStudentRisk');
+      riskEl.textContent = risk;
+      if (risk === 'Alto') {
+        riskEl.className = 'px-2 py-0.5 rounded-full text-xs font-bold bg-error-container text-error';
+      } else {
+        riskEl.className = 'px-2 py-0.5 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container';
+      }
+      const modal = document.getElementById('studentModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeStudentModal() {
+      const modal = document.getElementById('studentModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function saveIntervention() {
+      closeStudentModal();
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-6 right-6 bg-primary text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 z-50 text-body-sm font-body-sm';
+      toast.innerHTML = `<span class="material-symbols-outlined text-secondary-container">task_alt</span> Intervención guardada en SIGA y notificada al estudiante.`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // AI Interactive Chat
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const val = input.value.trim();
+      if (!val) return;
+      addUserMessage(val);
+      input.value = '';
+      respondAI(val);
+    }
+
+    function sendQuickPrompt(promptText) {
+      addUserMessage(promptText);
+      respondAI(promptText);
+    }
+
+    function addUserMessage(text) {
+      const chatContainer = document.getElementById('chatMessages');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex gap-2.5 max-w-[85%] self-end flex-row-reverse animate-in fade-in';
+      msgDiv.innerHTML = `
+        <div class="w-7 h-7 rounded-lg bg-primary text-white flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">PF</div>
+        <div class="bg-primary text-white rounded-2xl rounded-tr-sm p-3 shadow-xs">${text}</div>
+      `;
+      chatContainer.appendChild(msgDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function respondAI(query) {
+      const chatContainer = document.getElementById('chatMessages');
+      
+      // Loading indicator
+      const loadDiv = document.createElement('div');
+      loadDiv.id = 'tempLoading';
+      loadDiv.className = 'flex gap-2.5 max-w-[80%]';
+      loadDiv.innerHTML = `
+        <div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 text-xs">🤖</div>
+        <div class="bg-surface-container-low text-on-surface-variant rounded-2xl rounded-tl-sm p-2.5 text-xs flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span> Consultando matriz de respuestas en el cauce...
+        </div>
+      `;
+      chatContainer.appendChild(loadDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      setTimeout(() => {
+        document.getElementById('tempLoading')?.remove();
+        
+        let responseHTML = '';
+        if (query.includes('SIGA')) {
+          responseHTML = `
+            <p><strong>Reporte SIGA Listo:</strong> El cálculo consolidado muestra <strong>31 aprobados potenciales</strong> y 7 en rango de observación. He generado la estructura compatible con las actas de la Universidad de Córdoba.</p>
+            <div class="mt-2"><button onclick="triggerExport('SIGA-CSV')" class="text-label-sm font-label-sm bg-primary text-white px-3 py-1 rounded-lg">Descargar Archivo Plano SIGA</button></div>
+          `;
+        } else if (query.includes('riesgo') || query.includes('reprobación')) {
+          responseHTML = `
+            <p><strong class="text-error">Alerta Temprana:</strong> Mariana Ramos Doria y Laura Gómez Berrocal acumulan 3 intentos fallidos consecutivos en el nodo de partición de datos. Sugiero tutoría sincrónica antes del examen parcial.</p>
+          `;
+        } else if (query.includes('Urrá')) {
+          responseHTML = `
+            <p><strong>Simulación Urrá:</strong> El 68% de los alumnos clasificaron erróneamente la compuerta de alivio como nodo raíz debido a que ignoraron el peso del índice de pluviosidad de Paramillo.</p>
+          `;
+        } else {
+          responseHTML = `
+            <p>He analizado la consulta sobre <em>"${query}"</em> en la base relacional de la cohorte. Los patrones señalan estabilidad en las habilidades de modelado con árboles ID3, pero recomiendan reforzar el sesgo de partición multivariada.</p>
+          `;
+        }
+
+        const botDiv = document.createElement('div');
+        botDiv.className = 'flex gap-2.5 max-w-[95%] animate-in fade-in';
+        botDiv.innerHTML = `
+          <div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">🤖</div>
+          <div class="bg-surface-container-low border border-outline-variant/40 rounded-2xl rounded-tl-sm p-3 text-on-surface shadow-xs space-y-1.5 text-xs">
+            <div class="flex items-center justify-between border-b border-outline-variant/30 pb-1">
+              <span class="font-bold text-primary">Tutor Gemini Cuenca</span>
+              <span class="text-[10px] text-outline">Ahora</span>
+            </div>
+            ${responseHTML}
+          </div>
+        `;
+        chatContainer.appendChild(botDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 900);
+    }
+
+    function clearChat() {
+      const chatContainer = document.getElementById('chatMessages');
+      chatContainer.innerHTML = `
+        <div class="flex gap-2.5 max-w-[90%]">
+          <div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">🤖</div>
+          <div class="bg-surface-container-low border border-outline-variant/40 rounded-2xl rounded-tl-sm p-3 text-on-surface shadow-xs">
+            <p class="font-medium text-primary text-xs mb-1">Tutor IA Gotas del Sinú</p>
+            Historial reiniciado. Estoy listo para procesar nuevas preguntas sobre la cohorte de Licenciatura en Informática.
+          </div>
+        </div>
+      `;
+    }
+
+    function generateRefuerzo() {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-6 right-6 bg-secondary text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 z-50 text-body-sm font-body-sm';
+      toast.innerHTML = `<span class="material-symbols-outlined text-white">send_and_archive</span> Micro-taller de Shannon asignado a los 3 estudiantes detectados.`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3200);
+    }
+  </script>
+
+
+
+
+
+
+</body></html>

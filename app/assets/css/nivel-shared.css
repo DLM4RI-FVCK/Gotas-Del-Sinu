@@ -1,0 +1,349 @@
+/* Estilos compartidos y fluidos (Container Queries) para todos los niveles del OVA */
+.nivel-wrap {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.level-tag {
+  display: inline-block;
+  font-size: clamp(0.74rem, 1vw, 0.88rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #006496;
+  letter-spacing: 0.04em;
+}
+
+.top-level-title {
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  color: #001e31;
+  line-height: 1.15;
+}
+
+.slide-stage {
+  overflow-y: auto;
+}
+
+.slide-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 16px;
+  height: 100%;
+}
+
+.slide-text-col {
+  container-type: size;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f7f9ff 0%, #eaf4ff 100%);
+  border: 2px solid #d7e3ee;
+}
+
+.slide-visual-col {
+  container-type: size;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 2px solid #d7e3ee;
+}
+
+.col-watermark {
+  position: absolute;
+  right: -14px;
+  bottom: -18px;
+  font-size: clamp(90px, 42cqmin, 200px) !important;
+  opacity: 0.06;
+  color: #006496;
+  pointer-events: none;
+  transform: rotate(-10deg);
+}
+
+.step-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background-color: rgba(0, 100, 150, 0.12);
+  color: #006496;
+  font-size: clamp(0.76rem, 3.5cqmin, 0.96rem);
+  font-weight: 800;
+}
+
+.card-emoji-sticker {
+  font-size: clamp(1.5rem, 7cqmin, 2.3rem);
+  line-height: 1;
+}
+
+.fluid-slide-title {
+  font-size: clamp(1.2rem, 6.5cqmin, 2.2rem);
+  line-height: 1.15;
+  color: #001e31;
+}
+
+.fluid-slide-p {
+  font-size: clamp(0.92rem, 4.3cqmin, 1.28rem);
+  color: #2c3e50;
+  line-height: 1.44;
+}
+
+.analogy-item {
+  background-color: #ffffff;
+  border: 2px solid #d7e3ee;
+}
+
+.fluid-box-title {
+  font-size: clamp(0.92rem, 4.3cqmin, 1.22rem);
+  color: #006496;
+}
+
+.fluid-box-text {
+  font-size: clamp(0.88rem, 4cqmin, 1.14rem);
+  color: #3f4851;
+  line-height: 1.44;
+}
+
+.highlight-callout {
+  background-color: rgba(118, 184, 42, 0.14);
+  border-left: 5px solid #3d6a00;
+}
+
+.fluid-callout-text {
+  font-size: clamp(0.88rem, 4cqmin, 1.16rem);
+  color: #001e31;
+  line-height: 1.4;
+}
+
+.diagram-svg {
+  width: 100%;
+  min-height: 185px;
+  max-height: 70%;
+  cursor: pointer;
+}
+
+.visual-caption {
+  background-color: #f7f9ff;
+  border: 1px solid #d7e3ee;
+  font-size: clamp(0.82rem, 3.6cqmin, 1.05rem);
+  color: #3f4851;
+}
+
+.flow-card {
+  flex: 1;
+  background: linear-gradient(145deg, #ffffff 0%, #f7f9ff 100%);
+  border: 2px solid #d7e3ee;
+}
+
+.flow-emoji-circle {
+  width: clamp(44px, 13cqmin, 64px);
+  height: clamp(44px, 13cqmin, 64px);
+  border-radius: 16px;
+  font-size: clamp(1.35rem, 6cqmin, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fluid-flow-title {
+  font-size: clamp(0.95rem, 4.6cqmin, 1.3rem);
+  margin-bottom: 2px;
+}
+
+.fluid-flow-desc {
+  font-size: clamp(0.85rem, 3.8cqmin, 1.12rem);
+  color: #3f4851;
+  line-height: 1.35;
+}
+
+.bg-info-soft {
+  background-color: rgba(18, 159, 234, 0.14);
+}
+
+.bg-secondary-soft {
+  background-color: rgba(61, 106, 0, 0.12);
+}
+
+.bg-warning-soft {
+  background-color: rgba(255, 194, 28, 0.22);
+}
+
+.bg-error-soft {
+  background-color: rgba(186, 26, 26, 0.12);
+}
+
+.interactive-tree-slide {
+  container-type: size;
+  background-color: #f7f9ff;
+  border: 2px solid #d7e3ee;
+}
+
+.fluid-sim-title {
+  font-size: clamp(1.05rem, 4.2cqmin, 1.55rem);
+  color: #001e31;
+}
+
+.tree-canvas-wrap {
+  background-color: #ffffff;
+  border: 2px solid #d7e3ee;
+  border-radius: 18px;
+  padding: 10px;
+  min-height: 190px;
+}
+
+.interactive-tree-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 175px;
+}
+
+.scenario-explanation {
+  background-color: #ffffff;
+  border: 2px solid #d7e3ee;
+}
+
+.fluid-sim-exp {
+  font-size: clamp(0.88rem, 3.6cqmin, 1.15rem);
+}
+
+.quiz-slide {
+  container-type: size;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f7f9ff 0%, #eef6ff 100%);
+  border: 2px solid #d7e3ee;
+}
+
+.quiz-option-card {
+  background-color: #ffffff;
+  border: 2px solid #cbdceb;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.quiz-option-card:hover {
+  transform: translateX(6px);
+  border-color: #006496;
+  box-shadow: 0 8px 20px rgba(0, 100, 150, 0.12);
+}
+
+.quiz-option-card.is-wrong {
+  border-color: #ba1a1a;
+  background-color: #fff5f5;
+}
+
+.fluid-quiz-opt {
+  font-size: clamp(0.92rem, 4cqmin, 1.2rem);
+  color: #001e31;
+}
+
+.question-counter-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background-color: #006496;
+  color: #ffffff;
+  font-size: clamp(0.76rem, 3.4cqmin, 0.92rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 100, 150, 0.2);
+}
+
+.q-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.35);
+  display: inline-block;
+}
+
+.q-dot.active {
+  background-color: #ffc21c;
+  transform: scale(1.25);
+}
+
+.q-dot.done {
+  background-color: #76b82a;
+}
+
+.celebration-emoji {
+  font-size: clamp(2.5rem, 12cqmin, 4.2rem);
+}
+
+/* Dialog interno dentro del contenedor de Jugar */
+.inpage-dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 45;
+  background-color: rgba(0, 30, 49, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inpage-dialog-card {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border: 2px solid #006496;
+  box-shadow: 0 20px 48px rgba(0, 30, 49, 0.28);
+  overflow-y: auto;
+}
+
+.inpage-dialog-body {
+  overflow-y: auto;
+}
+
+.zoomed-svg {
+  width: 100%;
+  max-height: 360px;
+  min-height: 220px;
+}
+
+.inpage-modal-fade-enter-active,
+.inpage-modal-fade-leave-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.inpage-modal-fade-enter-from,
+.inpage-modal-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.border-t {
+  border-top: 1px solid #e4f0f7;
+}
+
+.border-b {
+  border-bottom: 1px solid #e4f0f7;
+}
+
+.z-2 {
+  z-index: 2;
+}
+
+.min-h-0 {
+  min-height: 0;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .slide-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}

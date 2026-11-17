@@ -1,0 +1,623 @@
+<!DOCTYPE html><html class="h-full bg-slate-50" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Misión 2: El Caos del Río (Entropía y Orden) | Gotas del Sinú</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "cordoba-green": "#00563f",
+            "cordoba-green-light": "#76b82a",
+            "cordoba-green-dark": "#00402f",
+            "cordoba-blue": "#129fea",
+            "cordoba-blue-deep": "#0b72b9",
+            "cordoba-gold": "#ffc21c",
+            "cordoba-gold-light": "#ffdf9e",
+            "surface-pure": "#ffffff",
+            "surface-soft": "#f8fafc",
+            "surface-muted": "#ecf4ff",
+            "surface-border": "#e2e8f0"
+          },
+          borderRadius: {
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+            label: ["Space Grotesk", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1;
+    }
+    .btn-tactile {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-tactile:active {
+      transform: translateY(1px);
+    }
+    .soft-card {
+      box-shadow: 0 4px 20px -2px rgba(11, 114, 185, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+    }
+  </style>
+</head>
+<body class="bg-surface-soft text-slate-800 flex flex-col min-h-screen font-sans antialiased selection:bg-cordoba-blue/20 selection:text-cordoba-blue-deep">
+<!-- ============================================================== -->
+<!-- 1. APP BAR SUPERIOR                                            -->
+<!-- ============================================================== -->
+<header class="bg-surface-pure sticky top-0 z-40 border-b border-surface-border shadow-xs">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+<!-- Izquierda: Retorno al Dashboard -->
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 text-slate-700 hover:text-cordoba-blue-deep font-label font-bold text-sm py-2 px-3 rounded-xl hover:bg-slate-100 transition-colors group" href="/dashboard-estudiante">
+<span class="material-symbols-outlined text-lg transition-transform group-hover:-translate-x-1 text-cordoba-blue-deep">arrow_back</span>
+<span class="">Regresar al Dashboard</span>
+</a>
+</div>
+<!-- Centro: Logo e Identidad de Marca Gotas del Sinú -->
+<div class="flex items-center gap-3">
+<img alt="Gotas del Sinú Logo" class="w-10 h-10 object-contain drop-shadow-xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4z_88ugxsrf8ys7xijJ_2T5Lm4H1fmSvsEPPebnaiMm2DIj00RZvgw1FjA-CRAHxZiTcHm9NHdKczKkzrGAYueg_wXoDrAzea8w49ClE56N6eaoBVqxSypxlpwWFtNbBzp-gVSkyN8QxeTWCB0dJQCAGOvZ9nzyjHaj_L884qVpq1BREjEAKttZIUkIvRE55EzNbQUpIUd_scMn-krNc3lVS313tqhWN8rvHKVb8jw5ojBJyiYtcEiShSFC2Cg1wUFDE">
+<span class="font-extrabold text-xl text-cordoba-blue-deep tracking-tight font-sans">Gotas del Sinú</span>
+</div>
+<!-- Derecha: Rol y Chip de Puntos de Oro -->
+<div class="flex items-center gap-3">
+<!-- Badge de Rol Refinado -->
+<div class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/80 border border-slate-200/80 text-xs font-semibold text-slate-700">
+<span class="w-2 h-2 rounded-full bg-cordoba-green"></span>
+<span class="">Estudiante | Scientist Trainer</span>
+</div>
+<!-- Chip de Oro Legible -->
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300 shadow-xs">
+<span class="text-base select-none leading-none">🪙</span>
+<span class="font-label font-bold text-sm text-amber-900 tracking-tight" id="gold-balance">850 PTS</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ============================================================== -->
+<!-- CONTENEDOR PRINCIPAL                                          -->
+<!-- ============================================================== -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+<!-- ============================================================ -->
+<!-- 2. ENCABEZADO DE MISIÓN & MEDIDOR DE INCERTIDUMBRE (ENTROPÍA) -->
+<!-- ============================================================ -->
+<section class="bg-surface-pure rounded-2xl border border-surface-border p-5 sm:p-7 soft-card space-y-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+<div class="space-y-1.5">
+<!-- Pill de Ubicación -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-cordoba-green text-xs font-bold border border-emerald-200">
+<span class="material-symbols-outlined text-sm fill-icon text-cordoba-green">water</span>
+<span class="">Estación Lorica • Misión 2 de 3</span>
+</div>
+<!-- Título y Subtítulo -->
+<h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Misión 2: El Caos del Río (Entropía y Orden)
+          </h1>
+<p class="text-slate-600 text-sm sm:text-base max-w-3xl leading-relaxed">
+            Descubre cómo la ciencia de datos nos ayuda a predecir crecidas y devolverle la calma a la cuenca baja del Sinú.
+          </p>
+</div>
+<!-- Pill Destacada de Recompensa -->
+<div class="shrink-0 self-start md:self-center">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-900 font-label font-bold text-sm shadow-xs">
+<span class="material-symbols-outlined text-xl text-amber-600 fill-icon">emoji_events</span>
+<span class="">Recompensa: +100 Gotas de Oro</span>
+</div>
+</div>
+</div>
+<!-- Medidor de Incertidumbre Fluvial (Entropía) -->
+<div class="bg-slate-50/90 rounded-2xl p-5 border border-slate-200/80 space-y-3.5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-2 text-sm font-bold text-slate-800">
+<span class="material-symbols-outlined text-cordoba-blue-deep text-lg">balance</span>
+<span class="">Medidor de Incertidumbre Fluvial (Entropía)</span>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm font-label font-bold self-start sm:self-auto">
+<span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+            Estado actual: 0.94 bits (Gran incertidumbre antes de clasificar)
+          </span>
+</div>
+<!-- Barra de Progreso con Gradiente y Marcador Flotante -->
+<div class="relative w-full pt-4 pb-1">
+<div class="relative w-full h-3.5 bg-slate-200 rounded-full overflow-hidden">
+<!-- Gradiente esmeralda -> ámbar -> coral/rojo -->
+<div class="h-full w-full rounded-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500"></div>
+</div>
+<!-- Indicador / Marcador Nítido en 94% -->
+<div class="absolute top-1/2 -translate-y-1/2" style="left: 94%;">
+<div class="-ml-3.5 flex flex-col items-center">
+<span class="w-6 h-6 rounded-full bg-white border-2 border-rose-600 shadow-md flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-rose-600"></span>
+</span>
+</div>
+</div>
+</div>
+<!-- Etiquetas Inferiores Bien Espaciadas -->
+<div class="flex items-center justify-between text-xs text-slate-600 pt-1">
+<span class="flex items-center gap-1.5 font-bold text-cordoba-green">
+<span class="material-symbols-outlined text-sm text-cordoba-green fill-icon">water</span>
+            0.00 bits (Orden y Certeza total)
+          </span>
+<span class="font-label font-semibold text-slate-400 text-xs">
+            0.50 bits
+          </span>
+<span class="flex items-center gap-1.5 font-bold text-rose-600">
+            1.00 bit (Caos Máximo / Incertidumbre)
+            <span class="material-symbols-outlined text-sm text-rose-600">error</span>
+</span>
+</div>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- 3. SISTEMA DE PESTAÑAS (STEPS) FLUIDO Y COMPLETO             -->
+<!-- ============================================================ -->
+<section class="bg-surface-pure rounded-2xl border border-surface-border soft-card overflow-hidden">
+<!-- Header de Navegación de Pestañas -->
+<div class="grid grid-cols-1 sm:grid-cols-2 border-b border-surface-border bg-slate-50/70">
+<button class="py-4 px-6 text-center font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 border-b-2 border-transparent text-slate-500 hover:text-cordoba-blue-deep hover:bg-slate-100/60" id="tab-step-1" onclick="switchStep(1)" type="button">
+<span class="w-6 h-6 rounded-full bg-slate-300 text-slate-700 text-xs flex items-center justify-center font-label font-bold" id="tab-step-1-badge">1</span>
+<span class="">1. Comprende el Territorio y la Teoría</span>
+</button>
+<button class="py-4 px-6 text-center font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 border-b-2 border-cordoba-green text-cordoba-green bg-surface-pure shadow-xs" id="tab-step-2" onclick="switchStep(2)" type="button">
+<span class="w-6 h-6 rounded-full bg-cordoba-green text-white text-xs flex items-center justify-center font-label font-bold" id="tab-step-2-badge">2</span>
+<span class="">2. Pon a Prueba tu Lógica (Validación Socrática)</span>
+</button>
+</div>
+<div class="p-5 sm:p-7">
+<!-- ======================================================== -->
+<!-- 4. CONTENIDO DEL PASO 1: TEORÍA TIPO HISTORIA ILUSTRADA  -->
+<!-- ======================================================== -->
+<div class="space-y-6 hidden" id="content-step-1">
+<!-- Narrativa Humana Cálida -->
+<div class="bg-emerald-50/70 rounded-2xl border border-emerald-200/90 p-5 sm:p-6 space-y-3">
+<div class="flex items-center gap-2.5 text-cordoba-green font-bold text-base sm:text-lg">
+<span class="material-symbols-outlined fill-icon text-cordoba-green text-xl">water</span>
+<h3 class="">La Metáfora del Río Sinú: ¿Qué es el Caos?</h3>
+</div>
+<p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+              Imagina que tienes una muestra con <strong>10 días de datos</strong> del embalse de Urrá y la estación Lorica. Si 5 días terminaron en inundación y 5 días en caudal tranquilo, el caos es absoluto porque lanzar una moneda te daría la misma probabilidad: no sabemos qué pasará. En informática y aprendizaje automático, a ese nivel de duda máxima lo medimos como <strong>Entropía (1.0 bit)</strong>.
+            </p>
+</div>
+<!-- Infografía Comparativa con Tarjetas Ilustradas -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Situación Caótica -->
+<div class="bg-surface-soft rounded-2xl border border-surface-border p-5 space-y-4 flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label font-bold text-xs uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-md border border-rose-200">
+                    Situación Caótica
+                  </span>
+<span class="text-xs font-label font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">Entropía = 1.00 bit</span>
+</div>
+<h4 class="font-extrabold text-base text-slate-900">5 Días Inundación vs 5 Días Seguro = Caos Total</h4>
+<p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Al tener exactamente 50% de probabilidad en cada clase, no existe certeza para prevenir a los pobladores de la ciénaga Grande ni a los ganaderos ribereños.
+                </p>
+<!-- Visualización de datos equilibrados e inciertos -->
+<div class="bg-surface-pure rounded-xl p-3.5 border border-surface-border flex items-center justify-around gap-2 text-center">
+<div class="space-y-1">
+<div class="flex items-center justify-center gap-1 text-rose-500">
+<span class="material-symbols-outlined fill-icon text-xl">water_drop</span>
+<span class="material-symbols-outlined fill-icon text-xl">water_drop</span>
+<span class="material-symbols-outlined fill-icon text-xl">water_drop</span>
+</div>
+<span class="text-xs font-bold text-rose-700 block">5 Días Inundación</span>
+</div>
+<div class="text-slate-300 font-label font-extrabold text-base">VS</div>
+<div class="space-y-1">
+<div class="flex items-center justify-center gap-1 text-cordoba-green">
+<span class="material-symbols-outlined fill-icon text-xl">water</span>
+<span class="material-symbols-outlined fill-icon text-xl">water</span>
+<span class="material-symbols-outlined fill-icon text-xl">water</span>
+</div>
+<span class="text-xs font-bold text-cordoba-green block">5 Días Seguro</span>
+</div>
+</div>
+</div>
+<!-- Foto Real: Río Sinú en Córdoba -->
+<div class="rounded-xl overflow-hidden border border-surface-border h-40 relative group">
+<img alt="Río Sinú en Córdoba" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxo-nPKh1qKKuyLiOonnl6Vz3OY3sPTssd2KpR0U73CXyGGXmyfSMxRB_B6FzqgYxgh9HFpvhUekzzQWI4BQqqLDt8CGysVoYympViyggX2gJ1gEbxu1L1fsxDr_IhIhVu3YfZ3M2zFbyv1G8Fu7feq8bz_vJ51uJTU8nDZv3MloMbYMpr3r_ScWt17nmf4ekkhvntocimfa0dbbpluLrvkbplHk_FQHTouu3yCoQ4WH_iTFxq-H-iYT8aKF7zOlsqRog">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex items-end p-3">
+<span class="text-white text-xs font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-amber-300">nature</span>
+                    Cuenca baja en Lorica: comunidades y meandros del Sinú
+                  </span>
+</div>
+</div>
+</div>
+<!-- Situación Ordenada con Árbol de Decisión -->
+<div class="bg-surface-soft rounded-2xl border border-surface-border p-5 space-y-4 flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label font-bold text-xs uppercase tracking-wider text-cordoba-green bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                    Situación Ordenada con Árbol
+                  </span>
+<span class="text-xs font-label font-bold text-cordoba-green bg-emerald-50 px-2 py-0.5 rounded">Entropía = 0.00 bits</span>
+</div>
+<h4 class="font-extrabold text-base text-slate-900">Elegir la pregunta correcta que separa las aguas</h4>
+<p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Si hacemos la pregunta clave que separa los datos —por ejemplo: <em>¿Están abiertas las compuertas de descarga en Urrá?</em>— los grupos se purifican y obtenemos la máxima <strong>Ganancia de Información</strong>.
+                </p>
+<!-- Visualización de Reglas de Decisión -->
+<div class="bg-surface-pure rounded-xl p-3.5 border border-surface-border space-y-2 text-xs">
+<div class="flex items-center justify-between text-slate-700 pb-2 border-b border-slate-100">
+<span class="flex items-center gap-1.5 font-bold text-slate-800">
+<span class="material-symbols-outlined text-cordoba-blue text-base">water</span>
+                      Compuertas Urrá Abiertas:
+                    </span>
+<span class="text-rose-700 font-bold bg-rose-50 border border-rose-200 px-2 py-0.5 rounded">Riesgo Inminente (100%)</span>
+</div>
+<div class="flex items-center justify-between text-slate-700">
+<span class="flex items-center gap-1.5 font-bold text-slate-800">
+<span class="material-symbols-outlined text-amber-600 text-base">lock</span>
+                      Compuertas Cerradas:
+                    </span>
+<span class="text-cordoba-green font-bold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">Caudal Estable y Seguro</span>
+</div>
+</div>
+</div>
+<!-- Foto Real: Represa de Urrá -->
+<div class="rounded-xl overflow-hidden border border-surface-border h-40 relative group">
+<img alt="Represa de Urrá" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhYiDYeS_Ix77Twx212iq4CyW3nthdP349LlFwDK_hy-iJL-0h1It4xjwGGADxKmgPXsc8y5SFWKx7Ejfci9AsFMP_EhlXQ1tSC2yqmMGeEzHzNrISwBDeYZNC6b2zD6ku2XSmfcx6fXyHiQwBv0Gt7_MpPFhFr40mRPqbxk75YTPTe5d-HdxZUyx6faU4I0bTBtWRZFdO9j0VS3l21sZ4YMJadjpn6QlZfQirrgssJY8ueZDGFgp4pI2kDKqxqWWDfTg">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex items-end p-3">
+<span class="text-white text-xs font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-amber-300">power</span>
+                    Represa de Urrá (Tierralta): regulación del río
+                  </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Botón de Transición Destacado -->
+<div class="flex justify-end pt-3">
+<button class="btn-tactile bg-cordoba-green hover:bg-cordoba-green-dark text-white font-label font-bold text-base px-6 py-3 rounded-xl flex items-center gap-2 shadow-md hover:shadow-lg transition-all w-full sm:w-auto justify-center" onclick="switchStep(2)" type="button">
+<span class="">¡Entendido! Ir al Reto Práctico</span>
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- 5. CONTENIDO DEL PASO 2: RETO SOCRÁTICO Y PRÁCTICO       -->
+<!-- ======================================================== -->
+<div class="space-y-6" id="content-step-2">
+<!-- Caso de Estudio en Territorio -->
+<div class="bg-amber-50/70 rounded-2xl border border-amber-200 p-5 sm:p-6 space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label font-bold text-xs uppercase tracking-wider text-amber-900 bg-amber-100/80 px-2.5 py-1 rounded-md border border-amber-300">
+                Caso de Estudio en Territorio
+              </span>
+<span class="text-xs font-semibold text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-slate-400">sensors</span>
+                Estación Puente de Lorica
+              </span>
+</div>
+<h3 class="text-lg font-bold text-slate-900">El Problema del Día en Lorica</h3>
+<p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+              Observa los registros de la estación Puente de Lorica: Tenemos <strong>9 días de crecidas súbitas</strong> y <strong>5 días de caudal estable</strong>. Queremos alertar a los pescadores y agricultores antes de que el agua entre a las fincas. Si aplicas la lógica de árboles de decisión:
+            </p>
+<div class="p-3 bg-white/80 rounded-xl border border-amber-200/80 text-amber-950 font-semibold text-sm">
+              ¿Qué factor crees que reduce más la incertidumbre para clasificar el riesgo: la lluvia local o la apertura de compuertas en Urrá? Explica por qué.
+            </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Columna Izquierda (7 cols): Mini tabla + Textarea + Enviar + Pista -->
+<div class="lg:col-span-7 space-y-5">
+<!-- Mini Tabla Visual de Atributos -->
+<div class="bg-surface-soft rounded-2xl border border-surface-border p-4 sm:p-5 space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label font-bold text-xs uppercase text-slate-600 tracking-wider">
+                    Mini Tabla de Atributos (Sensor Lorica)
+                  </span>
+<span class="text-xs text-slate-400">Total: 14 observaciones</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="bg-surface-pure p-3.5 rounded-xl border border-surface-border text-xs space-y-1.5 shadow-xs">
+<div class="flex items-center gap-1.5 font-bold text-cordoba-blue-deep">
+<span class="material-symbols-outlined text-base">rainy</span>
+<span class="">Atributo 1: Lluvia Serranía</span>
+</div>
+<p class="text-slate-600 leading-relaxed">
+                      8 de 9 crecidas coinciden cuando la lluvia orográfica es intensa en San Jerónimo.
+                    </p>
+<span class="inline-block px-2 py-0.5 rounded bg-blue-50 text-cordoba-blue-deep font-semibold text-[11px]">88% de correlación</span>
+</div>
+<div class="bg-surface-pure p-3.5 rounded-xl border border-surface-border text-xs space-y-1.5 shadow-xs">
+<div class="flex items-center gap-1.5 font-bold text-cordoba-green">
+<span class="material-symbols-outlined text-base">water</span>
+<span class="">Atributo 2: Vertimiento Urrá</span>
+</div>
+<p class="text-slate-600 leading-relaxed">
+                      Compuertas abiertas al 100% aumentan el caudal general, pero tardan hasta 18h en llegar.
+                    </p>
+<span class="inline-block px-2 py-0.5 rounded bg-emerald-50 text-cordoba-green font-semibold text-[11px]">Caudal base continuo</span>
+</div>
+</div>
+</div>
+<!-- Área de Deducción del Estudiante -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<label class="block font-bold text-sm text-slate-800" for="student-deduction">
+                    Tu Deducción Lógica:
+                  </label>
+<span class="text-xs text-slate-400 font-label" id="char-counter">234 caracteres</span>
+</div>
+<textarea class="w-full bg-surface-pure border border-slate-300 focus:border-cordoba-blue focus:ring-3 focus:ring-cordoba-blue/20 rounded-xl p-4 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition-all resize-y leading-relaxed shadow-xs" id="student-deduction" oninput="updateCharCount()" placeholder="Escribe aquí tu deducción lógica con tus propias palabras... Recuerda mencionar qué atributo da mayor ganancia de información." rows="5">Considero que la apertura de compuertas en Urrá define el caudal base de todo el valle, pero la lluvia torrencial en la Serranía de San Jerónimo es la que genera la crecida súbita directa en Lorica. Al separar por lluvia, la incertidumbre baja casi a cero...</textarea>
+</div>
+<!-- Botones de Acción -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+<!-- Botón de Micro-Pista Gamificado -->
+<button class="btn-tactile inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-label font-bold text-xs transition-colors shadow-xs" onclick="requestMicroHint()" type="button">
+<span class="material-symbols-outlined text-base fill-icon text-amber-600">lightbulb</span>
+<span class="">💡 ¿Estás bloqueado? Canjear 10 PTS por micro-pista</span>
+</button>
+<!-- Botón de Envío Llamativo -->
+<button class="btn-tactile bg-cordoba-green hover:bg-cordoba-green-dark text-white font-label font-bold text-sm px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow transition-all" onclick="submitStudentReasoning()" type="button">
+<span class="material-symbols-outlined text-base fill-icon text-amber-300">auto_awesome</span>
+<span class="">Validar Deducción (+100 PTS)</span>
+</button>
+</div>
+</div>
+<!-- Columna Derecha (5 cols): Copiloto Socrático (Tutor IA) -->
+<div class="lg:col-span-5 bg-surface-soft rounded-2xl border border-surface-border p-5 flex flex-col justify-between space-y-4">
+<div class="space-y-4">
+<!-- Header del Oráculo -->
+<div class="flex items-center justify-between pb-3 border-b border-surface-border">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cordoba-blue to-cordoba-green flex items-center justify-center text-white shadow-xs">
+<span class="material-symbols-outlined text-xl fill-icon">psychology</span>
+</div>
+<div>
+<h4 class="font-extrabold text-sm text-slate-900">Oráculo Socrático</h4>
+<p class="text-xs text-slate-500">Copiloto Pedagógico IA • Gotas del Sinú</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-100/80 px-2.5 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                    Activo
+                  </span>
+</div>
+<!-- Diálogo Conversacional Socrático -->
+<div class="space-y-3.5 text-xs leading-relaxed max-h-[340px] overflow-y-auto pr-1" id="copilot-chat-history">
+<!-- Mensaje Inicial del Tutor -->
+<div class="bg-surface-pure rounded-xl p-3.5 border border-surface-border space-y-2 shadow-xs">
+<div class="flex items-center justify-between text-slate-400 text-[11px]">
+<span class="font-bold text-cordoba-blue-deep flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">smart_toy</span>
+                        Oráculo Pedagógico
+                      </span>
+<span class="">En línea</span>
+</div>
+<p class="text-slate-700 leading-relaxed">
+                      ¡Bienvenido, Investigador del Sinú! Piensa en cómo se comportan las aguas en Lorica: si el embalse en Tierralta descarga pero no cae una sola gota en la cuenca baja, ¿el riesgo es inmediato o gradual?
+                    </p>
+<div class="bg-emerald-50/70 p-2.5 rounded-lg border border-emerald-200 text-emerald-900 font-medium text-[11px]">
+                      Pregúntate: ¿Cuál de las dos variables clasifica los 9 días de crecida con menor error?
+                    </div>
+</div>
+<!-- Mensaje Previo de Estudiante -->
+<div class="bg-blue-50/70 rounded-xl p-3 border border-blue-200 space-y-1">
+<div class="flex items-center justify-between text-slate-400 text-[10px]">
+<span class="font-bold text-cordoba-blue-deep">Tu Deducción Inicial</span>
+<span class="">Registrada</span>
+</div>
+<p class="text-slate-800">
+                      Considero que la lluvia torrencial en la Serranía define la crecida súbita directa en Lorica con mayor rapidez...
+                    </p>
+</div>
+<!-- Respuesta Formativa del Tutor -->
+<div class="bg-emerald-50/90 rounded-xl p-3.5 border border-emerald-200 space-y-1.5">
+<div class="flex items-center justify-between text-emerald-800 text-[11px]">
+<span class="font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs fill-icon text-amber-500">emoji_events</span>
+                        ¡Excelente análisis socrático!
+                      </span>
+<span class="">Retroalimentación</span>
+</div>
+<p class="text-slate-800 leading-relaxed">
+                      ¡Muy bien pensado! Has identificado que la lluvia local genera la mayor <strong>Ganancia de Información</strong> inmediata. El vertimiento de Urrá es crítico para el volumen general, pero la lluvia local es el detonante súbito.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Input para Repreguntar al Oráculo -->
+<div class="relative pt-2">
+<input class="w-full bg-surface-pure border border-slate-300 focus:border-cordoba-blue focus:ring-2 focus:ring-cordoba-blue/20 rounded-xl pl-3 pr-10 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 outline-none transition-all shadow-xs" id="copilot-query" placeholder="Hazle una pregunta guía a tu tutor pedagógico..." type="text">
+<button class="absolute right-1.5 top-3.5 p-1.5 rounded-lg bg-cordoba-blue hover:bg-cordoba-blue-deep text-white transition-colors" onclick="askCopilot()" title="Enviar pregunta" type="button">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ============================================================== -->
+<!-- MODAL DE MICRO-PISTA SOCRÁTICA                                -->
+<!-- ============================================================== -->
+<div class="fixed inset-0 bg-slate-950/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4" id="hint-modal">
+<div class="bg-surface-pure rounded-2xl max-w-md w-full p-6 border border-surface-border shadow-xl space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-amber-600 font-bold">
+<span class="material-symbols-outlined fill-icon">lightbulb</span>
+<h4 class="">Micro-Pista del Tutor Socrático</h4>
+</div>
+<button class="text-slate-400 hover:text-slate-600" onclick="closeHintModal()" type="button">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<p class="text-slate-700 text-sm leading-relaxed" id="hint-text">
+        Observa la pureza matemática: Si sabes que en la Serranía de San Jerónimo llovió intensamente, 8 de los 9 casos resultaron en crecida. La duda restante es mínima. En cambio, si solo miras las compuertas de Urrá, el tiempo de tránsito fluvial (18h) deja muchas horas de incertidumbre en Lorica.
+      </p>
+<div class="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
+<span class="font-medium text-amber-700">Canjeaste 10 Gotas de Oro</span>
+<button class="px-4 py-2 rounded-xl bg-cordoba-green text-white font-bold text-xs hover:bg-cordoba-green-dark transition-colors shadow-xs" onclick="closeHintModal()" type="button">
+          Continuar Deduciendo
+        </button>
+</div>
+</div>
+</div>
+<!-- ============================================================== -->
+<!-- 7. FOOTER INSTITUCIONAL ESTANDARIZADO                           -->
+<!-- ============================================================== -->
+<footer class="bg-surface-pure border-t border-surface-border mt-auto py-5 px-4 sm:px-6">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 text-center sm:text-left">
+<p class="">
+        Versión 2.0 — © 2026 Gotas del Sinú • Licenciatura en Informática • Universidad de Córdoba
+      </p>
+<div class="flex items-center gap-4 text-cordoba-blue-deep font-semibold">
+<a class="hover:underline" href="/dashboard-estudiante">Dashboard</a>
+<span class="text-slate-300">•</span>
+<a class="hover:underline" href="#">Ruta Pedagógica</a>
+<span class="text-slate-300">•</span>
+<a class="hover:underline" href="#">Cuenca del Sinú</a>
+</div>
+</div>
+</footer>
+<!-- ============================================================== -->
+<!-- SCRIPTS E INTERACTIVIDAD                                       -->
+<!-- ============================================================== -->
+<script>
+    let currentStep = 2;
+    let goldPoints = 850;
+
+    function switchStep(step) {
+      currentStep = step;
+      const tab1 = document.getElementById('tab-step-1');
+      const tab2 = document.getElementById('tab-step-2');
+      const content1 = document.getElementById('content-step-1');
+      const content2 = document.getElementById('content-step-2');
+      const tab1Badge = document.getElementById('tab-step-1-badge');
+      const tab2Badge = document.getElementById('tab-step-2-badge');
+
+      if (step === 1) {
+        tab1.className = 'py-4 px-6 text-center font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 border-b-2 border-cordoba-green text-cordoba-green bg-surface-pure shadow-xs';
+        tab2.className = 'py-4 px-6 text-center font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 border-b-2 border-transparent text-slate-500 hover:text-cordoba-blue-deep hover:bg-slate-100/60';
+        tab1Badge.className = 'w-6 h-6 rounded-full bg-cordoba-green text-white text-xs flex items-center justify-center font-label font-bold';
+        tab2Badge.className = 'w-6 h-6 rounded-full bg-slate-300 text-slate-700 text-xs flex items-center justify-center font-label font-bold';
+        content1.classList.remove('hidden');
+        content2.classList.add('hidden');
+      } else {
+        tab2.className = 'py-4 px-6 text-center font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 border-b-2 border-cordoba-green text-cordoba-green bg-surface-pure shadow-xs';
+        tab1.className = 'py-4 px-6 text-center font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 border-b-2 border-transparent text-slate-500 hover:text-cordoba-blue-deep hover:bg-slate-100/60';
+        tab2Badge.className = 'w-6 h-6 rounded-full bg-cordoba-green text-white text-xs flex items-center justify-center font-label font-bold';
+        tab1Badge.className = 'w-6 h-6 rounded-full bg-slate-300 text-slate-700 text-xs flex items-center justify-center font-label font-bold';
+        content1.classList.add('hidden');
+        content2.classList.remove('hidden');
+      }
+    }
+
+    function updateCharCount() {
+      const textarea = document.getElementById('student-deduction');
+      const counter = document.getElementById('char-counter');
+      if (textarea && counter) {
+        counter.textContent = `${textarea.value.length} caracteres`;
+      }
+    }
+
+    function requestMicroHint() {
+      if (goldPoints >= 10) {
+        goldPoints -= 10;
+        document.getElementById('gold-balance').textContent = `${goldPoints} PTS`;
+        const modal = document.getElementById('hint-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        alert("No tienes suficientes Gotas de Oro para canjear esta pista.");
+      }
+    }
+
+    function closeHintModal() {
+      const modal = document.getElementById('hint-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function submitStudentReasoning() {
+      const text = document.getElementById('student-deduction').value.trim();
+      if (!text) {
+        alert("Por favor escribe tu deducción antes de validar con el Oráculo.");
+        return;
+      }
+      goldPoints += 100;
+      document.getElementById('gold-balance').textContent = `${goldPoints} PTS`;
+
+      const history = document.getElementById('copilot-chat-history');
+      
+      const studentMsg = document.createElement('div');
+      studentMsg.className = 'bg-blue-50/70 rounded-xl p-3 border border-blue-200 space-y-1';
+      studentMsg.innerHTML = `
+        <div class="flex items-center justify-between text-slate-400 text-[10px]">
+          <span class="font-bold text-cordoba-blue-deep">Tu Deducción Validada</span>
+          <span>Ahora</span>
+        </div>
+        <p class="text-slate-800">${text}</p>
+      `;
+      history.appendChild(studentMsg);
+
+      const tutorMsg = document.createElement('div');
+      tutorMsg.className = 'bg-emerald-50/90 rounded-xl p-3.5 border border-emerald-200 space-y-1.5';
+      tutorMsg.innerHTML = `
+        <div class="flex items-center justify-between text-emerald-800 text-[11px]">
+          <span class="font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-xs fill-icon text-amber-500">award_star</span>
+            ¡Excelente validación! (+100 Gotas de Oro)
+          </span>
+          <span>Oráculo Pedagógico</span>
+        </div>
+        <p class="text-slate-800 leading-relaxed">
+          ¡Magistral deducción! Has demostrado cómo un nodo de decisión sobre lluvia local minimiza la entropía del sistema en la cuenca baja de Lorica.
+        </p>
+      `;
+      history.appendChild(tutorMsg);
+      history.scrollTop = history.scrollHeight;
+    }
+
+    function askCopilot() {
+      const queryInput = document.getElementById('copilot-query');
+      const query = queryInput.value.trim();
+      if (!query) return;
+
+      const history = document.getElementById('copilot-chat-history');
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bg-slate-100 rounded-xl p-3 text-slate-700 text-xs';
+      userBubble.innerHTML = `<strong class="text-slate-900">Tú:</strong> ${query}`;
+      history.appendChild(userBubble);
+
+      queryInput.value = '';
+
+      setTimeout(() => {
+        const tutorBubble = document.createElement('div');
+        tutorBubble.className = 'bg-surface-pure rounded-xl p-3 border border-surface-border text-slate-700 text-xs space-y-1 shadow-xs';
+        tutorBubble.innerHTML = `
+          <span class="font-bold text-cordoba-blue-deep block">Oráculo Pedagógico:</span>
+          <p class="leading-relaxed">Recuerda el principio del río: no buscamos necesariamente la causa más aparatosa, sino la variable que parta la muestra en dos grupos con la menor incertidumbre posible. ¿Qué ocurre los días en que no llueve en la serranía?</p>
+        `;
+        history.appendChild(tutorBubble);
+        history.scrollTop = history.scrollHeight;
+      }, 500);
+    }
+  </script>
+
+
+</body></html>

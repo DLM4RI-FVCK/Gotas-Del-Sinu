@@ -1,0 +1,264 @@
+/* ==========================================================================
+   GOTAS DEL SINÚ — DESIGN SYSTEM & TOKENS (NUXT 4 + VUETIFY)
+   Inspired by the Sinú River Basin, Córdoba, Colombia
+   ========================================================================== */
+
+:root {
+  /* Brand Palettes */
+  --color-primary: #006496;
+  --color-primary-container: #129fea;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #00324f;
+  --color-primary-fixed: #cce5ff;
+  --color-primary-fixed-dim: #91cdff;
+
+  --color-secondary: #3d6a00;
+  --color-secondary-container: #aff763;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #417000;
+  --color-verde-naturaleza: #76b82a;
+  --color-verde-bosque: #00563f;
+
+  --color-tertiary: #795900;
+  --color-tertiary-container: #bf8f00;
+  --color-oro-sol: #ffc21c;
+  --color-on-tertiary: #ffffff;
+
+  --color-azul-profundo: #0a5a87;
+  --color-azul-agua: #129fea;
+
+  --color-surface: #f7f9ff;
+  --color-surface-bright: #f7f9ff;
+  --color-surface-dim: #bbdeff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #ecf4ff;
+  --color-surface-container: #e2efff;
+  --color-surface-container-high: #d7eaff;
+  --color-surface-container-highest: #cce5ff;
+  --color-surface-tint: #006496;
+
+  --color-on-surface: #001e31;
+  --color-on-surface-variant: #3f4851;
+  --color-outline: #6f7882;
+  --color-outline-variant: #bec7d2;
+  --color-outline-light: #e1edf5;
+  --color-border-card: #e4f0f7;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+
+  /* Typography */
+  --font-family-headline: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-family-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-family-label: 'Space Grotesk', monospace, sans-serif;
+
+  /* Elevation */
+  --elevation-card: 0 4px 18px -2px rgba(10, 90, 135, 0.07), 0 2px 6px -1px rgba(10, 90, 135, 0.04);
+  --elevation-hover: 0 10px 25px -4px rgba(18, 159, 234, 0.16), 0 4px 10px -2px rgba(10, 90, 135, 0.06);
+  --elevation-modal: 0 20px 40px -6px rgba(10, 90, 135, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-headline);
+  letter-spacing: -0.02em;
+}
+
+.font-label, .chip-label, .metric-number {
+  font-family: var(--font-family-label);
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
+}
+
+/* Tactile 3D Buttons */
+.tactile-btn-primary {
+  background-color: #129fea !important;
+  color: #ffffff !important;
+  font-family: var(--font-family-label) !important;
+  font-weight: 700 !important;
+  border-bottom: 3.5px solid #0d7eba !important;
+  border-radius: 1rem !important;
+  transition: all 0.15s ease-in-out !important;
+  cursor: pointer;
+}
+.tactile-btn-primary:hover {
+  background-color: #2bb0f5 !important;
+  transform: translateY(-1px);
+}
+.tactile-btn-primary:active {
+  transform: translateY(2px) !important;
+  border-bottom-width: 1.5px !important;
+}
+
+.tactile-btn-secondary {
+  background-color: #76b82a !important;
+  color: #ffffff !important;
+  font-family: var(--font-family-label) !important;
+  font-weight: 700 !important;
+  border-bottom: 3.5px solid #588d1d !important;
+  border-radius: 1rem !important;
+  transition: all 0.15s ease-in-out !important;
+  cursor: pointer;
+}
+.tactile-btn-secondary:hover {
+  background-color: #83ca30 !important;
+  transform: translateY(-1px);
+}
+.tactile-btn-secondary:active {
+  transform: translateY(2px) !important;
+  border-bottom-width: 1.5px !important;
+}
+
+.tactile-btn-tertiary {
+  background-color: #ffc21c !important;
+  color: #4d3a00 !important;
+  font-family: var(--font-family-label) !important;
+  font-weight: 700 !important;
+  border-bottom: 3.5px solid #d49a05 !important;
+  border-radius: 1rem !important;
+  transition: all 0.15s ease-in-out !important;
+  cursor: pointer;
+}
+.tactile-btn-tertiary:hover {
+  background-color: #ffd04d !important;
+  transform: translateY(-1px);
+}
+.tactile-btn-tertiary:active {
+  transform: translateY(2px) !important;
+  border-bottom-width: 1.5px !important;
+}
+
+/* Tactile Cards */
+.tactile-card {
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-border-card);
+  border-radius: 1rem;
+  box-shadow: var(--elevation-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tactile-card:hover {
+  border-color: #129fea;
+  transform: translateY(-3px);
+  box-shadow: var(--elevation-hover);
+}
+
+/* Gamified Gamified Chips */
+.coin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: #fff8e6;
+  border: 1px solid #ffe699;
+  color: #795900;
+  font-family: var(--font-family-label);
+  font-weight: 700;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.streak-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: #fff0eb;
+  border: 1px solid #ffd2c2;
+  color: #b33900;
+  font-family: var(--font-family-label);
+  font-weight: 700;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+}
+
+.level-ribbon {
+  background-color: #0a5a87;
+  color: #ffffff;
+  font-family: var(--font-family-label);
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Liquid XP Bar */
+.liquid-xp-track {
+  height: 14px;
+  background-color: #e1edf5;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+.liquid-xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #129fea 0%, #76b82a 100%);
+  border-radius: 9999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.liquid-xp-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Custom scrollbars */
+.custom-scroll::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Utility Helpers */
+.bg-river-radial {
+  background: radial-gradient(circle at top right, rgba(18, 159, 234, 0.12), transparent 70%),
+              radial-gradient(circle at bottom left, rgba(118, 184, 42, 0.08), transparent 70%);
+}

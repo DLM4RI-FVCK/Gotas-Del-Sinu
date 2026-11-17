@@ -1,0 +1,596 @@
+<!DOCTYPE html><html class="h-full" lang="es" style="width: 1280px; height: 900px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Acceso | Gotas del Sinú</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#004b72",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "inverse-primary": "#91cdff",
+            "surface-container-low": "#ecf4ff",
+            "secondary-container": "#aff763",
+            "surface-container-highest": "#cce5ff",
+            "on-background": "#001e31",
+            "on-secondary-container": "#417000",
+            "on-error-container": "#93000a",
+            "tertiary": "#795900",
+            "tertiary-fixed-dim": "#f9bd14",
+            "on-surface": "#001e31",
+            "tertiary-fixed": "#ffdf9e",
+            "surface-container": "#e2efff",
+            "primary": "#006496",
+            "secondary-fixed-dim": "#95d949",
+            "on-tertiary-container": "#3e2c00",
+            "primary-fixed": "#cce5ff",
+            "surface-variant": "#cce5ff",
+            "background": "#f7f9ff",
+            "outline": "#6f7882",
+            "surface-dim": "#bbdeff",
+            "surface-container-high": "#d7eaff",
+            "tertiary-container": "#bf8f00",
+            "on-secondary-fixed": "#0f2000",
+            "on-secondary-fixed-variant": "#2c5000",
+            "surface-bright": "#f7f9ff",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#3f4851",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#261a00",
+            "on-primary": "#ffffff",
+            "secondary": "#3d6a00",
+            "surface-tint": "#006496",
+            "inverse-on-surface": "#e7f2ff",
+            "outline-variant": "#bec7d2",
+            "on-primary-container": "#00324f",
+            "inverse-surface": "#003351",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#91cdff",
+            "secondary-fixed": "#aff763",
+            "surface": "#f7f9ff",
+            "on-primary-fixed": "#001e31",
+            "surface-container-lowest": "#ffffff",
+            "primary-container": "#129fea"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "margin": "2rem",
+            "gutter-sm": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin-sm": "1rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Space Grotesk"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "800" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-xl": ["44px", { "lineHeight": "52px", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    /* Tactile 3D Button Effects */
+    .btn-tactile-primary {
+      background-color: #129FEA;
+      border-bottom: 3px solid #0D7EBA;
+      transition: all 0.15s ease;
+    }
+    .btn-tactile-primary:active {
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+    }
+
+    .btn-tactile-success {
+      background-color: #76B82A;
+      border-bottom: 3px solid #588D1D;
+      transition: all 0.15s ease;
+    }
+    .btn-tactile-success:active {
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+    }
+
+    .btn-tactile-gold {
+      background-color: #FFC21C;
+      border-bottom: 3px solid #D69E07;
+      transition: all 0.15s ease;
+    }
+    .btn-tactile-gold:active {
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+    }
+
+    /* Ambient card elevation */
+    .card-level-1 {
+      box-shadow: 0 4px 18px -2px rgba(10, 90, 135, 0.07), 0 2px 6px -1px rgba(10, 90, 135, 0.04);
+    }
+    .card-level-2 {
+      box-shadow: 0 10px 25px -4px rgba(18, 159, 234, 0.16), 0 4px 10px -2px rgba(10, 90, 135, 0.06);
+    }
+
+    /* Water wave animated pattern in backdrop */
+    .sinu-water-bg {
+      background: radial-gradient(circle at 10% 20%, rgba(204, 229, 255, 0.6) 0%, rgba(247, 249, 255, 0.95) 90%);
+    }
+
+    /* Ripple micro shimmer */
+    @keyframes waveShimmer {
+      0% { transform: translateX(0) scaleY(1); }
+      50% { transform: translateX(-25%) scaleY(1.05); }
+      100% { transform: translateX(-50%) scaleY(1); }
+    }
+    .animate-waves {
+      animation: waveShimmer 18s ease-in-out infinite alternate;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<!-- Atmospheric River Backing Curves -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-40">
+<div class="absolute -top-32 -left-20 w-[600px] h-[600px] rounded-full bg-surface-container-highest blur-3xl"></div>
+<div class="absolute top-1/2 -right-40 w-[650px] h-[650px] rounded-full bg-secondary-fixed/40 blur-3xl"></div>
+<div class="absolute -bottom-32 left-1/3 w-[500px] h-[500px] rounded-full bg-primary-fixed blur-3xl"></div>
+<svg class="absolute bottom-0 left-0 w-[200%] h-48 text-surface-container/60 animate-waves" preserveAspectRatio="none" viewBox="0 0 1200 120">
+<path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,120 L0,120 Z" fill="currentColor"></path>
+</svg>
+</div>
+<!-- Header Banner -->
+<header class="relative z-10 w-full pt-space-lg pb-space-sm px-space-md md:px-margin">
+<div class="max-w-6xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-surface-container-lowest card-level-1 border border-outline-variant/40 flex items-center justify-center p-1.5 shadow-sm transform hover:scale-105 transition-transform">
+<img class="w-full h-full object-contain" data-alt="A vibrant 3D stylized cartoon water droplet mascot with bright friendly eyes, smiling warmly with tropical river plants, sunny horizon, and clean river water ripples from the Sinú department. Clean modern educational EdTech aesthetic with rich aquatic blues and vibrant nature greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARd9sf2Ue95BykWI4PoQ-4E7GZ-r8jru4OO9E8IAQwQGDSi0M9sbqyx8WFWweWfVPqzVNE278vzNXo_Yg7ImMdItRrQJdU_8mjWmwXbpvcnz0AcuWlwRRy-2l57Be-DvS4msnaodbNf6MLlYI8TTN6x4d1VmbcyeFzNri_54sM42VaCchk6IJGo6xBasBSg95jBS0098GXvpGJWSCBYOpxFGCZcyZjTEaF-BeRK4GLBUnnfb9ScgC52kxoB17ojSiHnpDPjoUYBIlROG4">
+</div>
+<div>
+
+<h1 class="text-headline-sm md:text-headline-md font-headline-md font-extrabold text-primary tracking-tight">Gotas Del Sinú</h1>
+</div>
+</div>
+<!-- Live River Status Chip -->
+
+</div>
+</header>
+<!-- Main Dual-Column Authentication Canvas -->
+<main class="relative z-10 flex-1 max-w-6xl w-full mx-auto px-space-md md:px-margin py-space-md grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+<!-- LEFT COLUMN: The River Guardians Pedagogy Showcase -->
+<div class="lg:col-span-5 flex flex-col gap-space-md order-2 lg:order-1">
+<!-- Environmental Context Badge / Banner Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md border border-outline-variant/60 card-level-1 relative overflow-hidden group">
+<div class="relative h-44 w-full rounded-xl overflow-hidden mb-space-sm">
+<img alt="RIO_SINU.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMhoFIYisavDuC0mXBfs6huC-S7KDo-97OY6ghRBK2halbkI2kV_dT9y7g8P3tRdQjtivzaNwLOIB6KKW3rwiA8Pj7eGfp6WuvmtYtyvr72ue8zD8ebMSZ9cn3u8mjPKh7eC6amDcNddIJTKTZE1j6XO6akiB-5XBydSCC7z69yvN0VeGQG4tqw-krkkHzHdPxY5BKjBHLV2s2TOhjoaxznu9b1PqHi8GVL9RurKPJbfOHrPt-fnA8FUNekofg7SmvWYc">
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/85 via-inverse-surface/30 to-transparent flex flex-col justify-end p-space-sm">
+<span class="inline-flex items-center gap-1 text-tertiary-fixed text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-xs">forest</span> Conservación &amp; Algoritmos
+            </span>
+<p class="text-inverse-on-surface text-label-lg font-label-lg leading-tight">
+              Aprende informática resolviendo retos de la vida real en el Río Sinú
+            </p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-md font-label-md text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-base">school</span>
+              Universidad de Córdoba
+            </span>
+<span class="text-secondary font-bold">Cohorte 2026</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+            Un ecosistema gamificado donde los árboles de decisión y la lógica computacional protegen los humedales y caseríos de la cuenca hídrica cordobesa.
+          </p>
+</div>
+<!-- Quick Demo Selector Shortcuts -->
+<div class="mt-space-md pt-space-sm border-t border-outline-variant/40">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-space-xs flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">flash_on</span>
+            Demo rápida: Clic para entrar como Estudiante o como Docente
+          </p>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors text-label-sm font-label-sm border border-outline-variant/30" onclick="quickFillDemo('estudiante')" type="button">
+<span class="material-symbols-outlined text-base text-primary">school</span>
+              Estudiante Demo
+            </button>
+<button class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors text-label-sm font-label-sm border border-outline-variant/30" onclick="quickFillDemo('docente')" type="button">
+<span class="material-symbols-outlined text-base text-secondary">assignment_ind</span>
+              Docente Demo
+            </button>
+</div>
+</div>
+</div>
+<!-- Feature Pill Badges -->
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-container-lowest rounded-xl p-2.5 text-center card-level-1 border border-outline-variant/40">
+<div class="text-primary font-headline-sm font-bold flex items-center justify-center">
+<span class="material-symbols-outlined text-lg text-primary mr-1" style="font-variation-settings: &quot;FILL&quot; 1;">water</span> 14
+          </div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Misiones de Río</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-2.5 text-center card-level-1 border border-outline-variant/40">
+<div class="text-secondary font-headline-sm font-bold flex items-center justify-center">
+<span class="material-symbols-outlined text-lg text-secondary mr-1" style="font-variation-settings: &quot;FILL&quot; 1;">psychology</span> AI
+          </div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Tutor Socrático</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-2.5 text-center card-level-1 border border-outline-variant/40">
+<div class="text-tertiary-container font-headline-sm font-bold flex items-center justify-center">
+<span class="material-symbols-outlined text-lg text-tertiary mr-1" style="font-variation-settings: &quot;FILL&quot; 1;">military_tech</span> XP
+          </div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Gotas de Oro</p>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Gamified v-card Interactive Hub -->
+<div class="lg:col-span-7 order-1 lg:order-2">
+<div class="bg-surface-container-lowest rounded-3xl p-space-lg md:p-space-xl border-2 border-outline-variant/40 card-level-2 relative backdrop-blur-md">
+<!-- Gamified Header Tab Switcher (v-tabs style) -->
+<div class="flex items-center justify-between p-1.5 bg-surface-container rounded-2xl mb-space-lg border border-outline-variant/30">
+<button class="flex-1 py-2.5 px-space-md rounded-xl text-label-lg font-label-lg flex items-center justify-center gap-2 transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm" id="tab-login" onclick="switchTab('login')">
+<span class="material-symbols-outlined text-base">login</span>
+            Iniciar Sesión
+          </button>
+<button class="flex-1 py-2.5 px-space-md rounded-xl text-label-lg font-label-lg flex items-center justify-center gap-2 transition-all duration-200 text-on-surface-variant hover:text-primary" id="tab-register" onclick="switchTab('register')">
+<span class="material-symbols-outlined text-base">person_add</span>
+            Registrarse
+          </button>
+</div>
+<!-- Form Card Container -->
+<form class="space-y-space-md" id="auth-form" onsubmit="handleAuthSubmit(event)">
+<!-- 3. Selector de Roles Ultra Interactivo -->
+<div class="space-y-space-xs">
+<label class="text-label-md font-label-md text-on-surface flex items-center justify-between">
+<span class="">Selecciona tu Rol de Guardián</span>
+<span class="text-label-sm font-label-sm text-primary uppercase font-bold tracking-wider" id="role-badge">Modo Científico</span>
+</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-1">
+<!-- Role Option 1: Estudiante Científico -->
+<div class="cursor-pointer rounded-2xl p-space-md border-2 border-primary bg-primary-fixed/20 transition-all duration-200 relative hover:shadow-md flex flex-col justify-between group" id="role-student-card" onclick="selectRole('student')">
+<div class="flex items-start justify-between mb-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-xl">school</span>
+</div>
+<span class="material-symbols-outlined text-primary text-xl" id="student-check" style="font-variation-settings: &quot;FILL&quot; 1;">check_circle</span>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-primary font-bold">🎓 Estudiante Científico</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1 text-xs leading-snug">
+                    Aprende árboles de decisión, gana gotas de oro, personaliza tu avatar y supera al API Socrático.
+                  </p>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-label-sm font-label-sm text-secondary font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Misiones activas disponibles
+                </div>
+</div>
+<!-- Role Option 2: Docente Administrador -->
+<div class="cursor-pointer rounded-2xl p-space-md border-2 border-outline-variant/40 bg-surface-container-low/40 transition-all duration-200 relative hover:shadow-md flex flex-col justify-between group opacity-75 hover:opacity-100" id="role-teacher-card" onclick="selectRole('teacher')">
+<div class="flex items-start justify-between mb-2">
+<div class="w-10 h-10 rounded-xl bg-surface-container text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-xl" id="teacher-check">radio_button_unchecked</span>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-on-surface font-bold">🍎 Docente Administrador</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1 text-xs leading-snug">
+                    Supervisa el curso, audita analíticas de errores lógicos y consulta reportes con la IA ejecutiva.
+                  </p>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-label-sm font-label-sm text-on-surface-variant font-medium">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span> Panel de analíticas
+                </div>
+</div>
+</div>
+</div>
+<!-- Dynamic Registration Extras (Hidden in Login Mode) -->
+<div class="hidden space-y-space-md pt-1" id="register-fields">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="reg-first-name">Nombre Completo</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-outline text-lg">badge</span>
+<input class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-outline-variant text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all bg-surface-container-lowest" id="reg-first-name" placeholder="Ej. Camila Narváez" type="text">
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="reg-code">Código Estudiantil / ID</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-outline text-lg">tag</span>
+<input class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-outline-variant text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all bg-surface-container-lowest" id="reg-code" placeholder="Ej. 202611890" type="text">
+</div>
+</div>
+</div>
+</div>
+<!-- Email Field -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="block text-label-md font-label-md text-on-surface" for="auth-email">Correo Institucional Unicórdoba</label>
+<span class="text-label-sm font-label-sm text-primary font-semibold">@unicordoba.edu.co</span>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-outline text-lg">alternate_email</span>
+<input class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-outline-variant text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all bg-surface-container-lowest" id="auth-email" placeholder="tu_usuario@unicordoba.edu.co" required="" type="email" value="guardiano.sinu@unicordoba.edu.co">
+</div>
+</div>
+<!-- Password Field + Security Meter with Water Drops -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="block text-label-md font-label-md text-on-surface" for="auth-password">Contraseña de Guardián</label>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#" onclick="event.preventDefault(); alert('Se enviará un código de rescate fluvial a tu correo institucional.');">¿Olvidaste tu clave?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-outline text-lg">lock</span>
+<input class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-outline-variant text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all bg-surface-container-lowest" id="auth-password" oninput="updatePasswordDrops(this.value)" placeholder="••••••••••••" required="" type="password" value="SinuCientifico2026!">
+<button class="absolute right-3 top-3 text-outline hover:text-on-surface transition-colors" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-lg" id="pw-visibility-icon">visibility</span>
+</button>
+</div>
+<!-- Gamified Password Strength: Water Droplets Level -->
+<div class="mt-2.5 bg-surface-container-low p-2 rounded-xl border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Pureza de la clave:</span>
+<div class="flex items-center gap-1" id="drops-meter">
+<!-- 4 Water Drop Icons indicating security level -->
+<span class="material-symbols-outlined text-primary text-base" style="font-variation-settings: &quot;FILL&quot; 1;">water_drop</span>
+<span class="material-symbols-outlined text-primary text-base" style="font-variation-settings: &quot;FILL&quot; 1;">water_drop</span>
+<span class="material-symbols-outlined text-primary text-base" style="font-variation-settings: &quot;FILL&quot; 1;">water_drop</span>
+<span class="material-symbols-outlined text-primary text-base" style="font-variation-settings: &quot;FILL&quot; 1;">water_drop</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-secondary font-bold" id="drop-status-text">Aguas Claras (Muy Segura)</span>
+</div>
+</div>
+<!-- Stay Logged In Checkbox -->
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary border-outline-variant" type="checkbox">
+<span class="">Mantener sesión iniciada en este dispositivo</span>
+</label>
+</div>
+<!-- 5. CTA Button in Verde Córdoba with tactile bottom edge -->
+<div class="pt-2">
+<button class="w-full py-3.5 px-space-md rounded-2xl btn-tactile-success text-on-secondary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-md relative overflow-hidden group" id="main-cta-btn" type="submit">
+<span class="material-symbols-outlined text-xl transition-transform group-hover:rotate-12">sailing</span>
+<span id="cta-label" class="">Ingresar a la Aventura</span>
+<span class="material-symbols-outlined text-xl ml-1 transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Terms footer within card -->
+<div class="mt-space-md text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant">
+            Al acceder aceptas el <a class="text-primary underline" href="#">Pacto de Conservación de la Cuenca</a> y el protocolo pedagógico DAPI.
+          </p>
+</div>
+</div>
+</div>
+</main>
+<!-- 8. Footer con control de versiones exacto -->
+<footer class="relative z-10 w-full py-space-md px-space-md md:px-margin border-t border-outline-variant/40 bg-surface-container-lowest/80 backdrop-blur-md">
+<div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">waves</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">
+          Versión 1.0 — © 2026 Gotas del Sinú | EdTech DAPI-VDC
+        </span>
+</div>
+<div class="flex items-center gap-4 text-label-sm font-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Términos de Aprendizaje</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" href="#">Protección de Datos</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" href="#">Conservación del Río Sinú</a>
+</div>
+</div>
+</footer>
+<!-- Script for Tab Switching, Role Selection, and Micro-Interactions -->
+<script>
+    let currentTab = 'login';
+    let currentRole = 'student';
+
+    function switchTab(mode) {
+      currentTab = mode;
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const regFields = document.getElementById('register-fields');
+      const ctaLabel = document.getElementById('cta-label');
+      const authForm = document.getElementById('auth-form');
+
+      if (mode === 'login') {
+        tabLogin.className = 'flex-1 py-2.5 px-space-md rounded-xl text-label-lg font-label-lg flex items-center justify-center gap-2 transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm';
+        tabRegister.className = 'flex-1 py-2.5 px-space-md rounded-xl text-label-lg font-label-lg flex items-center justify-center gap-2 transition-all duration-200 text-on-surface-variant hover:text-primary';
+        regFields.classList.add('hidden');
+        ctaLabel.textContent = 'Ingresar a la Aventura';
+      } else {
+        tabRegister.className = 'flex-1 py-2.5 px-space-md rounded-xl text-label-lg font-label-lg flex items-center justify-center gap-2 transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm';
+        tabLogin.className = 'flex-1 py-2.5 px-space-md rounded-xl text-label-lg font-label-lg flex items-center justify-center gap-2 transition-all duration-200 text-on-surface-variant hover:text-primary';
+        regFields.classList.remove('hidden');
+        ctaLabel.textContent = 'Crear Cuenta de Guardián';
+      }
+    }
+
+    function selectRole(role) {
+      currentRole = role;
+      const studentCard = document.getElementById('role-student-card');
+      const teacherCard = document.getElementById('role-teacher-card');
+      const studentCheck = document.getElementById('student-check');
+      const teacherCheck = document.getElementById('teacher-check');
+      const roleBadge = document.getElementById('role-badge');
+
+      if (role === 'student') {
+        studentCard.className = 'cursor-pointer rounded-2xl p-space-md border-2 border-primary bg-primary-fixed/20 transition-all duration-200 relative hover:shadow-md flex flex-col justify-between group';
+        teacherCard.className = 'cursor-pointer rounded-2xl p-space-md border-2 border-outline-variant/40 bg-surface-container-low/40 transition-all duration-200 relative hover:shadow-md flex flex-col justify-between group opacity-75 hover:opacity-100';
+        studentCheck.textContent = 'check_circle';
+        studentCheck.className = 'material-symbols-outlined text-primary text-xl';
+        studentCheck.style.fontVariationSettings = "'FILL' 1";
+        teacherCheck.textContent = 'radio_button_unchecked';
+        teacherCheck.className = 'material-symbols-outlined text-outline-variant text-xl';
+        teacherCheck.style.fontVariationSettings = "'FILL' 0";
+        roleBadge.textContent = 'Modo Científico';
+        roleBadge.className = 'text-label-sm font-label-sm text-primary uppercase font-bold tracking-wider';
+      } else {
+        teacherCard.className = 'cursor-pointer rounded-2xl p-space-md border-2 border-secondary bg-secondary-fixed/20 transition-all duration-200 relative hover:shadow-md flex flex-col justify-between group';
+        studentCard.className = 'cursor-pointer rounded-2xl p-space-md border-2 border-outline-variant/40 bg-surface-container-low/40 transition-all duration-200 relative hover:shadow-md flex flex-col justify-between group opacity-75 hover:opacity-100';
+        teacherCheck.textContent = 'check_circle';
+        teacherCheck.className = 'material-symbols-outlined text-secondary text-xl';
+        teacherCheck.style.fontVariationSettings = "'FILL' 1";
+        studentCheck.textContent = 'radio_button_unchecked';
+        studentCheck.className = 'material-symbols-outlined text-outline-variant text-xl';
+        studentCheck.style.fontVariationSettings = "'FILL' 0";
+        roleBadge.textContent = 'Modo Administrador';
+        roleBadge.className = 'text-label-sm font-label-sm text-secondary uppercase font-bold tracking-wider';
+      }
+    }
+
+    function quickFillDemo(type) {
+      const emailInput = document.getElementById('auth-email');
+      const passInput = document.getElementById('auth-password');
+      if (type === 'estudiante') {
+        selectRole('student');
+        emailInput.value = 'camilo.guardiano@unicordoba.edu.co';
+        passInput.value = 'RioVerde2026!';
+        updatePasswordDrops('RioVerde2026!');
+      } else {
+        selectRole('teacher');
+        emailInput.value = 'prof.cordoba@unicordoba.edu.co';
+        passInput.value = 'AuditoriaSinu99#';
+        updatePasswordDrops('AuditoriaSinu99#');
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('auth-password');
+      const icon = document.getElementById('pw-visibility-icon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        passInput.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    function updatePasswordDrops(val) {
+      const meter = document.getElementById('drops-meter');
+      const statusText = document.getElementById('drop-status-text');
+      const length = val.length;
+      let score = 1;
+
+      if (length > 10 && /[A-Z]/.test(val) && /[0-9]/.test(val)) {
+        score = 4;
+      } else if (length > 7) {
+        score = 3;
+      } else if (length > 4) {
+        score = 2;
+      }
+
+      let dropsHtml = '';
+      for (let i = 0; i < 4; i++) {
+        const fill = i < score ? "1" : "0";
+        const colorClass = i < score ? "text-primary" : "text-outline-variant";
+        dropsHtml += `<span class="material-symbols-outlined ${colorClass} text-base" style="font-variation-settings: 'FILL' ${fill};">water_drop</span>`;
+      }
+      meter.innerHTML = dropsHtml;
+
+      if (score === 4) {
+        statusText.textContent = 'Aguas Claras (Muy Segura)';
+        statusText.className = 'text-label-sm font-label-sm text-secondary font-bold';
+      } else if (score === 3) {
+        statusText.textContent = 'Corriente Firme (Buena)';
+        statusText.className = 'text-label-sm font-label-sm text-primary font-bold';
+      } else if (score === 2) {
+        statusText.textContent = 'Turbia (Moderada)';
+        statusText.className = 'text-label-sm font-label-sm text-tertiary font-bold';
+      } else {
+        statusText.textContent = 'Caudal Débil (Vulnerable)';
+        statusText.className = 'text-label-sm font-label-sm text-error font-bold';
+      }
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const actionText = currentTab === 'login' ? 'Conectando con la Cuenca...' : 'Registrando nuevo Guardián...';
+      const ctaBtn = document.getElementById('main-cta-btn');
+      const originalText = ctaBtn.innerHTML;
+      
+      ctaBtn.innerHTML = `
+        <span class="material-symbols-outlined text-xl animate-spin">progress_activity</span>
+        <span>${actionText}</span>
+      `;
+      ctaBtn.disabled = true;
+
+      setTimeout(() => {
+        ctaBtn.innerHTML = `
+          <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          <span>¡Acceso Concedido! Bienvenido Guardián</span>
+        `;
+        ctaBtn.classList.remove('btn-tactile-success');
+        ctaBtn.classList.add('bg-secondary', 'text-on-secondary');
+        
+        setTimeout(() => {
+          ctaBtn.innerHTML = originalText;
+          ctaBtn.classList.add('btn-tactile-success');
+          ctaBtn.classList.remove('bg-secondary');
+          ctaBtn.disabled = false;
+        }, 2000);
+      }, 1200);
+    }
+  </script>
+
+
+
+
+<div id="snapdom-sandbox" data-snapdom-sandbox="true" aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0px; height: 0px; overflow: hidden;"></div>
+
+</body></html>

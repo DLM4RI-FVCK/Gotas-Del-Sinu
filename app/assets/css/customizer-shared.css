@@ -1,0 +1,261 @@
+/* Estilos compartidos para los personalizadores estilo Roblox (Avatar y Zenuito) */
+.roblox-editor {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  border: 2px solid #d7e3ee;
+  border-radius: 24px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 36% 64%;
+}
+
+.character-stage {
+  container-type: size;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, #ffffff 0%, var(--stage-tint, #cce5ff) 78%),
+    linear-gradient(180deg, #e2efff 0%, #cce5ff 100%);
+  border-right: 2px solid #d7e3ee;
+}
+
+.spotlight-beam {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 80%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+}
+
+.stage-tag {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 100, 150, 0.15);
+}
+
+.stage-action-btn {
+  box-shadow: 0 4px 12px rgba(0, 30, 49, 0.1) !important;
+}
+
+.avatar-figure-wrap {
+  position: relative;
+  z-index: 2;
+  animation: float-idle 3.4s ease-in-out infinite;
+}
+
+@keyframes float-idle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.stage-avatar-img {
+  width: clamp(160px, 52cqmin, 310px);
+  height: clamp(160px, 52cqmin, 310px);
+  border-radius: 32px;
+  filter: drop-shadow(0 18px 28px rgba(0, 50, 79, 0.24));
+  display: block;
+}
+
+.pedestal-base {
+  width: clamp(160px, 50cqmin, 280px);
+  height: clamp(26px, 6cqh, 42px);
+  margin-top: -14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #006496 0%, #129fea 65%, rgba(18, 159, 234, 0) 100%);
+  box-shadow: 0 12px 28px rgba(0, 100, 150, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pedestal-ring {
+  width: 82%;
+  height: 62%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.78);
+}
+
+.player-nameplate {
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 100, 150, 0.16);
+}
+
+.stage-player-name {
+  font-size: clamp(1.25rem, 6.5cqmin, 2rem);
+  line-height: 1.15;
+  color: #001e31;
+}
+
+.stage-player-grade {
+  font-size: clamp(0.85rem, 4cqmin, 1.15rem);
+  color: #006496;
+}
+
+.catalog-panel {
+  min-height: 0;
+  height: 100%;
+  background-color: #f7f9ff;
+}
+
+.color-strip {
+  background-color: #ffffff;
+  border: 1px solid #d7e3ee;
+}
+
+.strip-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #e1edf5;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.strip-swatch.active {
+  transform: scale(1.22);
+  border-color: #006496;
+  box-shadow: 0 0 0 2px rgba(0, 100, 150, 0.25);
+}
+
+.sections-scroll {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.section-header {
+  background-color: #ffffff;
+  border: 1px solid #d7e3ee;
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+
+.section-title {
+  font-size: 0.95rem;
+  color: #001e31;
+}
+
+.section-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #006496;
+  background-color: rgba(0, 100, 150, 0.08);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(125px, 13vw, 175px), 1fr));
+  grid-auto-rows: minmax(160px, 1fr);
+  gap: 14px;
+}
+
+.catalog-tile {
+  container-type: size;
+  background-color: #ffffff;
+  border: 2px solid #d7e3ee;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.catalog-tile:hover {
+  transform: translateY(-3px);
+  border-color: #129fea;
+  box-shadow: 0 10px 22px rgba(0, 100, 150, 0.12);
+}
+
+.catalog-tile.is-none-tile {
+  border-style: dashed;
+  background-color: #fcfdff;
+}
+
+.catalog-tile.is-equipped {
+  border-style: solid;
+  border-color: #006496;
+  background-color: #eef6ff;
+  box-shadow: 0 8px 20px rgba(0, 100, 150, 0.18);
+}
+
+.tile-badge-row {
+  min-height: 20px;
+}
+
+.preset-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #006496;
+  background-color: rgba(0, 100, 150, 0.08);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.preset-tag.none-tag {
+  color: #ba1a1a;
+  background-color: rgba(186, 26, 26, 0.1);
+}
+
+.equipped-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #006496;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile-thumb {
+  width: clamp(72px, 52cqmin, 115px);
+  height: clamp(72px, 52cqmin, 115px);
+  border-radius: 18px;
+  object-fit: contain;
+}
+
+.tile-label {
+  font-size: clamp(0.82rem, 8.5cqmin, 1.02rem);
+  color: #001e31;
+}
+
+.logic-placeholder {
+  background-color: #ffffff;
+  border: 2px dashed #bec7d2;
+}
+
+.logic-icon-wrap {
+  width: 88px;
+  height: 88px;
+  border-radius: 24px;
+  background-color: rgba(0, 100, 150, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.z-2 {
+  z-index: 2;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .roblox-editor {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .character-stage {
+    min-height: 300px;
+  }
+}
