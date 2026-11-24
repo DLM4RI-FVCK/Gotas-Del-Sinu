@@ -121,7 +121,7 @@
         color="primary"
         size="x-large"
         rounded="xl"
-        class="text-none font-weight-bold"
+        class="text-none font-weight-bold finish-level-btn"
         prepend-icon="mdi-map-marker-path"
         @click="$emit('finish')"
       >

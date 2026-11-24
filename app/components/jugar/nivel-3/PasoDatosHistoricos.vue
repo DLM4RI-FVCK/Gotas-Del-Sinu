@@ -120,5 +120,12 @@ const trainingDays = [
   background-color: #006496;
   color: #ffffff;
 }
+
+@media (max-width: 960px) {
+  .dataset-row {
+    font-size: 0.78rem;
+    padding: 8px 10px;
+  }
+}
 </style>
 

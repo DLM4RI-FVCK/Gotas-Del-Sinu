@@ -27,25 +27,39 @@
         <label class="field-label d-block text-body-2 font-weight-medium mb-2">
           Nivel educativo
         </label>
-        <v-btn-toggle v-model="nivelEducativo" mandatory color="primary" variant="outlined" divided
-          class="w-100 nivel-toggle">
-          <v-btn value="Primaria" class="flex-1-1 text-none">
-            Primaria
-          </v-btn>
-          <v-btn value="Secundaria" class="flex-1-1 text-none">
+        <v-btn-toggle
+          v-model="nivelEducativo"
+          color="primary"
+          mandatory
+          divided
+          rounded="lg"
+          class="education-toggle w-100"
+        >
+          <v-btn value="Secundaria" class="flex-grow-1 text-none">
             Secundaria
           </v-btn>
-          <v-btn value="Universidad" class="flex-1-1 text-none">
+          <v-btn value="Universidad" class="flex-grow-1 text-none">
             Universidad
           </v-btn>
         </v-btn-toggle>
       </div>
 
-      <v-text-field v-model="gradoOSemestre" :label="nivelEducativo === 'Universidad' ? 'Semestre' : 'Grado'"
-        :placeholder="nivelEducativo === 'Universidad' ? 'Ej. 3° semestre' : 'Ej. 8° grado'" variant="outlined"
-        color="primary" density="comfortable" prepend-inner-icon="mdi-school-outline"
-        :rules="[v => !!v?.trim() || `Ingresa tu ${nivelEducativo === 'Universidad' ? 'semestre' : 'grado'}`]"
-        class="mb-6" required />
+      <v-text-field
+        v-model.number="grado"
+        :label="academicField.label"
+        :placeholder="academicField.placeholder"
+        type="number"
+        :min="academicField.min"
+        :max="academicField.max"
+        step="1"
+        variant="outlined"
+        color="primary"
+        density="comfortable"
+        prepend-inner-icon="mdi-school-outline"
+        :rules="academicRules"
+        class="mb-6"
+        required
+      />
 
       <v-btn type="submit" color="primary" size="large" block rounded="lg" class="text-none font-weight-bold"
         :disabled="!isValid">
@@ -65,8 +79,24 @@ const formRef = ref()
 const isValid = ref(false)
 const nombre = ref('')
 const edad = ref<number | null>(null)
-const nivelEducativo = ref<NivelEducativo>('Primaria')
-const gradoOSemestre = ref('')
+const nivelEducativo = ref<NivelEducativo>('Secundaria')
+const grado = ref<number | null>(null)
+
+const academicField = computed(() => nivelEducativo.value === 'Universidad'
+  ? { label: 'Semestre (1–10)', placeholder: 'Ej. 5', min: 1, max: 10 }
+  : { label: 'Grado (6–11)', placeholder: 'Ej. 8', min: 6, max: 11 })
+
+const academicRules = computed(() => [
+  (v: unknown) => (v !== null && v !== undefined && String(v).trim() !== '')
+    || (nivelEducativo.value === 'Universidad' ? 'Ingresa tu semestre' : 'Ingresa tu grado'),
+  (v: unknown) => Number.isInteger(Number(v)) || 'Ingresa un número entero',
+  (v: unknown) => (Number(v) >= academicField.value.min && Number(v) <= academicField.value.max)
+    || `El valor debe estar entre ${academicField.value.min} y ${academicField.value.max}`
+])
+
+watch(nivelEducativo, () => {
+  grado.value = null
+})
 
 const handleSubmit = async () => {
   const { valid } = await formRef.value.validate()
@@ -76,7 +106,9 @@ const handleSubmit = async () => {
     nombre: nombre.value,
     edad: edad.value,
     nivelEducativo: nivelEducativo.value,
-    gradoOSemestre: gradoOSemestre.value
+    gradoOSemestre: nivelEducativo.value === 'Universidad'
+      ? `${grado.value}° semestre`
+      : `${grado.value}° grado`
   })
 
   await navigateTo('/dashboard')
@@ -112,13 +144,24 @@ const handleSubmit = async () => {
   color: #001e31;
 }
 
-.nivel-toggle {
-  display: flex;
-  width: 100%;
-  border-radius: 10px;
+.education-toggle {
+  overflow: hidden;
 }
 
-.nivel-toggle :deep(.v-btn) {
-  flex: 1 1 0;
+@media (max-width: 480px) {
+  .login-card {
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .login-title {
+    font-size: 1.6rem !important;
+  }
+
+  .brand-badge {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px !important;
+  }
 }
 </style>

@@ -58,7 +58,7 @@ CONTEXTO DE LA PANTALLA EN TIEMPO REAL QUE EL ESTUDIANTE TIENE EN FRENTE:
 ${context.metricasEnPantalla ? `- Métricas y elementos interactivos en pantalla: ${JSON.stringify(context.metricasEnPantalla)}` : ''}
 
 REGLA OBLIGATORIA DE CONTEXTO VISUAL:
-Debes hacer referencia directa y natural a lo que el estudiante tiene en pantalla. Demuéstrale que sabes en qué paso o misión se encuentra sin que él tenga que explicártelo.
+Usa primero la descripción y las métricas de la pantalla actual para orientar al estudiante. No inventes botones, pestañas ni datos que no aparezcan en ese contexto, ni reutilices como actuales detalles de pantallas anteriores. Si la descripción no alcanza para indicar qué hacer, dilo brevemente y pregunta qué elemento ve.
 ` : 'CONTEXTO DE PANTALLA: El estudiante se encuentra en la vista principal de Gotas del Sinú.'
 
   // Ajustes de Verbosidad y Socratidad configurados por el usuario
@@ -67,7 +67,7 @@ Debes hacer referencia directa y natural a lo que el estudiante tiene en pantall
 
   let instruccionVerbosidad = ''
   if (verbosidad === 'corto') {
-    instruccionVerbosidad = '- VERBOSIDAD ULTRA-CORTA: Sé extremadamente directo, habla poco. Máximo 1 o 2 oraciones muy concretas, sin introducciones largas.'
+    instruccionVerbosidad = '- VERBOSIDAD ULTRA-CORTA: Responde en máximo 15 palabras en total, incluida la pregunta final. Da una sola pista concreta y termina con una única pregunta socrática breve. No saludes ni repitas el contexto.'
   } else if (verbosidad === 'detallado') {
     instruccionVerbosidad = '- VERBOSIDAD DETALLADA: Brinda explicaciones más amplias y analíticas (2 a 3 párrafos bien estructurados), profundizando en las causas territoriales o algorítmicas.'
   } else {
@@ -121,6 +121,7 @@ ${contextStr}
 - **REGLA DE ORO DE COMPLETITUD (CERO RESPUESTAS CORTADAS O MOCHAS):** Debes completar al 100% tus oraciones e ideas. Nunca dejes frases incompletas a la mitad ni cortes tu respuesta. Planifica respuestas breves y autolimitadas de máximo 2 párrafos concisos.
 ${instruccionVerbosidad}
 ${instruccionSocratidad}
+- PRIORIDAD DE BREVEDAD: Cuando la verbosidad sea corta, la respuesta completa no puede superar 15 palabras, incluida la pregunta final. Si la socratidad es alta, no reveles la respuesta: da solo una pista y termina con una única pregunta socrática.
 - Si el contexto indica que el alumno acaba de ingresar al nivel, entrega un resumen corto y estructurado en pasos:
   1. Observa: elemento visual en pantalla.
   2. Experimenta: qué acción realizar.

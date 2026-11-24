@@ -1,21 +1,21 @@
 <template>
   <div class="nivel-wrap position-relative d-flex flex-column justify-space-between pa-3 pa-sm-5">
-    <!-- Barra superior del Nivel 4: Simulador -->
-    <div class="d-flex flex-wrap align-center justify-space-between gap-2 mb-2 flex-shrink-0">
-      <div class="d-flex align-center gap-3">
+    <!-- Barra superior del Nivel 4: Simulador (Solo botón de Guía del Simulador porque la tabla ya está debajo) -->
+    <div class="level-top-bar d-flex flex-wrap align-center justify-space-between gap-2 mb-2 flex-shrink-0">
+      <div class="d-flex align-center gap-3 min-w-0 flex-1-1">
         <v-btn
           variant="tonal"
           color="primary"
           size="small"
           rounded="lg"
-          class="text-none font-weight-bold"
+          class="text-none font-weight-bold flex-shrink-0"
           prepend-icon="mdi-arrow-left"
           @click="$emit('back-to-map')"
         >
           Niveles
         </v-btn>
 
-        <div>
+        <div class="min-w-0 flex-1-1">
           <span class="level-tag">🚨 Nivel 4 · Fase 4: Elaborar</span>
           <h2 class="top-level-title font-weight-bold">
             Simulador: Crea, Conecta y Entrena tu Árbol de Decisión
@@ -23,36 +23,27 @@
         </div>
       </div>
 
-      <div class="d-flex align-center gap-2">
-        <v-btn
-          color="primary"
-          variant="tonal"
-          size="small"
-          rounded="lg"
-          class="text-none font-weight-bold"
-          prepend-icon="mdi-table-eye"
-          @click="modalMode = 'dataset'"
-        >
-          Datos de Córdoba
-        </v-btn>
+      <div class="top-sim-actions d-flex align-center">
         <v-btn
           color="info"
           variant="tonal"
           size="small"
           rounded="lg"
-          class="text-none font-weight-bold"
+          class="text-none font-weight-bold w-100"
           prepend-icon="mdi-help-circle-outline"
           @click="modalMode = 'guide'"
         >
-          Instrucciones
+          Guía del Simulador
         </v-btn>
       </div>
     </div>
 
-    <!-- Estudio Simulador con Panel Izquierdo Colapsable (Ampliar / Desampliar Lienzo) -->
+    <!-- Estudio Simulador (En PC: 2 columnas lado a lado; En Celular Vertical: Tabla arriba y Simulador con Configuración + Diagrama centrado abajo) -->
     <div class="simulator-grid flex-1-1 min-h-0" :class="{ 'creator-collapsed': isCreatorCollapsed }">
       <JugarNivel4DatasetAndCreatorPanel
         v-show="!isCreatorCollapsed"
+        class="inline-creator-panel"
+        :only-dataset-mode="isMobileViewport"
         @create-node="handleCreateNode"
         @open-modal="modalMode = $event"
       />
@@ -75,10 +66,25 @@
         @load-starter="handleLoadStarter"
         @train-and-test="handleTrainAndTest"
         @open-report="modalMode = 'report'"
-      />
+      >
+        <template #top-creator>
+          <JugarNivel4DatasetAndCreatorPanel
+            :compact-window-mode="true"
+            :show-mobile-actions-in-creator="true"
+            :nodes-count="nodes.length"
+            :edges-count="edges.length"
+            :is-training-live="isTrainingLive"
+            @create-node="handleCreateNode"
+            @open-modal="modalMode = $event"
+            @load-starter="handleLoadStarter"
+            @clear-all="handleClearAll"
+            @train-and-test="handleTrainAndTest"
+          />
+        </template>
+      </JugarNivel4FreeGraphCanvas>
     </div>
 
-    <!-- Dialog Interno Ampliado (Tabla de Datos, Guía o Explicación Detallada del Entrenamiento) -->
+    <!-- Modales a Pantalla Completa: Tabla de Datos, Guía y Reporte Pedagógico de Pureza y Aciertos -->
     <JugarNivel4DialogSimulador
       :mode="modalMode"
       :report="executionReport"
@@ -110,6 +116,7 @@ const executionReport = ref<TreeExecutionReport | null>(null)
 const modalMode = ref<'dataset' | 'guide' | 'report' | null>(null)
 
 const isCreatorCollapsed = ref(false)
+const isMobileViewport = ref(false)
 const isTrainingLive = ref(false)
 const liveTraceBanner = ref('')
 const highlightedNodeIds = ref<string[]>([])
@@ -117,6 +124,38 @@ const highlightedEdgeIds = ref<string[]>([])
 
 let idCounter = 1
 let animTimer: ReturnType<typeof setTimeout> | null = null
+
+const checkMobileViewport = () => {
+  if (!import.meta.client) return
+  isMobileViewport.value = window.innerWidth <= 900
+}
+
+// Bloquea el scroll exterior cuando está abierto un modal
+const syncScrollLock = () => {
+  if (!import.meta.client) return
+  const shouldLock = !!modalMode.value
+  document.documentElement.classList.toggle('ova-modal-locked', shouldLock)
+  document.body.classList.toggle('ova-modal-locked', shouldLock)
+}
+
+watch(modalMode, syncScrollLock)
+
+onMounted(() => {
+  checkMobileViewport()
+  if (import.meta.client) {
+    window.addEventListener('resize', checkMobileViewport)
+  }
+  syncScrollLock()
+})
+
+onBeforeUnmount(() => {
+  if (animTimer) clearTimeout(animTimer)
+  if (import.meta.client) {
+    window.removeEventListener('resize', checkMobileViewport)
+    document.documentElement.classList.remove('ova-modal-locked')
+    document.body.classList.remove('ova-modal-locked')
+  }
+})
 
 const handleCreateNode = (payload: Omit<SimNode, 'id' | 'x' | 'y'>) => {
   const idx = nodes.value.length
@@ -231,10 +270,6 @@ const handleTrainAndTest = () => {
 
   stepNextRow()
 }
-
-onBeforeUnmount(() => {
-  if (animTimer) clearTimeout(animTimer)
-})
 </script>
 
 <style scoped>
@@ -252,10 +287,17 @@ onBeforeUnmount(() => {
   grid-template-columns: 1fr;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 900px) {
+  .top-sim-actions {
+    width: 100%;
+  }
+
   .simulator-grid {
-    grid-template-columns: 1fr;
-    overflow-y: auto;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 }
 </style>

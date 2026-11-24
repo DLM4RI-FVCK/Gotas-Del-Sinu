@@ -1,4 +1,5 @@
 <template>
+  <Teleport to="body">
   <Transition name="inpage-modal-fade">
     <div v-if="modalType" class="inpage-dialog-backdrop pa-3 pa-sm-5" @click.self="$emit('close')">
       <div class="inpage-dialog-card d-flex flex-column justify-space-between pa-4 pa-sm-6 rounded-xl">
@@ -178,14 +179,34 @@
       </div>
     </div>
   </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  modalType: 'anatomia' | 'explorador' | null
-  activePart: number
-  parts: { name: string; emoji: string; color: string; desc: string }[]
+const props = defineProps<{
+  modalType: any
+  activeScenario?: any
+  scenarios?: any
+  activePart?: any
+  parts?: any
+  activeCandidate?: any
+  candidates?: any
 }>()
+
+watch(() => props.modalType, (val) => {
+  if (!import.meta.client) return
+  document.documentElement.classList.toggle('ova-modal-locked', !!val)
+  document.body.classList.toggle('ova-modal-locked', !!val)
+})
+
+onBeforeUnmount(() => {
+  if (import.meta.client) {
+    document.documentElement.classList.remove('ova-modal-locked')
+    document.body.classList.remove('ova-modal-locked')
+  }
+})
+
+
 
 defineEmits<{
   (e: 'close'): void

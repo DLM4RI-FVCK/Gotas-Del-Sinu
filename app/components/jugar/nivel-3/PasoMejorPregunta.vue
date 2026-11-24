@@ -51,17 +51,19 @@
       </div>
 
       <!-- Tarjeta 1: Mala Pregunta -->
-      <div class="flow-card pa-3 rounded-xl mb-2" style="border-color: #ffdad6; background: #fffbfa;">
-        <div class="d-flex align-center justify-space-between mb-1">
-          <span class="fluid-flow-title font-weight-bold" style="color: #ba1a1a;">
+      <div class="flow-card compare-q-card pa-3 rounded-xl mb-2" style="border-color: #ffdad6; background: #fffbfa;">
+        <div class="compare-q-header d-flex align-center justify-space-between mb-1">
+          <span class="fluid-flow-title compare-q-title font-weight-bold" style="color: #ba1a1a;">
             ❌ Mala Pregunta: "¿Es día martes?"
           </span>
-          <v-chip size="x-small" color="error" variant="flat">Todo mezclado</v-chip>
+          <v-chip size="x-small" color="error" variant="flat" class="purity-capsule font-weight-bold">
+            Todo mezclado
+          </v-chip>
         </div>
-        <div class="fluid-flow-desc mb-2">
+        <div class="fluid-flow-desc compare-q-desc mb-2">
           Las inundaciones en el Río Sinú no dependen del día de la semana. Ambos grupos quedan revueltos:
         </div>
-        <div class="d-flex gap-2">
+        <div class="baskets-row d-flex gap-2">
           <div class="basket-pill flex-1-1 text-center pa-2 rounded-lg">
             Rama NO: 🟢🟢🔴 (Mezclado)
           </div>
@@ -72,17 +74,19 @@
       </div>
 
       <!-- Tarjeta 2: Buena Pregunta -->
-      <div class="flow-card pa-3 rounded-xl" style="border-color: #76b82a; background: #f6fdf0;">
-        <div class="d-flex align-center justify-space-between mb-1">
-          <span class="fluid-flow-title font-weight-bold" style="color: #3d6a00;">
+      <div class="flow-card compare-q-card pa-3 rounded-xl" style="border-color: #76b82a; background: #f6fdf0;">
+        <div class="compare-q-header d-flex align-center justify-space-between mb-1">
+          <span class="fluid-flow-title compare-q-title font-weight-bold" style="color: #3d6a00;">
             ✅ Buena Pregunta: "¿Río al borde tras lluvia?"
           </span>
-          <v-chip size="x-small" color="success" variant="flat">¡Grupos Puros!</v-chip>
+          <v-chip size="x-small" color="success" variant="flat" class="purity-capsule font-weight-bold">
+            ¡Grupos Puros!
+          </v-chip>
         </div>
-        <div class="fluid-flow-desc mb-2">
+        <div class="fluid-flow-desc compare-q-desc mb-2">
           Esta pregunta separa perfectamente los días en calma de las inundaciones en Córdoba:
         </div>
-        <div class="d-flex gap-2">
+        <div class="baskets-row d-flex gap-2">
           <div class="basket-pill pure-green flex-1-1 text-center pa-2 rounded-lg">
             Rama NO: 🟢🟢🟢 (100% Calma)
           </div>
@@ -122,6 +126,54 @@ defineEmits<{
   border-color: #ba1a1a;
   background-color: #ffdad6;
   color: #93000a;
+}
+
+@media (max-width: 900px) {
+  .compare-q-card {
+    padding: 14px !important;
+  }
+
+  .compare-q-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .compare-q-title {
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 0.94rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .purity-capsule {
+    height: 26px !important;
+    padding: 0 14px !important;
+    font-size: 0.76rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.02em;
+    align-self: center !important;
+  }
+
+  .compare-q-desc {
+    text-align: center !important;
+    margin-bottom: 10px !important;
+  }
+
+  .baskets-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .basket-pill {
+    width: 100% !important;
+    font-size: 0.82rem !important;
+    padding: 8px 12px !important;
+    white-space: nowrap !important;
+  }
 }
 </style>
 

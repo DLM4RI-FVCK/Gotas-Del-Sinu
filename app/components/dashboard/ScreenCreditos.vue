@@ -1,20 +1,20 @@
 <template>
   <div class="credits-screen d-flex flex-column justify-space-between pa-4 pa-sm-6">
     <!-- Cabecera -->
-    <div class="d-flex align-center justify-space-between gap-3 mb-3 flex-shrink-0">
-      <div class="d-flex align-center gap-3">
+    <div class="credits-header d-flex align-center justify-space-between gap-3 mb-3 flex-shrink-0">
+      <div class="header-info d-flex align-center gap-3 min-w-0 flex-1-1">
         <div class="header-icon-box">
-          <v-icon icon="mdi-account-group-outline" color="white" size="26" />
+          <v-icon icon="mdi-account-group-outline" color="white" size="24" />
         </div>
-        <div>
-          <span class="top-tag">Equipo Creador · Licenciatura en Informática (5° Semestre)</span>
+        <div class="min-w-0">
+          <span class="top-tag d-block text-truncate">Equipo Creador · Licenciatura en Informática</span>
           <h2 class="credits-title font-weight-bold">
             Créditos del OVA Gotas del Sinú
           </h2>
         </div>
       </div>
 
-      <v-btn icon="mdi-close" variant="tonal" color="primary" size="small" @click="$emit('close')" />
+      <v-btn icon="mdi-close" variant="tonal" color="primary" size="small" class="flex-shrink-0" @click="$emit('close')" />
     </div>
 
     <!-- Grilla 3x2 con los 5 Integrantes del Equipo + Docente de la Asignatura (cada uno con Avatar Personalizado) -->
@@ -369,20 +369,130 @@ const teamMembers: TeamMember[] = [
   min-height: 0;
 }
 
+.gap-2 {
+  gap: 10px;
+}
+
 .gap-3 {
-  gap: 12px;
+  gap: 16px;
+}
+
+.header-info {
+  gap: 16px !important;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 960px) {
+  .credits-screen {
+    height: auto !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 4px 0 !important;
+    overflow: visible !important;
+    justify-content: flex-start !important;
+  }
+
   .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: visible;
+    padding-bottom: 96px;
+    flex: 0 0 auto;
+  }
+
+  .member-card {
+    container-type: normal;
+    min-height: 195px;
+    height: auto;
+    padding: 18px 20px !important;
+    overflow: hidden;
+    flex: 0 0 auto;
+    gap: 10px;
+    box-shadow: 0 6px 18px rgba(0, 100, 150, 0.06);
+  }
+
+  .role-badge {
+    font-size: 0.78rem;
+    padding: 5px 12px;
+  }
+
+  .member-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+  }
+
+  .member-name {
+    font-size: 1.15rem;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    line-height: 1.22;
+  }
+
+  .member-desc {
+    font-size: 0.9rem;
+    line-height: 1.44;
+  }
+
+  .member-footer {
+    padding-top: 10px !important;
+  }
+
+  .member-watermark {
+    font-size: 90px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .credits-screen,
+  .credits-header,
+  .team-grid,
+  .member-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .credits-header {
+    background: #ffffff;
+    border: 1.5px solid #d7e3ee;
+    border-radius: 18px;
+    padding: 12px 14px;
+    margin-bottom: 14px !important;
+    gap: 12px !important;
+  }
+
+  .credits-header .header-info {
+    gap: 14px !important;
+    min-width: 0 !important;
+  }
+
+  .member-card .d-flex.align-center.gap-3 {
+    gap: 16px !important;
   }
 }
 
 @media (max-width: 600px) {
-  .team-grid {
-    grid-template-columns: 1fr;
+  .header-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  .credits-title {
+    font-size: 1.05rem !important;
+    line-height: 1.22;
+    word-break: break-word;
+  }
+
+  .top-tag {
+    font-size: 0.62rem !important;
+    white-space: normal !important;
+    word-break: break-word;
   }
 }
 </style>

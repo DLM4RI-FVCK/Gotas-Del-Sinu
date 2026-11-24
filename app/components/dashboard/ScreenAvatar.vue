@@ -60,7 +60,8 @@
 
     <!-- CATÁLOGO DERECHO DIVIDIDO POR SECCIONES -->
     <div class="catalog-panel d-flex flex-column pa-4 pa-sm-5">
-      <div class="d-flex align-center justify-space-between gap-2 mb-3 flex-shrink-0">
+      <!-- Pestañas de Categorías en PC (> 900px: agrupadas) -->
+      <div class="desktop-cat-header d-flex align-center justify-space-between gap-2 mb-3 flex-shrink-0">
         <div class="category-pills d-flex flex-wrap gap-2">
           <v-btn
             v-for="cat in avatarCategories"
@@ -71,7 +72,7 @@
             :variant="activeCategory === cat.key ? 'flat' : 'tonal'"
             class="text-none font-weight-bold"
             :prepend-icon="cat.icon"
-            @click="activeCategory = cat.key"
+            @click="selectDesktopCategory(cat.key)"
           >
             {{ cat.label }}
           </v-btn>
@@ -86,31 +87,53 @@
         />
       </div>
 
+      <!-- Pestañas Individuales Centradas en Celular / Tablet (<= 900px: todas visibles y centradas) -->
+      <div class="mobile-cat-header mb-3 flex-shrink-0">
+        <div class="mobile-cat-title">
+          Selecciona una categoría de Avatar
+        </div>
+        <div class="category-pills">
+          <v-btn
+            v-for="mCat in mobileAvatarCategories"
+            :key="mCat.key"
+            size="small"
+            rounded="pill"
+            :color="activeMobileCat === mCat.key ? 'primary' : 'default'"
+            :variant="activeMobileCat === mCat.key ? 'flat' : 'tonal'"
+            class="text-none font-weight-bold"
+            :prepend-icon="mCat.icon"
+            @click="selectMobileCategory(mCat)"
+          >
+            {{ mCat.label }}
+          </v-btn>
+        </div>
+      </div>
+
       <!-- Barra de Color contextual -->
       <div
-        v-if="activeCategory === 'cabello' || activeCategory === 'ropa'"
+        v-if="showColorStrip"
         class="color-strip d-flex flex-wrap align-center justify-space-between gap-2 px-4 py-2 rounded-xl mb-3 flex-shrink-0"
       >
         <span class="text-caption font-weight-bold" style="color: #001e31;">
-          {{ activeCategory === 'cabello' ? 'Color de cabello / barba:' : 'Color de prenda:' }}
+          {{ isHairColorMode ? 'Color de cabello / barba:' : 'Color de prenda:' }}
         </span>
 
         <div class="d-flex flex-wrap gap-2">
           <button
-            v-for="c in (activeCategory === 'cabello' ? hairColors : clothesColors)"
+            v-for="c in (isHairColorMode ? hairColors : clothesColors)"
             :key="c.value"
             type="button"
             class="strip-swatch"
             :class="{
               active:
-                activeCategory === 'cabello'
+                isHairColorMode
                   ? session.avatar.hairColor === c.value
                   : session.avatar.clothesColor === c.value
             }"
             :style="{ backgroundColor: `#${c.value}` }"
             :title="c.label"
             @click="
-              activeCategory === 'cabello'
+              isHairColorMode
                 ? updateAvatar({ hairColor: c.value })
                 : updateAvatar({ clothesColor: c.value })
             "
@@ -158,10 +181,12 @@
         </template>
 
         <template v-else>
+          <!-- En PC muestra todas las secciones de la categoría; en celular filtra solo la subcategoría elegida -->
           <div
-            v-for="section in currentSections"
+            v-for="(section, sIdx) in currentSections"
             :key="section.title"
             class="catalog-section mb-5"
+            :class="{ 'mobile-hidden-section': activeMobileSectionIdx !== null && activeMobileSectionIdx !== sIdx }"
           >
             <div class="section-header d-flex align-center justify-space-between mb-3">
               <div class="d-flex align-center gap-2">
@@ -202,6 +227,13 @@
             </div>
           </div>
         </template>
+
+        <!-- Botón inferior centrado estilo "Done / Listo" en celular -->
+        <div class="mobile-done-bar">
+          <button type="button" class="mobile-done-pill-btn" @click="$emit('close')">
+            ✓ Listo
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -224,12 +256,97 @@ defineEmits<{
 }>()
 
 const { session, avatarUrl, updateAvatar } = useUserSession()
+const { setContext } = useZenuitoContext()
 const activeCategory = ref<AvatarCategoryKey>('personajes')
+const activeMobileCat = ref<string>('personajes')
+const activeMobileSectionIdx = ref<number | null>(0)
+
+interface MobileAvatarCat {
+  key: string
+  label: string
+  icon: string
+  desktopCat: AvatarCategoryKey
+  sectionIdx: number | null
+}
+
+// En celular: cada accesorio tiene su propia categoría individual
+const mobileAvatarCategories: MobileAvatarCat[] = [
+  { key: 'personajes', label: 'Personajes', icon: 'mdi-account-star-outline', desktopCat: 'personajes', sectionIdx: null },
+  { key: 'ropa_casual', label: 'Casuales', icon: 'mdi-tshirt-crew-outline', desktopCat: 'ropa', sectionIdx: 0 },
+  { key: 'ropa_estampada', label: 'Estampadas', icon: 'mdi-star-circle-outline', desktopCat: 'ropa', sectionIdx: 1 },
+  { key: 'ropa_formal', label: 'Trajes', icon: 'mdi-tie', desktopCat: 'ropa', sectionIdx: 2 },
+  { key: 'peinados', label: 'Peinados', icon: 'mdi-content-cut', desktopCat: 'cabello', sectionIdx: 0 },
+  { key: 'sombreros', label: 'Gorros y Sombreros', icon: 'mdi-hat-fedora', desktopCat: 'cabello', sectionIdx: 1 },
+  { key: 'gafas', label: 'Gafas', icon: 'mdi-glasses', desktopCat: 'accesorios', sectionIdx: 0 },
+  { key: 'barba', label: 'Barba y Bigote', icon: 'mdi-mustache', desktopCat: 'accesorios', sectionIdx: 1 },
+  { key: 'ojos', label: 'Ojos', icon: 'mdi-eye-outline', desktopCat: 'rostro', sectionIdx: 0 },
+  { key: 'cejas', label: 'Cejas', icon: 'mdi-emoticon-neutral-outline', desktopCat: 'rostro', sectionIdx: 1 },
+  { key: 'boca', label: 'Sonrisas', icon: 'mdi-emoticon-happy-outline', desktopCat: 'boca', sectionIdx: 0 },
+  { key: 'piel', label: 'Piel', icon: 'mdi-palette-swatch-outline', desktopCat: 'piel', sectionIdx: 0 },
+  { key: 'fondo', label: 'Fondo', icon: 'mdi-image-filter-hdr', desktopCat: 'fondo', sectionIdx: 0 }
+]
+
+const selectDesktopCategory = (catKey: AvatarCategoryKey) => {
+  activeCategory.value = catKey
+  const matchingMobile = mobileAvatarCategories.find(m => m.desktopCat === catKey)
+  if (matchingMobile) {
+    activeMobileCat.value = matchingMobile.key
+    activeMobileSectionIdx.value = matchingMobile.sectionIdx
+  }
+}
+
+const selectMobileCategory = (mCat: MobileAvatarCat) => {
+  activeMobileCat.value = mCat.key
+  activeCategory.value = mCat.desktopCat
+  activeMobileSectionIdx.value = mCat.sectionIdx
+}
+
+const showColorStrip = computed(() => {
+  return activeCategory.value === 'cabello' || activeCategory.value === 'ropa' || activeMobileCat.value === 'barba'
+})
+
+const isHairColorMode = computed(() => {
+  return activeCategory.value === 'cabello' || activeMobileCat.value === 'barba'
+})
 
 const currentSections = computed(() => {
   if (activeCategory.value === 'personajes') return []
   return sectionsByCategory[activeCategory.value]
 })
+
+const activeCategoryLabel = computed(() =>
+  avatarCategories.find(category => category.key === activeCategory.value)?.label || 'Personalización'
+)
+
+const activeTabLabel = computed(() =>
+  mobileAvatarCategories.find(category => category.key === activeMobileCat.value)?.label || activeCategoryLabel.value
+)
+
+watch(
+  [activeCategory, activeMobileCat, activeMobileSectionIdx, showColorStrip],
+  () => {
+    const visibleOptionsCount = activeCategory.value === 'personajes'
+      ? characterPresets.length
+      : currentSections.value.reduce((total, section) => total + section.items.length, 0)
+    const colorHint = showColorStrip.value
+      ? ` También tienes abierta la paleta de color para ${isHairColorMode.value ? 'cabello o barba' : 'ropa'}.`
+      : ''
+
+    setContext({
+      seccion: 'Personalización de Avatar',
+      nivelActual: undefined,
+      fase5E: activeTabLabel.value,
+      descripcionVisual: `Estás personalizando el avatar en ${activeCategoryLabel.value}, pestaña ${activeTabLabel.value}. Puedes elegir entre ${visibleOptionsCount} opciones.${colorHint}`,
+      metricasEnPantalla: {
+        categoria: activeCategoryLabel.value,
+        pestaña: activeTabLabel.value,
+        opcionesDisponibles: visibleOptionsCount,
+        paletaDeColorVisible: showColorStrip.value
+      }
+    })
+  },
+  { immediate: true }
+)
 
 const isItemEquipped = (item: CatalogItem) => {
   if (item.extra?.clothingGraphic) {

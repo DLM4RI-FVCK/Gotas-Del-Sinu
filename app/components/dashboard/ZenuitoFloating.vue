@@ -1,8 +1,16 @@
 <template>
+  <!-- Espaciador físico en celular cuando Zenuito está abierto a mitad de pantalla:
+       garantiza que se pueda hacer scroll hasta el final de cualquier pantalla o actividad -->
+  <div v-if="isOpen" class="zenuito-mobile-flow-spacer" aria-hidden="true" />
+
   <div class="zenuito-floating-anchor">
     <!-- Panel Socrático desplegable (Modal de Chat) -->
-    <v-scale-transition origin="bottom right">
-      <div v-if="isOpen" class="zenuito-bubble-panel rounded-xl elevation-12">
+    <v-fade-transition>
+      <div
+        v-if="isOpen"
+        class="zenuito-bubble-panel rounded-xl elevation-12"
+        :class="{ 'is-in-mission-mobile': isInMission }"
+      >
         <!-- Encabezado del Chat -->
         <div class="chat-header d-flex align-center justify-space-between px-4 py-3">
           <div class="d-flex align-center gap-3">
@@ -83,16 +91,22 @@
             :disabled="!inputMessage.trim() || loading" @click="sendMessage" />
         </div>
       </div>
-    </v-scale-transition>
+    </v-fade-transition>
 
-    <!-- Botón flotante inferior izquierdo con avatar -->
-    <button type="button" class="zenuito-fab d-flex align-center gap-2 pl-2 pr-4 py-2 rounded-pill elevation-6"
-      @click="toggleChat">
+    <!-- Botón flotante inferior con avatar -->
+    <button
+      type="button"
+      class="zenuito-fab d-flex align-center gap-2 pl-2 pr-4 py-2 rounded-pill elevation-6"
+      @click="toggleChat"
+    >
       <div class="fab-avatar-wrap">
         <img :src="zenuitoUrl" alt="Zenuito Flotante" class="fab-avatar" />
         <span class="online-dot" />
+        <span v-if="!isOpen && unreadCount > 0" class="mobile-unread-dot">
+          {{ unreadCount }}
+        </span>
       </div>
-      <div class="text-left">
+      <div class="fab-text-box text-left">
         <div class="fab-title font-weight-bold">
           {{ session.zenuito.nickname || 'Zenuito' }}
         </div>
@@ -100,7 +114,7 @@
           Tutor Socrático · IA
         </div>
       </div>
-      <v-badge v-if="!isOpen && unreadCount > 0" :content="unreadCount" color="secondary" inline />
+      <v-badge v-if="!isOpen && unreadCount > 0" :content="unreadCount" color="secondary" inline class="fab-desktop-badge" />
     </button>
   </div>
 </template>
@@ -109,7 +123,37 @@
 const { session, zenuitoUrl } = useUserSession()
 const { telemetry } = useZenuitoContext()
 
+// Detecta si el estudiante se encuentra dentro de una Misión (Nivel 1 a 5)
+const isInMission = computed(() => {
+  const sec = telemetry.value.seccion || ''
+  return sec.startsWith('Misión')
+})
+
 const isOpen = ref(false)
+
+// En celular, cuando el chat ocupa la mitad inferior durante una misión,
+// se reserva ese espacio al final de la página para poder ver la actividad completa.
+// Al cerrar el chat, la página vuelve a su tamaño normal.
+const HALF_CHAT_CLASS = 'zenuito-half-open'
+const FULL_CHAT_CLASS = 'zenuito-full-open'
+
+const syncBodyClasses = () => {
+  if (!import.meta.client) return
+  const body = document.body
+  body.classList.toggle(HALF_CHAT_CLASS, isOpen.value)
+  body.classList.remove(FULL_CHAT_CLASS)
+}
+
+watch([isOpen, isInMission], syncBodyClasses)
+
+onMounted(syncBodyClasses)
+
+onBeforeUnmount(() => {
+  if (import.meta.client) {
+    document.body.classList.remove(HALF_CHAT_CLASS, FULL_CHAT_CLASS)
+  }
+})
+
 const inputMessage = ref('')
 const loading = ref(false)
 const chatContainer = ref<HTMLElement | null>(null)
@@ -247,7 +291,9 @@ watch(() => telemetry.value.nivelActual, (newLevel) => {
 }, { immediate: false })
 
 const triggerAutoLevelSummary = async (levelNumber: number) => {
-  const prompt = `Acabo de entrar a la Misión ${levelNumber} (${telemetry.value.seccion}). En pantalla estoy viendo: "${telemetry.value.descripcionVisual}". Dame un resumen muy corto y amigable estructurado exactamente en 3 pasos con números (1., 2., 3.) explicando qué debo hacer aquí para aprender.`
+  const prompt = session.value.zenuito.verbosidad === 'corto'
+    ? `Acabo de entrar a la Misión ${levelNumber} (${telemetry.value.seccion}). En pantalla estoy viendo: "${telemetry.value.descripcionVisual}". Dame exactamente 3 pasos numerados (1., 2., 3.), máximo 15 palabras en total, y termina con una única pregunta socrática.`
+    : `Acabo de entrar a la Misión ${levelNumber} (${telemetry.value.seccion}). En pantalla estoy viendo: "${telemetry.value.descripcionVisual}". Dame un resumen muy corto y amigable estructurado exactamente en 3 pasos con números (1., 2., 3.) explicando qué debo hacer aquí para aprender.`
   
   messages.value.push({ role: 'user', content: `📍 Entré a la Misión ${levelNumber}: ${telemetry.value.seccion}` })
   loading.value = true
@@ -487,5 +533,93 @@ const triggerAutoLevelSummary = async (levelNumber: number) => {
   font-size: 0.7rem;
   color: #e3f2fd;
   opacity: 0.9;
+}
+
+.mobile-unread-dot {
+  display: none;
+}
+
+.zenuito-mobile-flow-spacer {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .zenuito-mobile-flow-spacer {
+    display: block !important;
+    width: 100% !important;
+    height: 52dvh !important;
+    flex-shrink: 0 !important;
+    pointer-events: none;
+  }
+  .zenuito-floating-anchor {
+    position: fixed !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    right: max(16px, env(safe-area-inset-right, 16px)) !important;
+    left: auto !important;
+    z-index: 950 !important;
+  }
+
+  /* En celular SIEMPRE que se abra Zenuito: ocupa exactamente la MITAD inferior de la pantalla (50dvh)
+     y permite seguir desplazando toda la página/actividad en la mitad superior hasta llegar al final */
+  .zenuito-bubble-panel,
+  .zenuito-bubble-panel.is-in-mission-mobile {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 50dvh !important;
+    max-height: 50dvh !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border-top-left-radius: 22px !important;
+    border-top-right-radius: 22px !important;
+    border: none !important;
+    border-top: 2.5px solid #006496 !important;
+    box-shadow: 0 -12px 36px rgba(0, 30, 49, 0.28) !important;
+    z-index: 1300 !important;
+    box-sizing: border-box !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* En celular: Solo la cara circular de Zenuito sin texto */
+  .zenuito-fab {
+    width: 58px !important;
+    height: 58px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    justify-content: center !important;
+    box-shadow: 0 10px 26px rgba(0, 100, 150, 0.38) !important;
+  }
+
+  .fab-text-box,
+  .fab-desktop-badge {
+    display: none !important;
+  }
+
+  .fab-avatar-wrap,
+  .fab-avatar {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .mobile-unread-dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #76b82a;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border: 2px solid #ffffff;
+  }
 }
 </style>

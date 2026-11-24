@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420" role="img" aria-labelledby="title description">
+  <title id="title">Gotas del Sinú</title>
+  <desc id="description">Objeto Virtual de Aprendizaje sobre árboles de decisión y la cuenca del Río Sinú.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#003b5c"/>
+      <stop offset="1" stop-color="#006496"/>
+    </linearGradient>
+    <linearGradient id="drop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b9ebff"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="420" rx="34" fill="url(#background)"/>
+  <circle cx="1420" cy="72" r="180" fill="#ffffff" opacity=".045"/>
+  <circle cx="1515" cy="320" r="250" fill="#38bdf8" opacity=".08"/>
+  <path d="M0 330c190-76 304 66 492 0s304-65 492 0 304 66 616-8v98H0z" fill="#38bdf8" opacity=".2"/>
+  <path d="M0 366c190-58 304 48 492 0s304-49 492 0 304 48 616-6v60H0z" fill="#b9ebff" opacity=".12"/>
+  <path d="M190 82c-31 50-78 93-78 144a78 78 0 0 0 156 0c0-51-47-94-78-144Z" fill="url(#drop)"/>
+  <path d="M150 232c0-17 9-35 22-53-5 28 1 43 19 49-6 14-17 22-29 22-8 0-12-7-12-18Z" fill="#ffffff" opacity=".65"/>
+  <text x="330" y="188" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="700" letter-spacing="-2">Gotas del Sinú</text>
+  <text x="336" y="246" fill="#d9f3ff" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="500">Árboles de decisión · Aprendizaje interactivo · Córdoba, Colombia</text>
+  <rect x="336" y="282" width="350" height="4" rx="2" fill="#76b82a"/>
+  <text x="336" y="328" fill="#b9ebff" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" letter-spacing="2">OBJETO VIRTUAL DE APRENDIZAJE</text>
+</svg>

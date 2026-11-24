@@ -75,9 +75,10 @@ watch(stage, (newStage) => {
   } else if (newStage === 'map') {
     setContext({
       seccion: 'Mapa de Misiones',
+      nivelActual: undefined,
       fase5E: 'Selección de Nivel',
       descripcionVisual: 'Mapa interactivo con las 5 misiones a lo largo de la cuenca del Río Sinú.'
-    })
+    }, { immediate: true })
   } else if (newStage === 'level-1') {
     setContext({
       seccion: 'Misión 1: Introducción',
@@ -133,6 +134,17 @@ const openLevel = (levelNumber: number) => {
   border: 2px solid #d7e3ee;
   border-radius: 24px;
   overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .screen-box {
+    height: auto !important;
+    min-height: calc(100dvh - 135px);
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
 }
 
 .fade-stage-enter-active,

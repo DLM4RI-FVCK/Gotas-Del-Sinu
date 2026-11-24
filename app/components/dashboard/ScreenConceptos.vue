@@ -33,7 +33,7 @@
 
     <!-- Filtros por Categoría y por Nivel de Complejidad -->
     <div class="d-flex flex-wrap align-center justify-space-between gap-2 mb-3 flex-shrink-0">
-      <div class="d-flex flex-wrap gap-2">
+      <div class="glossary-cat-pills d-flex flex-wrap gap-2">
         <v-btn
           v-for="cat in glossaryCategories"
           :key="cat.key"
@@ -49,8 +49,8 @@
         </v-btn>
       </div>
 
-      <!-- Filtro de Dificultad progresiva -->
-      <div class="d-flex align-center gap-1">
+      <!-- Filtro de Dificultad progresiva (SOLO EN PC > 900px) -->
+      <div class="difficulty-filter-bar d-flex align-center gap-1">
         <v-chip
           v-for="lvl in difficultyFilters"
           :key="lvl.value"
@@ -152,6 +152,7 @@ defineEmits<{
 const searchQuery = ref('')
 const activeCategory = ref<GlossaryCategory>('todas')
 const activeDifficulty = ref<'Todos' | DifficultyLevel>('Todos')
+const { setContext } = useZenuitoContext()
 
 const difficultyFilters: { value: 'Todos' | DifficultyLevel; label: string; color: string }[] = [
   { value: 'Todos', label: 'Todos los niveles', color: 'primary' },
@@ -176,6 +177,29 @@ const filteredTerms = computed(() => {
     })
     .sort((a, b) => a.difficultyOrder - b.difficultyOrder)
 })
+
+watch(
+  [searchQuery, activeCategory, activeDifficulty],
+  () => {
+    const categoryLabel = glossaryCategories.find(category => category.key === activeCategory.value)?.label || 'Todos los conceptos'
+    const visibleTermNames = filteredTerms.value.slice(0, 5).map(term => term.term).join(', ')
+    const searchHint = searchQuery.value.trim() ? ' Hay una búsqueda activa.' : ''
+
+    setContext({
+      seccion: 'Glosario de Términos',
+      nivelActual: undefined,
+      fase5E: `${categoryLabel} · ${activeDifficulty.value}`,
+      descripcionVisual: `Estás consultando el glosario. Puedes buscar términos, cambiar categoría o dificultad. Hay ${filteredTerms.value.length} conceptos visibles.${searchHint}${visibleTermNames ? ` Algunos son: ${visibleTermNames}.` : ''}`,
+      metricasEnPantalla: {
+        categoria: categoryLabel,
+        dificultad: activeDifficulty.value,
+        resultadosVisibles: filteredTerms.value.length,
+        busquedaActiva: !!searchQuery.value.trim()
+      }
+    })
+  },
+  { immediate: true }
+)
 
 const resetFilters = () => {
   searchQuery.value = ''
@@ -355,5 +379,82 @@ const resetFilters = () => {
 
 .gap-3 {
   gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .glossary-screen {
+    height: auto !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 4px 0 !important;
+    overflow: visible !important;
+  }
+
+  /* En celular quitamos los filtros y badges de nivel (Básico/Intermedio/Avanzado) */
+  .difficulty-filter-bar,
+  .diff-pill {
+    display: none !important;
+  }
+
+  .glossary-cat-pills {
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    width: 100%;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .glossary-cat-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glossary-cat-pills .v-btn {
+    flex-shrink: 0;
+  }
+
+  .dictionary-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding-bottom: 92px;
+  }
+
+  .dict-entry-card {
+    padding: 18px !important;
+    box-shadow: 0 6px 18px rgba(0, 100, 150, 0.06);
+  }
+
+  .search-box {
+    min-width: 0;
+    width: 100%;
+    flex: 1;
+    padding: 6px 12px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  .glossary-title {
+    font-size: 1.15rem;
+  }
+
+  .top-tag {
+    font-size: 0.65rem;
+  }
+
+  .term-title {
+    font-size: 1.05rem;
+  }
+
+  .term-def {
+    font-size: 0.9rem;
+    line-height: 1.48;
+  }
 }
 </style>

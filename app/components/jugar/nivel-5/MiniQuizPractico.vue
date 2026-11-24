@@ -373,12 +373,12 @@
       </p>
     </div>
 
-    <div class="mb-2">
+    <div class="mb-2 w-100 px-2">
       <v-btn
         color="primary"
         size="x-large"
         rounded="xl"
-        class="text-none font-weight-bold"
+        class="text-none font-weight-bold finish-level-btn"
         prepend-icon="mdi-map-marker-check"
         @click="$emit('finish-ova')"
       >
@@ -560,5 +560,11 @@ const nextQuestion = () => {
   border-radius: 22px;
   border: 3px solid #ffffff;
   box-shadow: 0 8px 22px rgba(0, 100, 150, 0.16);
+}
+
+@media (max-width: 960px) {
+  .slide-grid {
+    padding-bottom: 84px;
+  }
 }
 </style>

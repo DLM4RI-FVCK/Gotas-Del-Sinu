@@ -113,7 +113,7 @@ export const characterPresets: { name: string; role: string; config: AvatarConfi
     role: 'Río',
     config: {
       skinColor: '614335',
-      top: 'winterHat2',
+      top: 'winterHat02',
       hairColor: '2c1b18',
       eyebrows: 'upDownNatural',
       eyes: 'squint',
@@ -122,7 +122,7 @@ export const characterPresets: { name: string; role: string; config: AvatarConfi
       accessories: 'wayfarers',
       clothing: 'shirtCrewNeck',
       clothesColor: 'ff5c5c',
-      clothingGraphic: 'Bat',
+      clothingGraphic: 'bat',
       backgroundColor: 'ffecb3'
     }
   },
@@ -297,8 +297,8 @@ export const sectionsByCategory: Record<Exclude<AvatarCategoryKey, 'personajes'>
         { prop: 'top', value: 'none', label: 'Sin Sombrero', group: 'Quitar' },
         { prop: 'top', value: 'hat', label: 'Gorra Explorador', group: 'Gorra' },
         { prop: 'top', value: 'winterHat1', label: 'Gorro de Lana', group: 'Gorro' },
-        { prop: 'top', value: 'winterHat2', label: 'Gorro Montaña', group: 'Gorro' },
-        { prop: 'top', value: 'winterHat3', label: 'Gorro Pompón', group: 'Gorro' },
+        { prop: 'top', value: 'winterHat02', label: 'Gorro Montaña', group: 'Gorro' },
+        { prop: 'top', value: 'winterHat03', label: 'Gorro Pompón', group: 'Gorro' },
         { prop: 'top', value: 'turban', label: 'Turbante', group: 'Sombrero' },
         { prop: 'top', value: 'hijab', label: 'Hijab', group: 'Pañoleta' }
       ]

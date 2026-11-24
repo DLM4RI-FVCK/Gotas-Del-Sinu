@@ -60,7 +60,8 @@
 
     <!-- PANEL DERECHO -->
     <div class="catalog-panel d-flex flex-column pa-4 pa-sm-5">
-      <div class="d-flex align-center justify-space-between gap-2 mb-3 flex-shrink-0">
+      <!-- Pestañas en PC (> 900px) -->
+      <div class="desktop-cat-header d-flex align-center justify-space-between gap-2 mb-3 flex-shrink-0">
         <div class="category-pills d-flex flex-wrap gap-2">
           <v-btn
             v-for="cat in zenuitoCategories"
@@ -71,7 +72,7 @@
             :variant="activeCategory === cat.key ? 'flat' : 'tonal'"
             class="text-none font-weight-bold"
             :prepend-icon="cat.icon"
-            @click="activeCategory = cat.key"
+            @click="selectDesktopZenuitoCat(cat.key)"
           >
             {{ cat.label }}
           </v-btn>
@@ -84,6 +85,28 @@
           size="small"
           @click="$emit('close')"
         />
+      </div>
+
+      <!-- Pestañas Individuales Centradas en Celular / Tablet (<= 900px: todas visibles y centradas) -->
+      <div class="mobile-cat-header mb-3 flex-shrink-0">
+        <div class="mobile-cat-title">
+          Personaliza a tu Zenuito
+        </div>
+        <div class="category-pills">
+          <v-btn
+            v-for="mCat in mobileZenuitoCategories"
+            :key="mCat.key"
+            size="small"
+            rounded="pill"
+            :color="activeMobileCat === mCat.key ? (mCat.desktopCat === 'logica' ? 'secondary' : 'primary') : 'default'"
+            :variant="activeMobileCat === mCat.key ? 'flat' : 'tonal'"
+            class="text-none font-weight-bold"
+            :prepend-icon="mCat.icon"
+            @click="selectMobileZenuitoCat(mCat)"
+          >
+            {{ mCat.label }}
+          </v-btn>
+        </div>
       </div>
 
       <!-- PESTAÑA DE LÓGICA E IA: "Configura tu Zenuito" -->
@@ -235,9 +258,10 @@
 
         <template v-else>
           <div
-            v-for="section in currentSections"
+            v-for="(section, sIdx) in currentSections"
             :key="section.title"
             class="catalog-section mb-5"
+            :class="{ 'mobile-hidden-section': activeMobileSectionIdx !== null && activeMobileSectionIdx !== sIdx }"
           >
             <div class="section-header d-flex align-center justify-space-between mb-3">
               <div class="d-flex align-center gap-2">
@@ -278,6 +302,13 @@
             </div>
           </div>
         </template>
+
+        <!-- Botón inferior centrado estilo "Done / Listo" en celular -->
+        <div class="mobile-done-bar">
+          <button type="button" class="mobile-done-pill-btn" @click="$emit('close')">
+            ✓ Listo
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -298,12 +329,98 @@ defineEmits<{
 }>()
 
 const { session, zenuitoUrl, updateZenuito } = useUserSession()
+const { setContext } = useZenuitoContext()
 const activeCategory = ref<ZenuitoCategoryKey>('modelos')
+const activeMobileCat = ref<string>('modelos')
+const activeMobileSectionIdx = ref<number | null>(null)
+
+interface MobileZenuitoCat {
+  key: string
+  label: string
+  icon: string
+  desktopCat: ZenuitoCategoryKey
+  sectionIdx: number | null
+}
+
+// En celular: cada parte de Zenuito en su propia categoría individual
+const mobileZenuitoCategories: MobileZenuitoCat[] = [
+  { key: 'logica', label: 'Personalidad IA', icon: 'mdi-brain', desktopCat: 'logica', sectionIdx: null },
+  { key: 'modelos', label: 'Modelos', icon: 'mdi-robot-outline', desktopCat: 'modelos', sectionIdx: null },
+  { key: 'antena_sup', label: 'Antenas', icon: 'mdi-radar', desktopCat: 'antenas', sectionIdx: 0 },
+  { key: 'sensores_lat', label: 'Sensores Laterales', icon: 'mdi-access-point', desktopCat: 'antenas', sectionIdx: 1 },
+  { key: 'ojos_visor', label: 'Visor Óptico', icon: 'mdi-eye-circle-outline', desktopCat: 'visor', sectionIdx: 0 },
+  { key: 'boca_voz', label: 'Pantalla Vocal', icon: 'mdi-waveform', desktopCat: 'visor', sectionIdx: 1 },
+  { key: 'forma_chasis', label: 'Forma Cabeza', icon: 'mdi-cube-outline', desktopCat: 'chasis', sectionIdx: 0 },
+  { key: 'textura_chasis', label: 'Textura', icon: 'mdi-dots-grid', desktopCat: 'chasis', sectionIdx: 1 },
+  { key: 'color', label: 'Pintura', icon: 'mdi-palette-swatch-outline', desktopCat: 'color', sectionIdx: 0 },
+  { key: 'fondo', label: 'Fondo', icon: 'mdi-image-filter-hdr', desktopCat: 'fondo', sectionIdx: 0 }
+]
+
+const selectDesktopZenuitoCat = (catKey: ZenuitoCategoryKey) => {
+  activeCategory.value = catKey
+  const matchingMobile = mobileZenuitoCategories.find(m => m.desktopCat === catKey)
+  if (matchingMobile) {
+    activeMobileCat.value = matchingMobile.key
+    activeMobileSectionIdx.value = matchingMobile.sectionIdx
+  }
+}
+
+const selectMobileZenuitoCat = (mCat: MobileZenuitoCat) => {
+  activeMobileCat.value = mCat.key
+  activeCategory.value = mCat.desktopCat
+  activeMobileSectionIdx.value = mCat.sectionIdx
+}
 
 const currentSections = computed(() => {
   if (activeCategory.value === 'logica' || activeCategory.value === 'modelos') return []
   return zenuitoSectionsByCategory[activeCategory.value]
 })
+
+const activeCategoryLabel = computed(() =>
+  zenuitoCategories.find(category => category.key === activeCategory.value)?.label || 'Personalización'
+)
+
+const activeTabLabel = computed(() =>
+  mobileZenuitoCategories.find(category => category.key === activeMobileCat.value)?.label || activeCategoryLabel.value
+)
+
+const screenDescription = computed(() => {
+  if (activeCategory.value === 'logica') {
+    return `Estás en Personalidad IA. Aquí configuras cuánto habla Zenuito (${session.value.zenuito.verbosidad || 'medio'}), qué tan socrático es (${session.value.zenuito.socratidad || 'alta'}) y si muestra ayudas automáticas (${session.value.zenuito.autoOpenTips === false ? 'desactivadas' : 'activadas'}).`
+  }
+  if (activeCategory.value === 'modelos') {
+    return `Estás en Modelos de Zenuito. Puedes elegir uno de los ${zenuitoPresets.length} modelos visuales disponibles.`
+  }
+  return `Estás personalizando a Zenuito en ${activeCategoryLabel.value}, pestaña ${activeTabLabel.value}. Elige una de las opciones visibles para cambiar su apariencia.`
+})
+
+watch(
+  [
+    activeCategory,
+    activeMobileCat,
+    activeMobileSectionIdx,
+    () => session.value.zenuito.verbosidad,
+    () => session.value.zenuito.socratidad,
+    () => session.value.zenuito.autoOpenTips
+  ],
+  () => {
+    const isPersonalityTab = activeCategory.value === 'logica'
+    setContext({
+      seccion: 'Personalización de Zenuito',
+      nivelActual: undefined,
+      fase5E: isPersonalityTab ? 'Personalidad y comportamiento IA' : activeTabLabel.value,
+      descripcionVisual: screenDescription.value,
+      metricasEnPantalla: {
+        categoria: activeCategoryLabel.value,
+        pestaña: activeTabLabel.value,
+        verbosidad: session.value.zenuito.verbosidad || 'medio',
+        socratidad: session.value.zenuito.socratidad || 'alta',
+        ayudasAutomaticas: session.value.zenuito.autoOpenTips !== false
+      }
+    })
+  },
+  { immediate: true }
+)
 
 const getPreviewUrl = (item: ZenuitoCatalogItem) => {
   return buildZenuitoUrl({
@@ -352,6 +469,46 @@ const resetZenuito = () => {
   font-size: 0.8rem;
   letter-spacing: 0;
   text-transform: none;
+}
+
+@media (max-width: 900px) {
+  .setting-group {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .setting-group label {
+    font-size: 0.86rem !important;
+    line-height: 1.3;
+  }
+
+  .setting-group > .d-flex:first-child {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* Los 3 botones de cada ajuste se apilan para no partirse en pantallas pequeñas */
+  .verbosity-toggle,
+  .socratic-toggle {
+    flex-direction: column !important;
+    height: auto !important;
+    border-radius: 14px !important;
+  }
+
+  .verbosity-toggle :deep(.v-btn),
+  .socratic-toggle :deep(.v-btn) {
+    width: 100% !important;
+    min-height: 42px !important;
+    height: 42px !important;
+    font-size: 0.82rem;
+    justify-content: flex-start;
+    border-radius: 0 !important;
+  }
+
+  .logic-placeholder h3 {
+    font-size: 1rem !important;
+    line-height: 1.25;
+  }
 }
 </style>
 

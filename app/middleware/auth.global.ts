@@ -1,13 +1,11 @@
 export default defineNuxtRouteMiddleware((to) => {
-  if (import.meta.server) return
-
   const { session } = useUserSession()
 
   if (!session.value.isLoggedIn && to.path !== '/') {
-    return navigateTo('/')
+    return navigateTo('/', { replace: true })
   }
 
   if (session.value.isLoggedIn && to.path === '/') {
-    return navigateTo('/dashboard')
+    return navigateTo('/dashboard', { replace: true })
   }
 })

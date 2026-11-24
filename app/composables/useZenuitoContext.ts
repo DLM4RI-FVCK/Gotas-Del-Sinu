@@ -9,16 +9,12 @@ export interface ScreenTelemetry {
 export function useZenuitoContext() {
   const telemetry = useState<ScreenTelemetry>('zenuito_screen_telemetry', () => ({
     seccion: 'Dashboard',
-    nivelActual: 1,
-    fase5E: 'Engage (Enganchar)',
-    descripcionVisual: 'Explorando las misiones de Gotas del Sinú.'
+    fase5E: 'Navegación General',
+    descripcionVisual: 'Explorando las 6 tarjetas principales del panel.'
   }))
 
-  const setContext = (newContext: Partial<ScreenTelemetry>) => {
-    telemetry.value = {
-      ...telemetry.value,
-      ...newContext
-    }
+  const setContext = (newContext: ScreenTelemetry) => {
+    telemetry.value = newContext
   }
 
   return {

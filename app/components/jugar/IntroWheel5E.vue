@@ -8,8 +8,8 @@
       </h2>
     </div>
 
-    <!-- Rueda Central con 5 Puntos (100% Responsiva y No Interactiva) -->
-    <div class="wheel-stage my-auto">
+    <!-- Rueda Central con 5 Puntos (100% Responsiva en PC > 900px) -->
+    <div class="wheel-stage desktop-wheel my-auto">
       <!-- Anillo giratorio decorativo -->
       <svg class="wheel-svg" viewBox="0 0 360 360">
         <defs>
@@ -76,6 +76,39 @@
         </div>
         <div class="center-step-desc">
           {{ currentNode.shortDesc }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Línea de tiempo lineal de las 5E (SOLO EN CELULAR Y TABLET <= 900px) -->
+    <div class="mobile-linear-5e my-auto w-100 px-1">
+      <div
+        v-for="(node, idx) in nodes5E"
+        :key="`linear_${node.title}`"
+        class="linear-5e-item d-flex align-center gap-4 pa-4 rounded-xl"
+        :class="{
+          'is-active': activeNode === idx,
+          'is-done': activeNode > idx
+        }"
+      >
+        <div class="linear-5e-icon d-flex align-center justify-center flex-shrink-0 mr-2">
+          <v-icon
+            :icon="activeNode > idx ? 'mdi-check-bold' : node.icon"
+            :size="22"
+          />
+        </div>
+        <div class="min-w-0 flex-1-1 pl-1">
+          <div class="d-flex align-center justify-space-between mb-1">
+            <span class="linear-5e-title font-weight-bold">
+              {{ idx + 1 }}. {{ node.title }}
+            </span>
+            <span v-if="activeNode === idx" class="linear-5e-badge">
+              Cargando...
+            </span>
+          </div>
+          <div class="linear-5e-desc">
+            {{ node.shortDesc }}
+          </div>
         </div>
       </div>
     </div>
@@ -200,6 +233,88 @@ onBeforeUnmount(() => {
   height: min(62cqmin, 370px);
   min-width: 250px;
   min-height: 250px;
+}
+
+.mobile-linear-5e {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .wheel-loading-screen {
+    overflow-y: auto;
+    justify-content: flex-start !important;
+    gap: 14px;
+  }
+
+  .desktop-wheel {
+    display: none !important;
+  }
+
+  .mobile-linear-5e {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 440px;
+  }
+
+  .linear-5e-item {
+    background-color: #ffffff;
+    border: 2px solid #d7e3ee;
+    transition: all 0.25s ease;
+  }
+
+  .linear-5e-item.is-done {
+    border-color: #76b82a;
+    background-color: #f4fce8;
+  }
+
+  .linear-5e-item.is-active {
+    border-color: #006496;
+    background: linear-gradient(145deg, #ffffff 0%, #e8f4ff 100%);
+    box-shadow: 0 6px 18px rgba(0, 100, 150, 0.14);
+    transform: scale(1.01);
+  }
+
+  .linear-5e-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: #f0f7ff;
+    color: #6f7882;
+    border: 2px solid #cbdceb;
+  }
+
+  .linear-5e-item.is-done .linear-5e-icon {
+    background-color: #76b82a;
+    border-color: #76b82a;
+    color: #ffffff;
+  }
+
+  .linear-5e-item.is-active .linear-5e-icon {
+    background: linear-gradient(135deg, #006496 0%, #129fea 100%);
+    border-color: #ffc21c;
+    color: #ffffff;
+  }
+
+  .linear-5e-title {
+    font-size: 0.96rem;
+    color: #001e31;
+  }
+
+  .linear-5e-desc {
+    font-size: 0.8rem;
+    color: #4b6375;
+    line-height: 1.3;
+  }
+
+  .linear-5e-badge {
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #006496;
+    background-color: rgba(18, 159, 234, 0.14);
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
 }
 
 .wheel-svg {

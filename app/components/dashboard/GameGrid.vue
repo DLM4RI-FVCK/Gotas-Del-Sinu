@@ -169,6 +169,21 @@
 
     <!-- Panel Derecho: Pantalla activa al hacer clic en cualquier tarjeta -->
     <div class="screen-stage" :class="{ 'is-open': !!activeSection }">
+      <!-- Barra superior de "Regresar al menú" exclusiva para Celular / Tablet -->
+      <div v-if="activeSection" class="mobile-back-menu-bar d-flex align-center justify-space-between px-3 py-2 mb-2 rounded-xl">
+        <button
+          type="button"
+          class="mobile-back-btn d-flex align-center gap-2 font-weight-bold"
+          @click="$emit('select-section', null)"
+        >
+          <v-icon icon="mdi-arrow-left" size="18" color="primary" />
+          <span>Regresar al menú</span>
+        </button>
+        <span class="mobile-active-section-pill font-weight-bold">
+          {{ activeSectionTitle }}
+        </span>
+      </div>
+
       <Transition name="screen-slide" mode="out-in">
         <DashboardScreenAvatar
           v-if="activeSection === 'avatar'"
@@ -217,6 +232,18 @@ const emit = defineEmits<{
 }>()
 
 const { setContext } = useZenuitoContext()
+
+const activeSectionTitle = computed(() => {
+  const titles: Record<string, string> = {
+    avatar: 'Perfil y Avatar',
+    zenuito: 'Laboratorio Zenuito',
+    jugar: 'Misiones 5E',
+    conceptos: 'Glosario',
+    'acerca-de': 'Acerca del OVA',
+    creditos: 'Créditos'
+  }
+  return props.activeSection ? titles[props.activeSection] || '' : ''
+})
 
 const toggleSection = (section: Exclude<SectionKey, null>) => {
   if (props.activeSection === section) {
@@ -467,6 +494,13 @@ const toggleSection = (section: Exclude<SectionKey, null>) => {
   transform: translateX(-16px);
 }
 
+@media (max-width: 900px) {
+  .screen-slide-enter-from,
+  .screen-slide-leave-to {
+    transform: none !important;
+  }
+}
+
 .bg-white-20 {
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -487,16 +521,134 @@ const toggleSection = (section: Exclude<SectionKey, null>) => {
   color: rgba(255, 255, 255, 0.92);
 }
 
+.mobile-back-menu-bar {
+  display: none !important;
+}
+
 @media (max-width: 900px) {
-  .stage-workspace.is-split {
-    flex-direction: column;
+  .stage-workspace {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    min-height: calc(100dvh - 56px);
+    overflow: visible !important;
+    box-sizing: border-box;
   }
 
-  .cards-dock.docked-left {
+  .stage-workspace.is-split {
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+
+  /* En celular/tablet: 1 card debajo del otro en lista vertical limpia */
+  .cards-dock {
     width: 100%;
-    height: 76px;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 1fr;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-bottom: 92px;
+    overflow-y: visible;
+  }
+
+  /* Cuando se abre una opción en celular, el panel de cards NO aparece */
+  .cards-dock.docked-left {
+    display: none !important;
+  }
+
+  /* En su lugar aparece la barra de "Regresar al menú" */
+  .mobile-back-menu-bar {
+    display: flex !important;
+    background-color: #ffffff;
+    border: 2px solid #d7e3ee;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 100, 150, 0.06);
+  }
+
+  .mobile-back-btn {
+    background: #eef6ff;
+    border: 1.5px solid #129fea;
+    color: #006496;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .mobile-back-btn:active {
+    transform: scale(0.97);
+  }
+
+  .mobile-active-section-pill {
+    font-size: 0.78rem;
+    color: #4b6375;
+    padding-right: 4px;
+  }
+
+  .game-card {
+    container-type: normal;
+    min-height: 162px;
+    padding: 18px 20px;
+    border-radius: 20px !important;
+    flex-shrink: 0;
+  }
+
+  .card-jugar {
+    min-height: 178px;
+  }
+
+  .fluid-hero-title {
+    font-size: 1.55rem;
+  }
+
+  .fluid-title {
+    font-size: 1.3rem;
+  }
+
+  .fluid-desc {
+    font-size: 0.92rem;
+    line-height: 1.44;
+    max-width: 100%;
+  }
+
+  .card-pill {
+    font-size: 0.78rem;
+    padding: 4px 12px;
+  }
+
+  .card-cta {
+    font-size: 0.92rem;
+    margin-top: 10px;
+  }
+
+  .card-icon-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .fluid-icon {
+    font-size: 21px !important;
+  }
+
+  .card-watermark {
+    font-size: 100px !important;
+  }
+
+  /* La pantalla activa en celular ocupa todo el ancho y crece libremente con el scroll de la página */
+  .screen-stage.is-open {
+    flex: 1 0 auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible !important;
   }
 }
 </style>

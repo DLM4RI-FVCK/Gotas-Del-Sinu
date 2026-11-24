@@ -1,9 +1,8 @@
 <template>
   <div class="graph-studio d-flex flex-column justify-space-between pa-3 pa-sm-4 rounded-xl">
-    <!-- Barra superior del Lienzo con controles de Ampliar/Desampliar Panel, Zoom y Entrenamiento -->
-    <div class="d-flex flex-wrap align-center justify-space-between gap-2 mb-2">
-      <div class="d-flex flex-wrap align-center gap-2">
-        <!-- Botón para Ocultar / Mostrar el panel izquierdo y darle más espacio al lienzo -->
+    <!-- BARRA DE HERRAMIENTAS DE PC (> 900px) -->
+    <div class="studio-toolbar desktop-only-toolbar d-flex flex-wrap align-center justify-space-between gap-2 mb-2 flex-shrink-0">
+      <div class="toolbar-left d-flex flex-wrap align-center gap-2">
         <v-btn
           size="small"
           color="primary"
@@ -13,21 +12,20 @@
           :prepend-icon="isCreatorCollapsed ? 'mdi-dock-left' : 'mdi-arrow-collapse-left'"
           @click="$emit('toggle-creator')"
         >
-          {{ isCreatorCollapsed ? 'Mostrar Creador y Datos' : 'Ampliar Lienzo' }}
+          {{ isCreatorCollapsed ? 'Mostrar Creador' : 'Ampliar Lienzo' }}
         </v-btn>
 
-        <!-- Controles de Zoom del Lienzo (para adaptarse a cualquier pantalla de PC) -->
         <div class="zoom-pill d-flex align-center gap-1 px-2 py-1 rounded-lg">
           <v-btn
             icon="mdi-minus"
             size="x-small"
             variant="text"
             color="primary"
-            title="Alejar lienzo (Ver más espacio)"
-            :disabled="canvasZoom <= 0.65"
-            @click="changeZoom(-0.1)"
+            title="Alejar lienzo"
+            :disabled="canvasZoom <= 0.45"
+            @click="changeZoom(-0.08)"
           />
-          <span class="zoom-text font-weight-bold" @click="canvasZoom = 1">
+          <span class="zoom-text font-weight-bold" title="Restaurar zoom" @click="fitCanvasToViewport">
             {{ Math.round(canvasZoom * 100) }}%
           </span>
           <v-btn
@@ -37,37 +35,33 @@
             color="primary"
             title="Acercar lienzo"
             :disabled="canvasZoom >= 1.25"
-            @click="changeZoom(0.1)"
+            @click="changeZoom(0.08)"
           />
+          <button
+            type="button"
+            class="fit-zoom-btn"
+            @click="fitCanvasToViewport"
+          >
+            Enfocar
+          </button>
         </div>
-
-        <v-chip
-          v-if="pendingConnection"
-          color="warning"
-          variant="flat"
-          size="small"
-          class="font-weight-bold"
-        >
-          🔌 Haz clic en "● Entrada" del nodo destino ({{ pendingConnection.branch.toUpperCase() }})
-          <v-icon icon="mdi-close-circle" end size="16" @click.stop="pendingConnection = null" />
-        </v-chip>
       </div>
 
-      <div class="d-flex flex-wrap align-center gap-2">
+      <div class="toolbar-right d-flex flex-wrap align-center gap-2">
         <v-btn
-          size="x-small"
+          size="small"
           color="info"
           variant="tonal"
           rounded="lg"
           class="text-none font-weight-bold"
           prepend-icon="mdi-auto-fix"
-          @click="$emit('load-starter')"
+          @click="handleLoadStarterClick"
         >
-          Nodos ejemplo
+          Ejemplo
         </v-btn>
 
         <v-btn
-          size="x-small"
+          size="small"
           color="error"
           variant="tonal"
           rounded="lg"
@@ -85,19 +79,87 @@
           variant="flat"
           rounded="lg"
           class="text-none font-weight-bold"
-          prepend-icon="mdi-play-network-outline"
+          prepend-icon="mdi-play-circle"
           :loading="isTrainingLive"
           :disabled="nodes.length === 0"
           @click="$emit('train-and-test')"
         >
-          ⚡ Entrenar Árbol en Vivo
+          ⚡ Entrenar Árbol
         </v-btn>
       </div>
     </div>
 
+    <!-- PARTE 1 (ARRIBA EN CELULAR): Configuración de Nodos, Acciones y Botón de Entrenar Árbol al final de la configuración -->
+    <div class="mobile-top-creator-drawer mb-3 flex-shrink-0">
+      <slot name="top-creator" :fit-canvas="fitCanvasToViewport" />
+    </div>
+
+    <!-- PESTAÑA DEL DIAGRAMA DEL ÁRBOL EN CELULAR CENTRADA CON CONTROLES DE TAMAÑO DE ENFOQUE -->
+    <div class="mobile-tree-tab-header mb-2 flex-shrink-0">
+      <div class="tree-tab-title-box">
+        <span class="tree-tab-badge">🌳 Diagrama del Árbol</span>
+        <span class="tree-tab-counters">({{ nodes.length }} nodos · {{ edges.length }} ramas)</span>
+      </div>
+
+      <!-- Controles de Tamaño de Enfoque centrados junto a la pestaña del diagrama -->
+      <div class="zoom-pill mobile-focus-controls d-flex align-center justify-center gap-1 px-3 py-1 rounded-pill">
+        <v-btn
+          icon="mdi-minus"
+          size="x-small"
+          variant="text"
+          color="primary"
+          title="Alejar enfoque"
+          :disabled="canvasZoom <= 0.45"
+          @click="changeZoom(-0.08)"
+        />
+        <span class="zoom-text font-weight-bold" @click="fitCanvasToViewport">
+          {{ Math.round(canvasZoom * 100) }}%
+        </span>
+        <v-btn
+          icon="mdi-plus"
+          size="x-small"
+          variant="text"
+          color="primary"
+          title="Acercar enfoque"
+          :disabled="canvasZoom >= 1.25"
+          @click="changeZoom(0.08)"
+        />
+        <button
+          type="button"
+          class="fit-zoom-btn"
+          title="Centrar y enfocar árbol"
+          @click="fitCanvasToViewport"
+        >
+          Enfocar Diagrama
+        </button>
+      </div>
+    </div>
+
+    <!-- Aviso flotante cuando el usuario está conectando una rama NO / SÍ -->
+    <v-expand-transition>
+      <div
+        v-if="pendingConnection"
+        class="connection-active-banner pa-2 px-3 mb-2 rounded-lg d-flex align-center justify-space-between flex-shrink-0"
+      >
+        <span class="text-caption font-weight-bold" style="color: #795900;">
+          🔌 Conectando <strong>Rama {{ pendingConnection.branch.toUpperCase() }}</strong>: ahora toca <strong>"● Entrada"</strong> en el nodo destino.
+        </span>
+        <v-btn
+          size="x-small"
+          color="warning"
+          variant="flat"
+          rounded="pill"
+          class="text-none font-weight-bold"
+          @click="pendingConnection = null"
+        >
+          Cancelar
+        </v-btn>
+      </div>
+    </v-expand-transition>
+
     <!-- Banner de Narración en Vivo durante el entrenamiento dinámico -->
     <v-expand-transition>
-      <div v-if="liveTraceBanner" class="live-training-banner pa-2 px-3 mb-2 rounded-lg d-flex align-center justify-space-between">
+      <div v-if="liveTraceBanner" class="live-training-banner pa-2 px-3 mb-2 rounded-lg d-flex flex-wrap align-center justify-space-between gap-2 flex-shrink-0">
         <div class="d-flex align-center gap-2">
           <v-progress-circular v-if="isTrainingLive" indeterminate size="18" width="2" color="primary" />
           <v-icon v-else icon="mdi-check-decagram" color="success" size="20" />
@@ -114,30 +176,42 @@
           class="text-none font-weight-bold"
           @click="$emit('open-report')"
         >
-          Ver explicación completa
+          Ver explicación
         </v-btn>
       </div>
     </v-expand-transition>
 
-    <!-- LIENZO INTERACTIVO LIBRE CON SOPORTE DE ZOOM ESCALABLE -->
+    <!-- PARTE 2 (ABAJO EN CELULAR): PREVISUALIZACIÓN / DIAGRAMA INTERACTIVO DEL ÁRBOL -->
     <div
       ref="canvasRef"
       class="free-canvas position-relative flex-1-1 rounded-xl"
       @pointermove="onCanvasPointerMove"
       @pointerup="onCanvasPointerUp"
+      @pointercancel="onCanvasPointerUp"
       @pointerleave="onCanvasPointerUp"
     >
       <div
         v-if="nodes.length === 0"
-        class="empty-canvas-guide d-flex flex-column align-center justify-center text-center pa-6"
+        class="empty-canvas-guide d-flex flex-column align-center justify-center text-center pa-4 pa-sm-6"
       >
         <div class="text-h3 mb-2">🌳🛠️</div>
-        <h3 class="text-h6 font-weight-bold mb-1" style="color: #001e31;">
-          Construye tu Árbol de Decisión con libertad total
+        <h3 class="text-subtitle-1 text-sm-h6 font-weight-bold mb-1" style="color: #001e31;">
+          Diagrama de tu Árbol de Decisión
         </h3>
-        <p class="text-body-2 mb-3" style="color: #4b6375; max-width: 480px;">
-          Crea tus nodos a la izquierda, <strong>arrástralos por el tablero</strong>, conecta sus ramas <strong>NO / SÍ</strong> y pulsa <strong>⚡ Entrenar Árbol en Vivo</strong> para ver cómo viajan los datos de Córdoba. Si tu pantalla es pequeña, usa <strong>Ampliar Lienzo</strong> o el zoom <strong>(-)</strong>.
+        <p class="text-caption text-sm-body-2 mb-3" style="color: #4b6375; max-width: 440px;">
+          Agrega tus nodos o pulsa <strong>"Ejemplo"</strong>, conecta sus ramas <strong>NO / SÍ</strong> y pulsa <strong>⚡ Entrenar Árbol</strong>.
         </p>
+        <v-btn
+          size="small"
+          color="info"
+          variant="tonal"
+          rounded="lg"
+          class="text-none font-weight-bold"
+          prepend-icon="mdi-auto-fix"
+          @click="handleLoadStarterClick"
+        >
+          Cargar Ejemplo
+        </v-btn>
       </div>
 
       <!-- Contenedor interno escalable según el Zoom -->
@@ -145,8 +219,10 @@
         class="zoom-layer"
         :style="{
           transform: `scale(${canvasZoom})`,
-          width: `${100 / canvasZoom}%`,
-          height: `${100 / canvasZoom}%`
+          width: `${Math.max(660, 100 / canvasZoom)}px`,
+          minWidth: `${100 / canvasZoom}%`,
+          height: `${Math.max(390, 100 / canvasZoom)}px`,
+          minHeight: `${100 / canvasZoom}%`
         }"
       >
         <!-- CAPA SVG DE CABLES / RAMAS -->
@@ -188,6 +264,7 @@
           class="graph-node"
           :class="[
             `kind-${node.kind}`,
+            node.kind === 'leaf' ? leafStatusClass(node.predictedClass) : '',
             {
               'is-dragging': draggingNodeId === node.id,
               'is-active-trace': highlightedNodeIds.includes(node.id)
@@ -256,25 +333,31 @@
             <button
               type="button"
               class="port-out port-no"
+              aria-label="Conectar rama No"
+              title="Conectar rama No"
               :class="{
                 active: pendingConnection?.fromNodeId === node.id && pendingConnection?.branch === 'no'
               }"
               @pointerdown.stop
               @click.stop="startConnection(node.id, 'no')"
             >
-              Rama NO (≤) ●
+              <span class="port-label-long">Rama NO (≤) ●</span>
+              <span class="port-label-short">NO ≤</span>
             </button>
 
             <button
               type="button"
               class="port-out port-yes"
+              aria-label="Conectar rama Sí"
+              title="Conectar rama Sí"
               :class="{
                 active: pendingConnection?.fromNodeId === node.id && pendingConnection?.branch === 'yes'
               }"
               @pointerdown.stop
               @click.stop="startConnection(node.id, 'yes')"
             >
-              Rama SÍ (>) ●
+              <span class="port-label-long">Rama SÍ (&gt;) ●</span>
+              <span class="port-label-short">SÍ &gt;</span>
             </button>
           </div>
         </div>
@@ -282,11 +365,11 @@
     </div>
 
     <!-- Pie -->
-    <div class="canvas-footer d-flex align-center justify-space-between pa-2 px-3 rounded-lg mt-2" style="margin-right: 155px;">
+    <div class="canvas-footer d-flex flex-wrap align-center justify-space-between gap-2 pa-2 px-3 rounded-lg mt-2 flex-shrink-0">
       <span class="text-caption font-weight-bold" style="color: #006496;">
-        💡 Usa <strong>Ampliar Lienzo</strong> o el Zoom <strong>(- / +)</strong> si necesitas más espacio para acomodar tus nodos.
+        💡 Toca <strong>Rama NO / SÍ</strong> y luego <strong>● Entrada</strong> para unir nodos.
       </span>
-      <span class="text-caption font-weight-bold" style="color: #3d6a00;">
+      <span class="text-caption font-weight-bold desktop-counter-text" style="color: #3d6a00;">
         Nodos: {{ nodes.length }} · Ramas: {{ edges.length }}
       </span>
     </div>
@@ -349,7 +432,7 @@ const emit = defineEmits<{
 }>()
 
 const canvasRef = ref<HTMLElement | null>(null)
-const canvasZoom = ref(0.88) // Inicia ligeramente alejado para que en cualquier PC quepan cómodamente todos los nodos
+const canvasZoom = ref(0.88)
 const draggingNodeId = ref<string | null>(null)
 const dragOffset = reactive({ x: 0, y: 0 })
 
@@ -357,11 +440,46 @@ const pendingConnection = ref<{ fromNodeId: string; branch: 'no' | 'yes' } | nul
 
 const NODE_WIDTH = 205
 const NODE_HEIGHT = 96
+const VIRTUAL_BOARD_WIDTH = 660
+const VIRTUAL_BOARD_HEIGHT = 390
 
 const changeZoom = (delta: number) => {
   const next = Math.round((canvasZoom.value + delta) * 100) / 100
-  canvasZoom.value = Math.min(1.25, Math.max(0.65, next))
+  canvasZoom.value = Math.min(1.25, Math.max(0.45, next))
 }
+
+const fitCanvasToViewport = () => {
+  if (!import.meta.client) return
+  if (window.innerWidth > 900) {
+    canvasZoom.value = 0.88
+    return
+  }
+  const el = canvasRef.value
+  const availW = el ? el.clientWidth : (window.innerWidth - 36)
+  const fitted = Math.round((availW / VIRTUAL_BOARD_WIDTH) * 100) / 100
+  canvasZoom.value = Math.min(0.88, Math.max(0.48, fitted))
+}
+
+const handleLoadStarterClick = async () => {
+  emit('load-starter')
+  await nextTick()
+  if (import.meta.client && window.innerWidth <= 900) {
+    fitCanvasToViewport()
+  }
+}
+
+watch(() => props.nodes.length, async () => {
+  await nextTick()
+  if (import.meta.client && window.innerWidth <= 900) {
+    fitCanvasToViewport()
+  }
+})
+
+onMounted(() => {
+  if (import.meta.client && window.innerWidth <= 900) {
+    fitCanvasToViewport()
+  }
+})
 
 const featureLabel = (f?: FeatureKey) => featureMeta[f || 'lluvia_mm'].label
 const featureUnit = (f?: FeatureKey) => featureMeta[f || 'lluvia_mm'].unit
@@ -372,12 +490,28 @@ const leafEmoji = (c?: TargetClass) => {
   return '🔴'
 }
 
+const leafStatusClass = (c?: TargetClass) => {
+  if (c === 'Calma') return 'leaf-calm'
+  if (c === 'Vigilancia') return 'leaf-watch'
+  return 'leaf-flood'
+}
+
 const startDragNode = (event: PointerEvent, node: SimNode) => {
   if (!canvasRef.value) return
+  const targetEl = event.currentTarget as HTMLElement | null
+  if (targetEl?.setPointerCapture) {
+    try {
+      targetEl.setPointerCapture(event.pointerId)
+    } catch {
+      // ignore pointer capture error
+    }
+  }
   const rect = canvasRef.value.getBoundingClientRect()
+  const scrollLeft = canvasRef.value.scrollLeft || 0
+  const scrollTop = canvasRef.value.scrollTop || 0
   draggingNodeId.value = node.id
-  const pointerXInZoom = (event.clientX - rect.left) / canvasZoom.value
-  const pointerYInZoom = (event.clientY - rect.top) / canvasZoom.value
+  const pointerXInZoom = (event.clientX - rect.left + scrollLeft) / canvasZoom.value
+  const pointerYInZoom = (event.clientY - rect.top + scrollTop) / canvasZoom.value
   dragOffset.x = pointerXInZoom - node.x
   dragOffset.y = pointerYInZoom - node.y
 }
@@ -385,15 +519,17 @@ const startDragNode = (event: PointerEvent, node: SimNode) => {
 const onCanvasPointerMove = (event: PointerEvent) => {
   if (!draggingNodeId.value || !canvasRef.value) return
   const rect = canvasRef.value.getBoundingClientRect()
-  const virtualWidth = rect.width / canvasZoom.value
-  const virtualHeight = rect.height / canvasZoom.value
-  const pointerXInZoom = (event.clientX - rect.left) / canvasZoom.value
-  const pointerYInZoom = (event.clientY - rect.top) / canvasZoom.value
+  const scrollLeft = canvasRef.value.scrollLeft || 0
+  const scrollTop = canvasRef.value.scrollTop || 0
+  const virtualWidth = Math.max(VIRTUAL_BOARD_WIDTH, rect.width / canvasZoom.value)
+  const virtualHeight = Math.max(VIRTUAL_BOARD_HEIGHT, rect.height / canvasZoom.value)
+  const pointerXInZoom = (event.clientX - rect.left + scrollLeft) / canvasZoom.value
+  const pointerYInZoom = (event.clientY - rect.top + scrollTop) / canvasZoom.value
 
-  const maxX = Math.max(20, virtualWidth - NODE_WIDTH - 10)
-  const maxY = Math.max(20, virtualHeight - NODE_HEIGHT - 10)
-  const newX = Math.min(maxX, Math.max(8, pointerXInZoom - dragOffset.x))
-  const newY = Math.min(maxY, Math.max(8, pointerYInZoom - dragOffset.y))
+  const maxX = Math.max(20, virtualWidth - NODE_WIDTH - 8)
+  const maxY = Math.max(20, virtualHeight - NODE_HEIGHT - 8)
+  const newX = Math.min(maxX, Math.max(6, pointerXInZoom - dragOffset.x))
+  const newY = Math.min(maxY, Math.max(6, pointerYInZoom - dragOffset.y))
   emit('update-node-pos', { id: draggingNodeId.value, x: newX, y: newY })
 }
 
@@ -460,6 +596,15 @@ const renderedEdges = computed(() => {
   overflow: hidden;
 }
 
+.mobile-top-creator-drawer,
+.mobile-tree-tab-header {
+  display: none !important;
+}
+
+.cell-nowrap {
+  white-space: nowrap !important;
+}
+
 .zoom-pill {
   background-color: #f0f7ff;
   border: 1px solid #cbdceb;
@@ -468,9 +613,26 @@ const renderedEdges = computed(() => {
 .zoom-text {
   font-size: 0.76rem;
   color: #006496;
-  min-width: 40px;
+  min-width: 38px;
   text-align: center;
   cursor: pointer;
+}
+
+.fit-zoom-btn {
+  background-color: #006496;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.connection-active-banner {
+  background-color: #fff8e1;
+  border: 2px solid #ffc21c;
 }
 
 .live-training-banner {
@@ -487,6 +649,85 @@ const renderedEdges = computed(() => {
   overflow: hidden;
   user-select: none;
   touch-action: none;
+  min-height: 280px;
+}
+
+@media (min-width: 901px) {
+  .canvas-footer {
+    margin-right: 155px;
+  }
+}
+
+@media (max-width: 900px) {
+  .desktop-only-toolbar,
+  .desktop-counter-text {
+    display: none !important;
+  }
+
+  .mobile-top-creator-drawer {
+    display: block !important;
+    width: 100%;
+  }
+
+  /* Pestaña del Diagrama del Árbol y controles de enfoque 100% centrados en vertical */
+  .mobile-tree-tab-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 6px !important;
+    background-color: #f0f7ff;
+    border: 1.5px solid #cbdceb;
+    border-radius: 16px;
+    padding: 10px 12px;
+  }
+
+  .tree-tab-title-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tree-tab-badge {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #001e31;
+    white-space: nowrap;
+  }
+
+  .tree-tab-counters {
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #3d6a00;
+    white-space: nowrap;
+  }
+
+  .mobile-focus-controls {
+    background-color: #ffffff !important;
+    border: 1.5px solid #91cdff !important;
+    margin: 0 auto !important;
+  }
+
+  .graph-studio {
+    min-height: 460px;
+    height: auto;
+    padding: 12px !important;
+  }
+
+  .free-canvas {
+    min-height: 300px;
+    height: 330px;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+  }
+
+  .canvas-footer {
+    margin-right: 0 !important;
+  }
 }
 
 .zoom-layer {
@@ -526,6 +767,7 @@ const renderedEdges = computed(() => {
   border: 2.5px solid #006496;
   box-shadow: 0 8px 22px rgba(0, 50, 79, 0.12);
   cursor: grab;
+  touch-action: none;
   z-index: 5;
   transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
@@ -565,12 +807,12 @@ const renderedEdges = computed(() => {
 }
 
 .node-del-btn {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background-color: rgba(186, 26, 26, 0.12);
   color: #ba1a1a;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 800;
   cursor: pointer;
 }
@@ -592,15 +834,15 @@ const renderedEdges = computed(() => {
 
 .port-in {
   position: absolute;
-  top: -12px;
+  top: -13px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 2px 10px;
+  padding: 3px 12px;
   border-radius: 999px;
   background-color: #ffffff;
   border: 2px solid #006496;
   color: #006496;
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.18s ease;
@@ -619,7 +861,7 @@ const renderedEdges = computed(() => {
 }
 
 .port-out {
-  padding: 3px 8px;
+  padding: 4px 9px;
   border-radius: 8px;
   font-size: 0.68rem;
   font-weight: 800;
@@ -646,6 +888,10 @@ const renderedEdges = computed(() => {
   transform: scale(1.08);
 }
 
+.port-label-short {
+  display: none;
+}
+
 .canvas-footer {
   background-color: #f0f7ff;
   border: 1px solid #d7e3ee;
@@ -653,5 +899,62 @@ const renderedEdges = computed(() => {
 
 .gap-1 {
   gap: 4px;
+}
+
+@media (max-width: 600px) {
+  .node-kind-badge {
+    font-size: 0.62rem;
+  }
+
+  .node-title {
+    font-size: 0.76rem;
+    overflow-wrap: anywhere;
+  }
+
+  .graph-node.kind-leaf {
+    border-width: 2px;
+  }
+
+  .graph-node.kind-leaf.leaf-calm {
+    border-color: #3d6a00;
+    background: #eef9e3;
+  }
+
+  .graph-node.kind-leaf.leaf-watch {
+    border-color: #b78100;
+    background: #fff8e1;
+  }
+
+  .graph-node.kind-leaf.leaf-flood {
+    border-color: #ba1a1a;
+    background: #ffefed;
+  }
+
+  .graph-node.kind-leaf.leaf-calm .node-title {
+    color: #3d6a00;
+  }
+
+  .graph-node.kind-leaf.leaf-watch .node-title {
+    color: #795900;
+  }
+
+  .graph-node.kind-leaf.leaf-flood .node-title {
+    color: #93000a;
+  }
+
+  .port-out {
+    max-width: 49%;
+    padding: 4px 5px;
+    font-size: 0.6rem;
+    white-space: nowrap;
+  }
+
+  .port-label-long {
+    display: none;
+  }
+
+  .port-label-short {
+    display: inline;
+  }
 }
 </style>

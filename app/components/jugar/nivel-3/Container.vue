@@ -1,21 +1,21 @@
 <template>
   <div class="nivel-wrap position-relative d-flex flex-column justify-space-between pa-4 pa-sm-6">
     <!-- Barra superior del Nivel 3 -->
-    <div class="d-flex flex-wrap align-center justify-space-between gap-2 mb-3 flex-shrink-0">
-      <div class="d-flex align-center gap-3">
+    <div class="level-top-bar d-flex flex-wrap align-center justify-space-between gap-2 mb-3 flex-shrink-0">
+      <div class="d-flex align-center gap-3 min-w-0 flex-1-1">
         <v-btn
           variant="tonal"
           color="primary"
           size="small"
           rounded="lg"
-          class="text-none font-weight-bold"
+          class="text-none font-weight-bold flex-shrink-0"
           prepend-icon="mdi-arrow-left"
           @click="$emit('back-to-map')"
         >
           Niveles
         </v-btn>
 
-        <div>
+        <div class="min-w-0 flex-1-1">
           <span class="level-tag">🧠 Nivel 3 · Fase 3: Explicar</span>
           <h2 class="top-level-title font-weight-bold">
             ¿Cómo Aprende la Máquina con los Datos de Córdoba?
@@ -23,14 +23,14 @@
         </div>
       </div>
 
-      <div class="d-flex flex-wrap align-center gap-2">
+      <div class="steps-chips-row d-flex align-center gap-2">
         <v-chip
           v-for="(s, idx) in stepsInfo"
           :key="s.short"
           size="small"
           :color="currentSlide === idx ? 'primary' : (currentSlide > idx ? 'success' : 'default')"
           :variant="currentSlide === idx ? 'flat' : 'tonal'"
-          class="font-weight-bold cursor-pointer"
+          class="step-chip-item font-weight-bold cursor-pointer"
           @click="currentSlide = idx"
         >
           {{ s.emoji }} {{ idx + 1 }}. {{ s.short }}
@@ -62,7 +62,7 @@
     </div>
 
     <!-- Pie de navegación -->
-    <div class="d-flex align-center justify-space-between pt-3 mt-2 border-t flex-shrink-0" style="padding-right: 170px;">
+    <div class="d-flex align-center justify-space-between pt-3 mt-2 border-t flex-shrink-0 nav-footer">
       <v-btn
         variant="tonal"
         color="primary"
@@ -75,8 +75,9 @@
         Anterior
       </v-btn>
 
-      <span class="text-caption font-weight-bold" style="color: #4b6375;">
-        Paso {{ currentSlide + 1 }} de 4
+      <span class="nav-step-indicator text-caption font-weight-bold" style="color: #4b6375;">
+        <span class="step-label-desktop">Paso {{ currentSlide + 1 }} de 4</span>
+        <span class="step-label-mobile">Paso {{ currentSlide + 1 }}/4</span>
       </span>
 
       <v-btn

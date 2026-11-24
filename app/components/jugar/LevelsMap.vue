@@ -444,23 +444,89 @@ const handleSelectLevel = (lvl: number) => {
 }
 
 @media (max-width: 960px) {
-  .levels-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
+  .levels-map-wrap {
+    padding: 14px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .level-card.is-featured-wide {
-    grid-column: span 2;
-  }
-}
-
-@media (max-width: 600px) {
   .levels-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 96px;
+    flex: 0 0 auto;
+  }
+
+  .level-card {
+    container-type: normal;
+    min-height: 215px;
+    height: auto;
+    padding: 20px 22px;
+    overflow: visible;
+    flex-shrink: 0;
+    gap: 12px;
   }
 
   .level-card.is-featured-wide {
     grid-column: span 1;
+  }
+
+  .phase-pill {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+  }
+
+  .current-focus-pill {
+    font-size: 0.76rem;
+    padding: 4px 10px;
+  }
+
+  .level-sticker-circle {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+
+  .sticker-emoji {
+    font-size: 1.45rem;
+  }
+
+  .level-num {
+    font-size: 0.84rem;
+  }
+
+  .level-title {
+    font-size: 1.38rem;
+    line-height: 1.2;
+  }
+
+  .level-desc {
+    font-size: 0.94rem;
+    line-height: 1.46;
+    max-width: 100%;
+  }
+
+  .level-footer {
+    padding-top: 12px !important;
+  }
+
+  .level-cta {
+    font-size: 0.94rem;
+  }
+
+  .cta-icon {
+    font-size: 20px !important;
+  }
+
+  .level-watermark {
+    font-size: 92px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .map-main-title {
+    font-size: 1.25rem;
   }
 }
 </style>

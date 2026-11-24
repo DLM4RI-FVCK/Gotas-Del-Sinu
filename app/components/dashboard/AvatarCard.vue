@@ -175,4 +175,64 @@ const { session, avatarUrl } = useUserSession()
 .min-w-0 {
   min-width: 0;
 }
+
+@media (max-width: 900px) {
+  .avatar-card {
+    container-type: normal;
+    min-height: 164px;
+    padding: 16px 18px;
+  }
+
+  .avatar-card.is-compact {
+    min-height: 52px !important;
+    height: 52px !important;
+    padding: 6px 12px !important;
+  }
+
+  .avatar-card.is-active-card {
+    transform: none !important;
+  }
+
+  .card-pill {
+    font-size: 0.76rem;
+    padding: 4px 11px;
+  }
+
+  .card-corner-icon {
+    font-size: 22px !important;
+  }
+
+  .avatar-img-fluid {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+  }
+
+  .fluid-name {
+    font-size: 1.25rem;
+  }
+
+  .fluid-grade {
+    font-size: 0.88rem;
+  }
+
+  .card-cta {
+    font-size: 0.88rem;
+    margin-top: 8px;
+  }
+
+  .avatar-img-compact {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .compact-name {
+    font-size: 0.86rem;
+  }
+
+  .compact-grade {
+    font-size: 0.72rem;
+  }
+}
 </style>

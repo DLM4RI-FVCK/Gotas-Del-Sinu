@@ -89,13 +89,18 @@ export const buildAvatarUrl = (a: AvatarConfig) => {
     mouth: a.mouth,
     clothing: a.clothing,
     clothesColor: a.clothesColor,
-    clothingGraphic: a.clothingGraphic || 'hola',
+    clothingGraphic: (a.clothingGraphic || 'hola').toLowerCase(),
     backgroundColor: a.backgroundColor,
     radius: '20'
   })
 
   if (a.top && a.top !== 'none') {
-    params.set('top', a.top)
+    const top = a.top === 'winterHat2'
+      ? 'winterHat02'
+      : a.top === 'winterHat3'
+        ? 'winterHat03'
+        : a.top
+    params.set('top', top)
     params.set('topProbability', '100')
   } else {
     params.set('topProbability', '0')
@@ -160,7 +165,37 @@ export const buildZenuitoUrl = (z: ZenuitoConfig) => {
 }
 
 export const useUserSession = () => {
-  const session = useState<UserSession>('user-session', defaultSession)
+  const sessionCookie = useCookie<Partial<UserSession> | null>(STORAGE_KEY, {
+    default: () => null,
+    maxAge: 60 * 60 * 24 * 30,
+    path: '/',
+    sameSite: 'lax'
+  })
+
+  const session = useState<UserSession>('user-session', () => {
+    const base = defaultSession()
+    const fromCookie = sessionCookie.value
+    if (fromCookie && fromCookie.isLoggedIn && fromCookie.nombre) {
+      return {
+        ...base,
+        ...fromCookie,
+        level: fromCookie.level ?? 1,
+        unlockedLevel: fromCookie.unlockedLevel ?? 1,
+        xp: fromCookie.xp ?? 0,
+        maxXp: fromCookie.maxXp ?? 100,
+        intro5ESeen: fromCookie.intro5ESeen ?? false,
+        avatar: {
+          ...defaultAvatarConfig(),
+          ...(fromCookie.avatar || {})
+        },
+        zenuito: {
+          ...defaultZenuitoConfig(),
+          ...(fromCookie.zenuito || {})
+        }
+      }
+    }
+    return base
+  })
 
   function defaultSession(): UserSession {
     return {
@@ -180,6 +215,7 @@ export const useUserSession = () => {
   }
 
   const persist = () => {
+    sessionCookie.value = session.value
     if (import.meta.client) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(session.value))
     }
@@ -208,6 +244,7 @@ export const useUserSession = () => {
               ...(parsed.zenuito || {})
             }
           }
+          sessionCookie.value = session.value
         }
       }
     } catch {
@@ -269,6 +306,7 @@ export const useUserSession = () => {
 
   const logout = () => {
     session.value = defaultSession()
+    sessionCookie.value = null
     if (import.meta.client) {
       localStorage.removeItem(STORAGE_KEY)
     }

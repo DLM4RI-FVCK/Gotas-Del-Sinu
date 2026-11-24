@@ -191,4 +191,68 @@ const { session, zenuitoUrl } = useUserSession()
 .min-w-0 {
   min-width: 0;
 }
+
+@media (max-width: 900px) {
+  .zenuito-card {
+    container-type: normal;
+    min-height: 164px;
+    padding: 16px 18px;
+  }
+
+  .zenuito-card.is-compact {
+    min-height: 52px !important;
+    height: 52px !important;
+    padding: 6px 12px !important;
+  }
+
+  .zenuito-card.is-active-card {
+    transform: none !important;
+  }
+
+  .card-pill {
+    font-size: 0.76rem;
+    padding: 4px 11px;
+  }
+
+  .card-corner-icon {
+    font-size: 22px !important;
+  }
+
+  .zenuito-img-fluid {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+  }
+
+  .fluid-name {
+    font-size: 1.25rem;
+  }
+
+  .fluid-role {
+    font-size: 0.88rem;
+  }
+
+  .card-cta {
+    font-size: 0.88rem;
+    margin-top: 8px;
+  }
+
+  .card-watermark {
+    font-size: 96px !important;
+  }
+
+  .zenuito-img-compact {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .compact-name {
+    font-size: 0.86rem;
+  }
+
+  .compact-role {
+    font-size: 0.72rem;
+  }
+}
 </style>

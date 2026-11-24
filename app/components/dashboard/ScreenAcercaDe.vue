@@ -1,32 +1,32 @@
 <template>
   <div class="about-screen d-flex flex-column justify-space-between pa-4 pa-sm-6">
     <!-- Cabecera -->
-    <div class="d-flex align-center justify-space-between gap-3 mb-3 flex-shrink-0">
-      <div class="d-flex align-center gap-3">
+    <div class="about-header d-flex align-center justify-space-between gap-3 mb-3 flex-shrink-0">
+      <div class="header-info d-flex align-center gap-2 gap-sm-3 min-w-0">
         <div class="header-icon-box">
-          <v-icon icon="mdi-information-outline" color="white" size="26" />
+          <v-icon icon="mdi-information-outline" color="white" size="24" />
         </div>
-        <div>
-          <span class="top-tag">Información Institucional y Pedagógica</span>
+        <div class="min-w-0">
+          <span class="top-tag d-block">Información Institucional y Pedagógica</span>
           <h2 class="about-title font-weight-bold">
             Acerca del OVA: Gotas del Sinú
           </h2>
         </div>
       </div>
 
-      <div class="d-flex align-center gap-2">
+      <div class="header-actions d-flex align-center gap-2 flex-shrink-0">
         <v-btn
           color="error"
           variant="tonal"
           size="small"
           rounded="lg"
-          class="text-none font-weight-bold"
+          class="text-none font-weight-bold reset-btn"
           prepend-icon="mdi-refresh-alert"
           @click="showConfirmReset = true"
         >
           Reiniciar Progreso
         </v-btn>
-        <v-btn icon="mdi-close" variant="tonal" color="primary" size="small" @click="$emit('close')" />
+        <v-btn icon="mdi-close" variant="tonal" color="primary" size="small" class="close-btn" @click="$emit('close')" />
       </div>
     </div>
 
@@ -386,17 +386,166 @@ const confirmReset = () => {
   min-height: 0;
 }
 
+.gap-2 {
+  gap: 10px;
+}
+
 .gap-3 {
-  gap: 12px;
+  gap: 14px;
+}
+
+.header-info {
+  gap: 14px !important;
 }
 
 @media (max-width: 960px) {
+  .about-screen {
+    height: auto !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 4px 0 !important;
+    overflow: visible !important;
+    justify-content: flex-start !important;
+  }
+
+  .about-header {
+    background: #ffffff;
+    border: 1.5px solid #d7e3ee;
+    border-radius: 18px;
+    padding: 12px 14px;
+    flex-wrap: wrap;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .header-info {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .header-actions {
+    flex-shrink: 0;
+  }
+
+  .top-tag {
+    font-size: 0.66rem;
+    letter-spacing: 0.02em;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .about-title {
+    font-size: 1.15rem;
+    word-break: break-word;
+  }
+
   .about-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: visible;
+    padding-bottom: 96px;
+    flex: 0 0 auto;
+  }
+
+  .about-grid > div {
+    gap: 18px !important;
+  }
+
+  .about-card {
+    container-type: normal;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    padding: 20px !important;
+    flex: 0 0 auto !important;
+    box-shadow: 0 6px 18px rgba(0, 100, 150, 0.06);
+  }
+
+  .unicor-banner {
+    height: 185px;
+    margin-bottom: 16px !important;
+  }
+
+  .card-body-text {
+    font-size: 0.94rem;
+    line-height: 1.52;
+    margin-bottom: 16px !important;
   }
 
   .academic-details-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .detail-box {
+    padding: 12px 14px !important;
+  }
+
+  .detail-value {
+    font-size: 0.92rem;
+    margin-top: 2px;
+  }
+
+  .pillar-title {
+    font-size: 1.08rem;
+    line-height: 1.25;
+  }
+
+  .pillar-sub {
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+
+  .pillar-desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  .about-header {
+    padding: 12px;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .header-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header-actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid #eef4f9;
+  }
+
+  .reset-btn {
+    flex: 1;
+  }
+
+  .about-title {
+    font-size: 1.05rem !important;
+    line-height: 1.22;
+  }
+
+  .top-tag {
+    font-size: 0.62rem !important;
   }
 }
 </style>

@@ -1,4 +1,8 @@
 /* Estilos compartidos y fluidos (Container Queries) para todos los niveles del OVA */
+.step-label-mobile {
+  display: none;
+}
+
 .nivel-wrap {
   height: 100%;
   width: 100%;
@@ -267,8 +271,14 @@
   background-color: #76b82a;
 }
 
-.celebration-emoji {
-  font-size: clamp(2.5rem, 12cqmin, 4.2rem);
+.nav-footer {
+  padding-right: 180px;
+}
+
+@media (max-width: 960px) {
+  .nav-footer {
+    padding-right: 0 !important;
+  }
 }
 
 /* Dialog interno dentro del contenedor de Jugar */
@@ -342,8 +352,337 @@
 }
 
 @media (max-width: 960px) {
+  .step-label-mobile {
+  display: none;
+}
+
+.nivel-wrap {
+    height: auto !important;
+    min-height: 100%;
+    width: 100%;
+    overflow: visible !important;
+    padding: 4px 0 88px 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    gap: 14px;
+  }
+
+  .level-top-bar {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 10px !important;
+    background: #ffffff;
+    border: 1.5px solid #d7e3ee;
+    border-radius: 16px;
+    padding: 12px 14px;
+  }
+
+  .steps-chips-row {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .steps-chips-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .step-chip-item {
+    flex-shrink: 0;
+  }
+
+  .slide-stage {
+    overflow: visible !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+  }
+
   .slide-grid {
-    grid-template-columns: 1fr;
-    height: auto;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 16px !important;
+    overflow: visible !important;
+  }
+
+  .slide-text-col,
+  .slide-visual-col,
+  .interactive-tree-slide,
+  .quiz-slide {
+    container-type: normal !important;
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 18px 16px !important;
+    border-radius: 18px !important;
+    gap: 14px;
+  }
+
+  .col-watermark {
+    display: none !important;
+  }
+
+  .step-badge {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    white-space: nowrap;
+  }
+
+  /* En celular: "Paso 1 de 4" pasa a "Paso 1/4" compacto */
+  .step-label-desktop {
+    display: none !important;
+  }
+
+  .step-label-mobile {
+    display: inline-block !important;
+    font-size: 0.76rem !important;
+    font-weight: 800 !important;
+    color: #006496 !important;
+    background-color: #eef6ff;
+    border: 1.5px solid #cbdceb;
+    padding: 4px 12px;
+    border-radius: 999px;
+    white-space: nowrap !important;
+  }
+
+  /* En celular: los encabezados de tarjetas visuales ("Cómo actúa paso a paso",
+     "Mala pregunta vs. Buena pregunta", "Pista Visual: Aprendizaje",
+     "Pista Visual: Comparación de Nodos", etc.) van centrados en 1 sola línea
+     y su botón de ampliar va debajo ocupando su propia fila limpia */
+  .slide-visual-col > .d-flex:first-child {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-bottom: 12px !important;
+  }
+
+  .slide-visual-col > .d-flex:first-child .step-badge {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 0.78rem !important;
+    padding: 6px 12px !important;
+  }
+
+  .slide-visual-col > .d-flex:first-child .v-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Encabezado de columna de texto: badge en una sola línea sin partirse */
+  .slide-text-col > .d-flex:first-child {
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  .slide-text-col > .d-flex:first-child .step-badge {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 0.74rem !important;
+    padding: 5px 11px !important;
+  }
+
+  /* Encabezado de simuladores interactivos (Niveles 1, 2 y 3) en celular */
+  .interactive-tree-slide > .d-flex:first-child {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .interactive-tree-slide > .d-flex:first-child .step-badge {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    margin-bottom: 4px;
+  }
+
+  .interactive-tree-slide > .d-flex:first-child .fluid-sim-title {
+    text-align: center !important;
+  }
+
+  .interactive-tree-slide > .d-flex:first-child > .v-btn {
+    width: 100% !important;
+  }
+
+  .card-emoji-sticker {
+    font-size: 1.5rem;
+  }
+
+  .fluid-slide-title {
+    font-size: 1.22rem !important;
+    line-height: 1.24 !important;
+  }
+
+  .fluid-slide-p {
+    font-size: 0.92rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .fluid-box-title {
+    font-size: 0.94rem !important;
+  }
+
+  .fluid-box-text {
+    font-size: 0.88rem !important;
+    line-height: 1.46 !important;
+  }
+
+  .fluid-callout-text {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .visual-caption {
+    font-size: 0.82rem !important;
+  }
+
+  .flow-emoji-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 1.35rem;
+  }
+
+  .fluid-flow-title {
+    font-size: 0.96rem !important;
+  }
+
+  .fluid-flow-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.42 !important;
+  }
+
+  .fluid-sim-title {
+    font-size: 1.08rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .fluid-sim-exp {
+    font-size: 0.88rem !important;
+    line-height: 1.44 !important;
+  }
+
+  .fluid-quiz-opt {
+    font-size: 0.9rem !important;
+    line-height: 1.38 !important;
+  }
+
+  .question-counter-bar {
+    font-size: 0.72rem;
+    padding: 5px 11px;
+  }
+
+  .diagram-svg {
+    min-height: 195px;
+    max-height: 270px;
+  }
+
+  .interactive-tree-svg {
+    min-height: 205px;
+    max-height: 295px;
+  }
+
+  /* Botón de siguiente y anterior siempre al final de la actividad */
+  .nav-footer {
+    margin-top: 8px !important;
+    padding: 10px 12px !important;
+    background: #ffffff;
+    border: 1.5px solid #d7e3ee !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 100, 150, 0.06);
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+  }
+
+  .nav-footer .v-btn {
+    min-width: 0 !important;
+    padding: 0 12px !important;
+    font-size: 0.82rem !important;
+  }
+
+  /* Botón de Mapa de Niveles (Nivel X Desbloqueado) 100% responsive sin cortarse */
+  .finish-level-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 48px !important;
+    height: auto !important;
+    padding: 12px 16px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  .finish-level-btn :deep(.v-btn__content) {
+    white-space: normal !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    flex-wrap: wrap;
+  }
+
+  /* Modal de ampliar imagen/diagrama/tabla en celular: 100% Pantalla completa con scroll exclusivo adentro */
+  .inpage-dialog-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    z-index: 2600 !important;
+    padding: 0 !important;
+    background-color: #ffffff !important;
+    overflow: hidden !important;
+    overscroll-behavior: contain !important;
+  }
+
+  .inpage-dialog-card {
+    width: 100% !important;
+    height: 100dvh !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: max(14px, env(safe-area-inset-top, 14px)) 14px max(14px, env(safe-area-inset-bottom, 14px)) 14px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
+
+  .inpage-dialog-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    padding: 12px 0 !important;
+  }
+
+  .zoomed-svg {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 56dvh !important;
+    min-height: 180px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-level-title {
+    font-size: 1.05rem !important;
+    line-height: 1.24 !important;
   }
 }
