@@ -265,9 +265,19 @@ const sendMessage = async () => {
     }
   } catch (err: any) {
     const errorMsg = err?.data?.statusMessage || err?.message || 'Error al conectar con Zenuito'
+    const isDemandOrQuota = /high demand|overloaded|503|429|quota|rate limit|try again later/i.test(errorMsg)
+    const isKeyError = /api_key|api key|gemini_api_key|401|403|permission/i.test(errorMsg)
+
+    let friendlyText = `⚠️ *(${errorMsg})*`
+    if (isDemandOrQuota) {
+      friendlyText = '⚠️ El servicio de IA está experimentando mucha demanda en este momento. Intenta enviar tu mensaje nuevamente en unos segundos.'
+    } else if (isKeyError) {
+      friendlyText = `⚠️ *(${errorMsg})*. Verifica que tu clave de Google AI Studio en el archivo .env sea válida.`
+    }
+
     messages.value.push({
       role: 'assistant',
-      content: `⚠️ *(${errorMsg})*. Verifica que tu clave de Google AI Studio en el archivo .env sea válida.`
+      content: friendlyText
     })
   } finally {
     loading.value = false

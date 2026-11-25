@@ -108,6 +108,7 @@ defineEmits<{
 }>()
 
 const { completeLevel } = useUserSession()
+const { recordSimulatorAttempt, markLevelCompleted } = usePerformanceTracker()
 
 const nodes = ref<SimNode[]>([])
 const edges = ref<SimEdge[]>([])
@@ -233,6 +234,11 @@ const handleTrainAndTest = () => {
   executionReport.value = report
 
   if (!report.validStructure) {
+    recordSimulatorAttempt({
+      validStructure: false,
+      errorMsg: report.errorMsg,
+      passed: false
+    })
     modalMode.value = 'report'
     return
   }
@@ -261,8 +267,13 @@ const handleTrainAndTest = () => {
       highlightedNodeIds.value = []
       highlightedEdgeIds.value = []
       liveTraceBanner.value = `Entrenamiento finalizado: Precisión del ${report.accuracy}% (${report.correctCount}/${report.totalCount} municipios acertados).`
+      recordSimulatorAttempt({
+        validStructure: true,
+        passed: report.passed
+      })
       if (report.passed) {
         completeLevel(4)
+        markLevelCompleted(4)
       }
       modalMode.value = 'report'
     }

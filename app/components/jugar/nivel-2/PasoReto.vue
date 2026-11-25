@@ -188,6 +188,7 @@ const emit = defineEmits<{
 }>()
 
 const { completeLevel } = useUserSession()
+const { recordQuizAttempt, markLevelCompleted } = usePerformanceTracker()
 
 const currentQ = ref(0)
 const selected = ref<number | null>(null)
@@ -221,12 +222,24 @@ const questions = [
 const choose = (idx: number) => {
   selected.value = idx
   const current = questions[currentQ.value]
-  if (current?.options[idx]?.correct) {
+  const chosen = current?.options[idx]
+  if (current && chosen) {
+    recordQuizAttempt({
+      level: 2,
+      topic: current.category,
+      questionTitle: current.title,
+      selectedText: chosen.text,
+      isCorrect: chosen.correct,
+      conceptHint: current.hint
+    })
+  }
+  if (chosen?.correct) {
     if (currentQ.value < questions.length - 1) {
       currentQ.value += 1
       selected.value = null
     } else {
       completeLevel(2)
+      markLevelCompleted(2)
       completed.value = true
     }
   }

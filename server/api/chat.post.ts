@@ -34,12 +34,16 @@ export default defineEventHandler(async (event) => {
   const systemInstruction = buildZenuitoSystemPrompt(studentProfile, currentScreen)
 
   try {
-    // Lista de modelos ordenados por estabilidad y cuota disponible
-    // gemini-3.5-flash-lite responde de inmediato y cuenta con cuota activa gratuita
+    // Modelos de texto con cuota gratuita independiente (ordenados de mayor RPD/RPM a menor)
     const modelsToTry = [
       'gemini-3.5-flash-lite',
+      'gemini-3.1-flash-lite',
+      'gemini-2.5-flash-lite',
+      'gemini-2.5-flash',
+      'gemini-3-flash-preview',
+      'gemini-3.6-flash',
       'gemini-3.8-flash',
-      'gemini-flash-latest'
+      'gemini-4-hydrogen'
     ]
     let response: any = null
     let lastError: any = null

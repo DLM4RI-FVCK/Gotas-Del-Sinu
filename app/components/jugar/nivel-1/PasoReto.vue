@@ -138,6 +138,7 @@ const emit = defineEmits<{
 }>()
 
 const { completeLevel } = useUserSession()
+const { recordQuizAttempt, markLevelCompleted } = usePerformanceTracker()
 const selected = ref<number | null>(null)
 const completed = ref(false)
 
@@ -149,8 +150,20 @@ const options = [
 
 const choose = (idx: number) => {
   selected.value = idx
-  if (options[idx]?.correct) {
+  const chosen = options[idx]
+  if (chosen) {
+    recordQuizAttempt({
+      level: 1,
+      topic: 'Lectura de ramas y decisión en Lorica',
+      questionTitle: '¡Ayuda al sistema de alerta en Lorica!',
+      selectedText: chosen.text,
+      isCorrect: chosen.correct,
+      conceptHint: 'Seguir cada condición en orden (¿llueve fuerte? SÍ -> ¿río al borde? SÍ) lleva a la hoja correcta.'
+    })
+  }
+  if (chosen?.correct) {
     completeLevel(1)
+    markLevelCompleted(1)
     completed.value = true
   }
 }

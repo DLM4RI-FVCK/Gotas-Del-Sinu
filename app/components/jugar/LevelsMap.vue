@@ -10,6 +10,19 @@
       </div>
 
       <div class="d-flex flex-wrap align-center gap-2">
+        <v-btn
+          v-if="isCompleted(5)"
+          size="small"
+          color="info"
+          variant="flat"
+          rounded="lg"
+          class="text-none font-weight-bold"
+          prepend-icon="mdi-chart-box-outline"
+          @click="navigateTo('/rendimiento')"
+        >
+          Rendimiento
+        </v-btn>
+
         <!-- Botón de Modo Desarrollador (Contraseña 802214) -->
         <v-btn
           size="small"

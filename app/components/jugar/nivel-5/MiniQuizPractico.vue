@@ -373,16 +373,28 @@
       </p>
     </div>
 
-    <div class="mb-2 w-100 px-2">
+    <div class="d-flex flex-wrap justify-center gap-3 mb-2 w-100 px-2 grad-actions">
       <v-btn
-        color="primary"
+        color="info"
         size="x-large"
         rounded="xl"
-        class="text-none font-weight-bold finish-level-btn"
+        class="text-none font-weight-bold finish-level-btn grad-action-btn"
+        prepend-icon="mdi-chart-box-outline"
+        @click="goToRendimiento"
+      >
+        Rendimiento
+      </v-btn>
+
+      <v-btn
+        color="primary"
+        variant="tonal"
+        size="x-large"
+        rounded="xl"
+        class="text-none font-weight-bold finish-level-btn grad-action-btn"
         prepend-icon="mdi-map-marker-check"
         @click="$emit('finish-ova')"
       >
-        Volver al Mapa de Niveles (100% Completado)
+        Volver al Mapa de Niveles
       </v-btn>
     </div>
   </div>
@@ -395,10 +407,15 @@ defineEmits<{
 
 const { session, avatarUrl, zenuitoUrl, completeLevel } = useUserSession()
 const { setContext } = useZenuitoContext()
+const { performance, recordQuizAttempt, markLevelCompleted } = usePerformanceTracker()
+
+const alreadyCompletedExam = computed(() =>
+  performance.value.completedLevels.includes(5) || (session.value.xp || 0) >= 100
+)
 
 const currentQ = ref(0)
 const selectedIdx = ref<number | null>(null)
-const graduated = ref(false)
+const graduated = ref(alreadyCompletedExam.value)
 const zoomTree = ref(false)
 
 const questions = [
@@ -496,6 +513,17 @@ watch([currentQ, graduated], () => {
 
 const chooseOption = (idx: number) => {
   selectedIdx.value = idx
+  const chosen = currentItem.value.options[idx]
+  if (chosen) {
+    recordQuizAttempt({
+      level: 5,
+      topic: `${currentItem.value.category} (${currentItem.value.town})`,
+      questionTitle: currentItem.value.title,
+      selectedText: chosen.text,
+      isCorrect: chosen.correct,
+      conceptHint: currentItem.value.hint
+    })
+  }
 }
 
 const nextQuestion = () => {
@@ -504,8 +532,13 @@ const nextQuestion = () => {
     selectedIdx.value = null
   } else {
     completeLevel(5)
+    markLevelCompleted(5)
     graduated.value = true
   }
+}
+
+const goToRendimiento = () => {
+  navigateTo('/rendimiento')
 }
 </script>
 
@@ -565,6 +598,15 @@ const nextQuestion = () => {
 @media (max-width: 960px) {
   .slide-grid {
     padding-bottom: 84px;
+  }
+
+  .grad-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .grad-action-btn {
+    width: 100%;
   }
 }
 </style>
